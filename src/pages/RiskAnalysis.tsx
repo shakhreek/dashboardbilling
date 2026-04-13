@@ -129,9 +129,11 @@ const riskDetails: RiskDetail[] = [
       { label: "O'rtacha shartnoma", value: "11.2 mln so'm" },
     ],
     trend: [
-      { day: "Du", v: 4450 }, { day: "Se", v: 4420 }, { day: "Cho", v: 4390 },
-      { day: "Pa", v: 4370 }, { day: "Ju", v: 4350 }, { day: "Sh", v: 4330 }, { day: "Ya", v: 4312 },
+      { month: "Sen", v: 4800 }, { month: "Okt", v: 4700 }, { month: "Noy", v: 4600 },
+      { month: "Dek", v: 4520 }, { month: "Yan", v: 4460 }, { month: "Fev", v: 4400 },
+      { month: "Mar", v: 4350 }, { month: "Apr", v: 4312 },
     ],
+    trendLabel: "To'lov qilinmagan shartnomalar",
   },
 ];
 
