@@ -182,20 +182,18 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
 
           {/* Footer button */}
           <button
-            className={cn(
-              "w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border",
-              isHovered ? "text-white" : "text-muted-foreground"
-            )}
-            style={{
-              borderColor: isHovered ? data.color : undefined,
-              background: isHovered ? `linear-gradient(135deg, ${data.color}, ${data.color}cc)` : "transparent",
-            }}
+            className="w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-border hover:border-transparent text-muted-foreground"
+            style={isHovered ? {
+              borderColor: data.color,
+              background: `linear-gradient(135deg, ${data.color}, ${data.color}cc)`,
+              color: "#ffffff",
+            } : undefined}
             onClick={(e) => {
               e.stopPropagation();
               onViewDetails();
             }}
           >
-            <Sparkles className="w-3.5 h-3.5" style={{ opacity: isHovered ? 1 : 0 }} />
+            {isHovered && <Sparkles className="w-3.5 h-3.5" />}
             Batafsil ko'rish
           </button>
         </div>
