@@ -65,7 +65,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Tekshirilgan shartnomalar", value: "787 674" },
       { label: "Noto'g'ri mosliklar", value: 23 },
       { label: "Xatolik foizi", value: "0.003%" },
-      { label: "Tuzatish kerak", value: "18 ta" },
+      { label: "Farq summasi", value: "156 mln so'm" },
     ],
     chartData: [],
   },
