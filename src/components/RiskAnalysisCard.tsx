@@ -1,6 +1,6 @@
-import { Shield, ExternalLink, Activity } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Shield, ExternalLink, Activity, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 type Severity = "red" | "yellow" | "green";
 
@@ -72,12 +72,13 @@ const severityStyles: Record<Severity, { dot: string; ring: string; valueCls: st
 };
 
 const RiskAnalysisCard = () => {
+  const navigate = useNavigate();
   const redCount = riskData.filter((r) => r.severity === "red").length;
   const yellowCount = riskData.filter((r) => r.severity === "yellow").length;
   const greenCount = riskData.filter((r) => r.severity === "green").length;
 
   return (
-    <Card className="card-hover overflow-hidden">
+    <Card className="card-hover overflow-hidden cursor-pointer" onClick={() => navigate("/risk-analysis")}>
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -126,16 +127,10 @@ const RiskAnalysisCard = () => {
                   {row.value}
                 </div>
 
-                {/* Action */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full h-7 text-xs justify-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity"
-                  onClick={() => window.open(row.reportPath, "_self")}
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  Hisobot
-                </Button>
+                {/* Arrow indicator */}
+                <div className="flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
+                  <ChevronRight className="w-4 h-4" />
+                </div>
               </div>
             );
           })}
