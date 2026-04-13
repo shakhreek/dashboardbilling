@@ -86,7 +86,7 @@ const RiskAnalysisCard = () => {
               <Shield className="w-5 h-5 text-red-500" />
             </div>
             <div>
-              <CardTitle className="text-base">Risk Analysis · Health Check</CardTitle>
+              <CardTitle className="text-base">Xavf tahlili · Salomatlik tekshiruvi</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">Billing tizimi holati</p>
             </div>
           </div>
