@@ -35,7 +35,7 @@ const Index = () => {
         <Sidebar />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 relative z-10">
         <HeaderBar year={year} onYearChange={setYear} />
 
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
