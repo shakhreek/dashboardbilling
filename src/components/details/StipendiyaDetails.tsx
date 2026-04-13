@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import { GraduationCap, Award, Users, Banknote } from "lucide-react";
@@ -38,22 +39,11 @@ const StipendiyaDetails = () => {
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Turi bo'yicha taqsimot</h4>
         <div className="space-y-3">
-          {typeBreakdown.map((d) => {
+          {typeBreakdown.map((d, idx) => {
             const total = typeBreakdown.reduce((s, t) => s + t.value, 0);
             const pct = Math.round((d.value / total) * 100);
             return (
-              <div key={d.name}>
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }} />
-                    <span className="text-foreground">{d.name}</span>
-                  </div>
-                  <span className="font-semibold text-foreground">{d.value.toLocaleString()} ta ({pct}%)</span>
-                </div>
-                <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: d.color }} />
-                </div>
-              </div>
+              <AnimatedBreakdownRow key={d.name} name={d.name} value={d.value} pct={pct} color={d.color} delay={500 + idx * 200} />
             );
           })}
         </div>
