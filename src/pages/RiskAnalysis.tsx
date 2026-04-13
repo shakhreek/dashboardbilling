@@ -231,6 +231,65 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
             </div>
           </div>
 
+          {/* Sparkline on hover */}
+          <AnimatePresence>
+            {isHovered && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 56, opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                className="overflow-hidden mb-3"
+              >
+                <div className="flex items-center gap-3 rounded-xl px-3 py-2" style={{ background: `${severityColor}06` }}>
+                  <div className="flex-1 h-9">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={risk.trend}>
+                        <defs>
+                          <linearGradient id={`spark-${risk.id}`} x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stopColor={severityColor} stopOpacity={0.3} />
+                            <stop offset="100%" stopColor={severityColor} stopOpacity={1} />
+                          </linearGradient>
+                        </defs>
+                        <Tooltip
+                          contentStyle={{
+                            background: 'hsl(var(--card))',
+                            border: '1px solid hsl(var(--border))',
+                            borderRadius: '8px',
+                            fontSize: '11px',
+                            padding: '4px 8px',
+                          }}
+                          labelStyle={{ color: 'hsl(var(--muted-foreground))', fontSize: '10px' }}
+                          formatter={(val: number) => [val.toLocaleString(), '']}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="v"
+                          stroke={`url(#spark-${risk.id})`}
+                          strokeWidth={2}
+                          dot={false}
+                          activeDot={{ r: 3, fill: severityColor, strokeWidth: 0 }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                  {(() => {
+                    const first = risk.trend[0].v;
+                    const last = risk.trend[risk.trend.length - 1].v;
+                    const increasing = last > first;
+                    const Icon = increasing ? TrendingUp : TrendingDown;
+                    return (
+                      <div className="flex items-center gap-1 text-[11px] font-medium" style={{ color: severityColor }}>
+                        <Icon className="w-3.5 h-3.5" />
+                        <span>7 kun</span>
+                      </div>
+                    );
+                  })()}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Description */}
           <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{risk.description}</p>
 
