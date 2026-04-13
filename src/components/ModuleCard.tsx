@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FileText, CreditCard, Building2, Award, Home, Landmark, TrendingUp, TrendingDown, ArrowUpRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCountUp } from "@/hooks/useCountUp";
 
 export interface ModuleCardData {
   id: string;
@@ -109,6 +110,11 @@ interface Props {
   onViewDetails: () => void;
 }
 
+const AnimatedMetric = ({ value, delay }: { value: string; delay: number }) => {
+  const animated = useCountUp(value, 1200, delay);
+  return <>{animated}</>;
+};
+
 const ModuleCard = ({ data, onViewDetails }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const Icon = data.icon;
@@ -143,7 +149,7 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
               <div>
                 <h3 className="font-semibold text-foreground text-sm">{data.title}</h3>
                 <div className="flex items-baseline gap-1.5 mt-0.5">
-                  <span className="text-xl font-bold text-foreground">{data.mainValue}</span>
+                  <span className="text-xl font-bold text-foreground"><AnimatedMetric value={data.mainValue} delay={200} /></span>
                   <span className="text-xs text-muted-foreground">{data.mainLabel}</span>
                 </div>
               </div>
@@ -168,7 +174,7 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
               >
                 <span className="text-xs text-muted-foreground">{m.label}</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-foreground tabular-nums">{m.value}</span>
+                  <span className="text-sm font-semibold text-foreground tabular-nums"><AnimatedMetric value={m.value} delay={300 + idx * 100} /></span>
                   {m.trend && (
                     <span
                       className={cn(
