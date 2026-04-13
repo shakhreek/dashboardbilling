@@ -28,7 +28,7 @@ const stats = [
 const KontraktDetails = () => {
   const totalSum = 14440;
   const paidSum = 7253;
-  const pct = Math.round((paidSum / totalSum) * 100);
+  
 
   return (
     <div className="space-y-6">

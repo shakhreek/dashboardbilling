@@ -40,7 +40,7 @@ const monthlyOccupancy = [
 const TTJDetails = () => {
   const totalSum = 890;
   const paidSum = 570;
-  const pct = Math.round((paidSum / totalSum) * 100);
+  
 
   return (
     <div className="space-y-6">
