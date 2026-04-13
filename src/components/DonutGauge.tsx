@@ -89,7 +89,7 @@ const GaugeChart = () => {
           </svg>
 
           <div className="absolute inset-0 flex flex-col items-center justify-end pb-0">
-            <span className="text-5xl font-bold text-foreground leading-none">{animatedPercent}%</span>
+            <span className="text-3xl font-bold text-foreground leading-none">{animatedPercent}%</span>
             <span className="text-sm text-muted-foreground mt-2">Shartnoma olganlar</span>
           </div>
         </div>
