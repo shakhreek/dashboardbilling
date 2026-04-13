@@ -31,7 +31,7 @@ const Index = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <div className="hidden lg:block">
+      <div className="hidden lg:block relative z-10">
         <Sidebar />
       </div>
 
