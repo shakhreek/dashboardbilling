@@ -15,6 +15,22 @@ const monthlyData = [
   { month: "Iyun", shartnoma: 900, tolangan: 700 },
 ];
 
+const topDaromad = [
+  { name: "Toshkent davlat iqtisodiyot universiteti", value: 480 },
+  { name: "Toshkent tibbiyot universiteti", value: 420 },
+  { name: "Samarqand davlat tibbiyot universiteti", value: 310 },
+  { name: "Toshkent davlat yuridik universiteti", value: 250 },
+  { name: "Mirzo Ulug'bek nomidagi O'zbekiston milliy universiteti", value: 220 },
+];
+
+const topQarzdorlik = [
+  { name: "Toshkent davlat iqtisodiyot universiteti", value: 195 },
+  { name: "Toshkent tibbiyot universiteti", value: 160 },
+  { name: "Andijon davlat tibbiyot instituti", value: 130 },
+  { name: "Mirzo Ulug'bek nomidagi O'zbekiston milliy universiteti", value: 115 },
+  { name: "Farg'ona davlat universiteti", value: 105 },
+];
+
 const stats = [
   { label: "Jami shartnomalar", value: "787 674", icon: FileText, color: "hsl(217, 91%, 55%)" },
   { label: "Tasdiqlangan", value: "724 510", icon: CheckCircle, color: "hsl(142, 71%, 45%)" },
