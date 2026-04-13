@@ -47,11 +47,11 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "super-kontrakt",
-    title: "Shartnoma summasi tekshiruvi",
+    title: "Tabaqalashtirilgan shartnomalar tahlili",
     metric: "Noto'g'ri summa mosliklari",
     value: 23,
     severity: "yellow",
-    description: "Shartnoma summasi belgilangan tarifga mos kelmaydigan holatlar. Qo'lda kiritish xatoliklari yoki tizim nosozliklari.",
+    description: "Shartnoma summasi belgilangan tarifga mos kelmaydigan holatlar. Noto'g'ri tabaqalashtirilgan shartnomalar tahlili.",
     details: [
       { label: "Tekshirilgan shartnomalar", value: "787 674" },
       { label: "Noto'g'ri mosliklar", value: 23 },
@@ -61,7 +61,7 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "otm-debt-aging",
-    title: "OTM qarz eskirishi",
+    title: "Qarzdor talabalar tahlili",
     metric: "Maksimal kechikish kunlari",
     value: "365+",
     severity: "red",
@@ -75,7 +75,7 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "unpaid-contracts",
-    title: "To'lanmagan shartnomalar",
+    title: "To'lov qilinmagan shartnomalar tahlili",
     metric: "0 to'lovli tasdiqlangan shartnomalar",
     value: "4 312",
     severity: "yellow",
