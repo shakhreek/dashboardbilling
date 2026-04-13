@@ -7,7 +7,7 @@ import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
 import { useCountUp } from "@/hooks/useCountUp";
 
-const hemisTtjStudents = [
+const qarzdorStudents = [
   { name: "Abdullayev Jasur", otm: "TDIU" },
   { name: "Karimova Nilufar", otm: "TDIU" },
   { name: "Rahimov Sardor", otm: "TATU" },
@@ -143,7 +143,7 @@ const AnimatedRiskValue = ({ value, delay }: { value: string | number; delay: nu
 const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const isHemisTtj = risk.id === "hemis-ttj";
+  const isQarzdor = risk.id === "otm-debt-aging";
   const cfg = severityConfig[risk.severity];
   const SeverityIcon = cfg.icon;
   const severityColor = cfg.color;
@@ -215,7 +215,7 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
           {/* Detail metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {risk.details.map((d, dIdx) => {
-              const isClickable = isHemisTtj && d.label === "O'chirilgan talabalar";
+              const isClickable = isQarzdor && d.label === "Jami qarzdor shartnomalar";
               return (
                 <div
                   key={d.label}
@@ -240,9 +240,9 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
             })}
           </div>
 
-          {/* Expandable table for HEMIS-TTJ */}
+          {/* Expandable table for Qarzdor talabalar */}
           <AnimatePresence>
-            {isHemisTtj && isExpanded && (
+            {isQarzdor && isExpanded && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
@@ -261,7 +261,7 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
                         </tr>
                       </thead>
                       <tbody>
-                        {hemisTtjStudents.map((s, i) => (
+                        {qarzdorStudents.map((s, i) => (
                           <tr key={i} className="border-t border-border/40 hover:bg-accent/30 transition-colors">
                             <td className="px-4 py-2 text-xs text-muted-foreground">{i + 1}</td>
                             <td className="px-4 py-2 text-foreground font-medium">{s.name}</td>
