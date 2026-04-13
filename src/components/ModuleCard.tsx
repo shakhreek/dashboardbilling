@@ -149,10 +149,10 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
               </div>
             </div>
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0"
-              style={{ backgroundColor: "hsl(225, 30%, 22%)" }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 border-2"
+              style={{ borderColor: data.color, backgroundColor: "transparent" }}
             >
-              <ArrowUpRight className="w-4 h-4" style={{ color: "hsl(220, 20%, 90%)" }} />
+              <ArrowUpRight className="w-4 h-4" style={{ color: data.color }} />
             </div>
           </div>
 
