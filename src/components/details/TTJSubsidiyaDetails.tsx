@@ -1,5 +1,13 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
+import { FileText, CheckCircle, Users, Banknote } from "lucide-react";
+
+const stats = [
+  { label: "Arizalar soni", value: "27 800", icon: FileText, color: "hsl(239, 84%, 60%)" },
+  { label: "Tasdiqlangan", value: "23 400", icon: CheckCircle, color: "hsl(142, 71%, 45%)" },
+  { label: "Jami summa", value: "4 500 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)" },
+  { label: "Oluvchilar", value: "23 400", icon: Users, color: "hsl(270, 70%, 55%)" },
+];
 
 const funnelData = [
   { stage: "Yangi arizalar", count: 2780, fill: "hsl(239, 84%, 67%)" },
@@ -8,55 +16,70 @@ const funnelData = [
   { stage: "To'langan", count: 2100, fill: "hsl(45, 90%, 50%)" },
 ];
 
+const monthlyData = [
+  { month: "Sen", tolangan: 420 },
+  { month: "Okt", tolangan: 390 },
+  { month: "Noy", tolangan: 450 },
+  { month: "Dek", tolangan: 380 },
+  { month: "Yan", tolangan: 470 },
+  { month: "Fev", tolangan: 510 },
+  { month: "Mar", tolangan: 440 },
+  { month: "Apr", tolangan: 400 },
+  { month: "May", tolangan: 360 },
+  { month: "Iyun", tolangan: 310 },
+];
+
 const TTJSubsidiyaDetails = () => {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl p-4 border border-border bg-indigo-50">
-          <p className="text-xs text-muted-foreground">Arizalar</p>
-          <p className="text-xl font-bold" style={{ color: "hsl(239, 84%, 60%)" }}>27 800</p>
-        </div>
-        <div className="rounded-xl p-4 border border-border bg-indigo-50">
-          <p className="text-xs text-muted-foreground">Summa</p>
-          <p className="text-xl font-bold" style={{ color: "hsl(239, 84%, 60%)" }}>4 500 mlrd</p>
-        </div>
-        <div className="rounded-xl p-4 border border-border bg-indigo-50">
-          <p className="text-xs text-muted-foreground">Oluvchilar</p>
-          <p className="text-xl font-bold" style={{ color: "hsl(239, 84%, 60%)" }}>23 400</p>
-        </div>
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((s) => {
+          const Icon = s.icon;
+          return (
+            <div key={s.label} className="rounded-xl p-4 border border-border bg-card">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${s.color}15` }}>
+                  <Icon className="w-4 h-4" style={{ color: s.color }} />
+                </div>
+              </div>
+              <p className="text-2xl font-bold text-foreground">{s.value}</p>
+              <p className="text-xs text-muted-foreground mt-1">{s.label}</p>
+            </div>
+          );
+        })}
       </div>
 
-      <div>
-        <h4 className="text-sm font-semibold mb-3 text-foreground">Ariza holati (Funnel)</h4>
+      {/* Funnel chart */}
+      <div className="rounded-xl p-5 border border-border bg-card">
+        <h4 className="text-sm font-semibold mb-4 text-foreground">Ariza holati</h4>
         <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={funnelData} layout="vertical" barSize={28}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
+          <BarChart data={funnelData} layout="vertical" barSize={28} margin={{ left: 10, right: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" horizontal={false} />
             <XAxis type="number" tick={{ fontSize: 11 }} />
-            <YAxis dataKey="stage" type="category" tick={{ fontSize: 11 }} width={130} />
-            <Tooltip />
-            <Bar dataKey="count" radius={[0, 6, 6, 0]}>
+            <YAxis dataKey="stage" type="category" tick={{ fontSize: 11 }} width={140} />
+            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} />
+            <Bar dataKey="count" name="Soni" radius={[0, 6, 6, 0]}>
               {funnelData.map((entry, i) => (
-                <rect key={i} fill={entry.fill} />
+                <Cell key={i} fill={entry.fill} />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Funnel visual */}
-      <div className="space-y-2">
-        {funnelData.map((item, i) => {
-          const widthPct = Math.round((item.count / funnelData[0].count) * 100);
-          return (
-            <div key={item.stage} className="flex items-center gap-3">
-              <span className="text-xs text-muted-foreground w-28 text-right flex-shrink-0">{item.stage}</span>
-              <div className="flex-1 h-8 rounded-md flex items-center px-3"
-                style={{ width: `${widthPct}%`, backgroundColor: item.fill, minWidth: "60px" }}>
-                <span className="text-xs font-semibold" style={{ color: "white" }}>{item.count.toLocaleString()}</span>
-              </div>
-            </div>
-          );
-        })}
+      {/* Monthly line chart */}
+      <div className="rounded-xl p-5 border border-border bg-card">
+        <h4 className="text-sm font-semibold mb-4 text-foreground">Oy kesimida to'langan summa (mln)</h4>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={monthlyData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
+            <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+            <YAxis tick={{ fontSize: 11 }} />
+            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} formatter={(v: number) => [`${v} mln`, "To'langan"]} />
+            <Line type="monotone" dataKey="tolangan" name="To'langan" stroke="hsl(239, 84%, 60%)" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
 
       <UnreviewedApplications />
