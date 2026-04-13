@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import { GraduationCap, Award, Users, Banknote } from "lucide-react";
@@ -28,6 +29,44 @@ const typeBreakdown = [
   { name: "Prezident stipendiyasi", value: 490, color: "hsl(15, 85%, 50%)" },
 ];
 
+const AnimatedBreakdownRow = ({ name, value, pct, color, delay }: { name: string; value: number; pct: number; color: string; delay: number }) => {
+  const [animPct, setAnimPct] = useState(0);
+  const [animVal, setAnimVal] = useState(0);
+  const frameRef = useRef<number>();
+
+  useEffect(() => {
+    const duration = 1400;
+    const timeout = setTimeout(() => {
+      const startTime = performance.now();
+      const animate = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        setAnimPct(Math.round(eased * pct));
+        setAnimVal(Math.round(eased * value));
+        if (progress < 1) frameRef.current = requestAnimationFrame(animate);
+      };
+      frameRef.current = requestAnimationFrame(animate);
+    }, delay);
+    return () => { clearTimeout(timeout); if (frameRef.current) cancelAnimationFrame(frameRef.current); };
+  }, [pct, value, delay]);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between text-sm mb-1">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: color }} />
+          <span className="text-foreground">{name}</span>
+        </div>
+        <span className="font-semibold text-foreground">{animVal.toLocaleString()} ta ({animPct}%)</span>
+      </div>
+      <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+        <div className="h-full rounded-full transition-all duration-100" style={{ width: `${animPct}%`, backgroundColor: color }} />
+      </div>
+    </div>
+  );
+};
+
 const StipendiyaDetails = () => {
   return (
     <div className="space-y-6">
@@ -38,22 +77,11 @@ const StipendiyaDetails = () => {
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Turi bo'yicha taqsimot</h4>
         <div className="space-y-3">
-          {typeBreakdown.map((d) => {
+          {typeBreakdown.map((d, idx) => {
             const total = typeBreakdown.reduce((s, t) => s + t.value, 0);
             const pct = Math.round((d.value / total) * 100);
             return (
-              <div key={d.name}>
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }} />
-                    <span className="text-foreground">{d.name}</span>
-                  </div>
-                  <span className="font-semibold text-foreground">{d.value.toLocaleString()} ta ({pct}%)</span>
-                </div>
-                <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: d.color }} />
-                </div>
-              </div>
+              <AnimatedBreakdownRow key={d.name} name={d.name} value={d.value} pct={pct} color={d.color} delay={500 + idx * 200} />
             );
           })}
         </div>
