@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown, TrendingUp, TrendingDown } from "lucide-react";
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
+import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis, CartesianGrid } from "recharts";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
@@ -33,8 +33,8 @@ interface RiskDetail {
   severity: Severity;
   description: string;
   details: { label: string; value: string | number }[];
-  trend: { day: string; v: number }[];
-}
+  trend: { month: string; v: number }[];
+  trendLabel: string;
 
 const riskDetails: RiskDetail[] = [
   {
@@ -50,9 +50,11 @@ const riskDetails: RiskDetail[] = [
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
     ],
     trend: [
-      { day: "Du", v: 1120 }, { day: "Se", v: 1145 }, { day: "Cho", v: 1180 },
-      { day: "Pa", v: 1160 }, { day: "Ju", v: 1210 }, { day: "Sh", v: 1230 }, { day: "Ya", v: 1247 },
+      { month: "Sen", v: 820 }, { month: "Okt", v: 890 }, { month: "Noy", v: 950 },
+      { month: "Dek", v: 1020 }, { month: "Yan", v: 1080 }, { month: "Fev", v: 1160 },
+      { month: "Mar", v: 1200 }, { month: "Apr", v: 1247 },
     ],
+    trendLabel: "Nomuvofiqliklar soni",
   },
   {
     id: "hemis-ttj",
@@ -67,9 +69,11 @@ const riskDetails: RiskDetail[] = [
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
     ],
     trend: [
-      { day: "Du", v: 72 }, { day: "Se", v: 74 }, { day: "Cho", v: 78 },
-      { day: "Pa", v: 80 }, { day: "Ju", v: 82 }, { day: "Sh", v: 84 }, { day: "Ya", v: 86 },
+      { month: "Sen", v: 45 }, { month: "Okt", v: 52 }, { month: "Noy", v: 58 },
+      { month: "Dek", v: 64 }, { month: "Yan", v: 70 }, { month: "Fev", v: 76 },
+      { month: "Mar", v: 82 }, { month: "Apr", v: 86 },
     ],
+    trendLabel: "O'chirilgan talabalar",
   },
   {
     id: "super-kontrakt",
@@ -85,9 +89,11 @@ const riskDetails: RiskDetail[] = [
       { label: "Farq summasi", value: "156 mln so'm" },
     ],
     trend: [
-      { day: "Du", v: 28 }, { day: "Se", v: 26 }, { day: "Cho", v: 25 },
-      { day: "Pa", v: 24 }, { day: "Ju", v: 24 }, { day: "Sh", v: 23 }, { day: "Ya", v: 23 },
+      { month: "Sen", v: 35 }, { month: "Okt", v: 32 }, { month: "Noy", v: 30 },
+      { month: "Dek", v: 28 }, { month: "Yan", v: 27 }, { month: "Fev", v: 25 },
+      { month: "Mar", v: 24 }, { month: "Apr", v: 23 },
     ],
+    trendLabel: "Noto'g'ri mosliklar",
   },
   {
     id: "otm-debt-aging",
@@ -103,9 +109,11 @@ const riskDetails: RiskDetail[] = [
       { label: "O'rtacha kechikish kuni", value: "142 kun" },
     ],
     trend: [
-      { day: "Du", v: 11800 }, { day: "Se", v: 11950 }, { day: "Cho", v: 12050 },
-      { day: "Pa", v: 12100 }, { day: "Ju", v: 12200 }, { day: "Sh", v: 12300 }, { day: "Ya", v: 12340 },
+      { month: "Sen", v: 9800 }, { month: "Okt", v: 10200 }, { month: "Noy", v: 10650 },
+      { month: "Dek", v: 11100 }, { month: "Yan", v: 11500 }, { month: "Fev", v: 11850 },
+      { month: "Mar", v: 12100 }, { month: "Apr", v: 12340 },
     ],
+    trendLabel: "Qarzdor shartnomalar",
   },
   {
     id: "unpaid-contracts",
