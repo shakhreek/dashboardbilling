@@ -58,7 +58,9 @@ const Index = () => {
                   onViewDetails={() => handleModuleClick(mod.id)}
                 />
               ))}
-            </div>
+          </div>
+
+          <UnreviewedApplications />
           </div>
         </main>
       </div>
