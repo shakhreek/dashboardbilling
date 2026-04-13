@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown, TrendingUp, TrendingDown } from "lucide-react";
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
+import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis, CartesianGrid } from "recharts";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
@@ -33,7 +33,8 @@ interface RiskDetail {
   severity: Severity;
   description: string;
   details: { label: string; value: string | number }[];
-  trend: { day: string; v: number }[];
+  trend: { month: string; v: number }[];
+  trendLabel: string;
 }
 
 const riskDetails: RiskDetail[] = [
@@ -50,9 +51,11 @@ const riskDetails: RiskDetail[] = [
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
     ],
     trend: [
-      { day: "Du", v: 1120 }, { day: "Se", v: 1145 }, { day: "Cho", v: 1180 },
-      { day: "Pa", v: 1160 }, { day: "Ju", v: 1210 }, { day: "Sh", v: 1230 }, { day: "Ya", v: 1247 },
+      { month: "Sen", v: 820 }, { month: "Okt", v: 890 }, { month: "Noy", v: 950 },
+      { month: "Dek", v: 1020 }, { month: "Yan", v: 1080 }, { month: "Fev", v: 1160 },
+      { month: "Mar", v: 1200 }, { month: "Apr", v: 1247 },
     ],
+    trendLabel: "Nomuvofiqliklar soni",
   },
   {
     id: "hemis-ttj",
@@ -67,9 +70,11 @@ const riskDetails: RiskDetail[] = [
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
     ],
     trend: [
-      { day: "Du", v: 72 }, { day: "Se", v: 74 }, { day: "Cho", v: 78 },
-      { day: "Pa", v: 80 }, { day: "Ju", v: 82 }, { day: "Sh", v: 84 }, { day: "Ya", v: 86 },
+      { month: "Sen", v: 45 }, { month: "Okt", v: 52 }, { month: "Noy", v: 58 },
+      { month: "Dek", v: 64 }, { month: "Yan", v: 70 }, { month: "Fev", v: 76 },
+      { month: "Mar", v: 82 }, { month: "Apr", v: 86 },
     ],
+    trendLabel: "O'chirilgan talabalar",
   },
   {
     id: "super-kontrakt",
@@ -85,9 +90,11 @@ const riskDetails: RiskDetail[] = [
       { label: "Farq summasi", value: "156 mln so'm" },
     ],
     trend: [
-      { day: "Du", v: 28 }, { day: "Se", v: 26 }, { day: "Cho", v: 25 },
-      { day: "Pa", v: 24 }, { day: "Ju", v: 24 }, { day: "Sh", v: 23 }, { day: "Ya", v: 23 },
+      { month: "Sen", v: 35 }, { month: "Okt", v: 32 }, { month: "Noy", v: 30 },
+      { month: "Dek", v: 28 }, { month: "Yan", v: 27 }, { month: "Fev", v: 25 },
+      { month: "Mar", v: 24 }, { month: "Apr", v: 23 },
     ],
+    trendLabel: "Noto'g'ri mosliklar",
   },
   {
     id: "otm-debt-aging",
@@ -103,9 +110,11 @@ const riskDetails: RiskDetail[] = [
       { label: "O'rtacha kechikish kuni", value: "142 kun" },
     ],
     trend: [
-      { day: "Du", v: 11800 }, { day: "Se", v: 11950 }, { day: "Cho", v: 12050 },
-      { day: "Pa", v: 12100 }, { day: "Ju", v: 12200 }, { day: "Sh", v: 12300 }, { day: "Ya", v: 12340 },
+      { month: "Sen", v: 9800 }, { month: "Okt", v: 10200 }, { month: "Noy", v: 10650 },
+      { month: "Dek", v: 11100 }, { month: "Yan", v: 11500 }, { month: "Fev", v: 11850 },
+      { month: "Mar", v: 12100 }, { month: "Apr", v: 12340 },
     ],
+    trendLabel: "Qarzdor shartnomalar",
   },
   {
     id: "unpaid-contracts",
@@ -121,9 +130,11 @@ const riskDetails: RiskDetail[] = [
       { label: "O'rtacha shartnoma", value: "11.2 mln so'm" },
     ],
     trend: [
-      { day: "Du", v: 4450 }, { day: "Se", v: 4420 }, { day: "Cho", v: 4390 },
-      { day: "Pa", v: 4370 }, { day: "Ju", v: 4350 }, { day: "Sh", v: 4330 }, { day: "Ya", v: 4312 },
+      { month: "Sen", v: 4800 }, { month: "Okt", v: 4700 }, { month: "Noy", v: 4600 },
+      { month: "Dek", v: 4520 }, { month: "Yan", v: 4460 }, { month: "Fev", v: 4400 },
+      { month: "Mar", v: 4350 }, { month: "Apr", v: 4312 },
     ],
+    trendLabel: "To'lov qilinmagan shartnomalar",
   },
 ];
 
@@ -231,65 +242,6 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
             </div>
           </div>
 
-          {/* Sparkline on hover */}
-          <AnimatePresence>
-            {isHovered && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 56, opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                className="overflow-hidden mb-3"
-              >
-                <div className="flex items-center gap-3 rounded-xl px-3 py-2" style={{ background: `${severityColor}06` }}>
-                  <div className="flex-1 h-9">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={risk.trend}>
-                        <defs>
-                          <linearGradient id={`spark-${risk.id}`} x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor={severityColor} stopOpacity={0.3} />
-                            <stop offset="100%" stopColor={severityColor} stopOpacity={1} />
-                          </linearGradient>
-                        </defs>
-                        <Tooltip
-                          contentStyle={{
-                            background: 'hsl(var(--card))',
-                            border: '1px solid hsl(var(--border))',
-                            borderRadius: '8px',
-                            fontSize: '11px',
-                            padding: '4px 8px',
-                          }}
-                          labelStyle={{ color: 'hsl(var(--muted-foreground))', fontSize: '10px' }}
-                          formatter={(val: number) => [val.toLocaleString(), '']}
-                        />
-                        <Line
-                          type="monotone"
-                          dataKey="v"
-                          stroke={`url(#spark-${risk.id})`}
-                          strokeWidth={2}
-                          dot={false}
-                          activeDot={{ r: 3, fill: severityColor, strokeWidth: 0 }}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-                  {(() => {
-                    const first = risk.trend[0].v;
-                    const last = risk.trend[risk.trend.length - 1].v;
-                    const increasing = last > first;
-                    const Icon = increasing ? TrendingUp : TrendingDown;
-                    return (
-                      <div className="flex items-center gap-1 text-[11px] font-medium" style={{ color: severityColor }}>
-                        <Icon className="w-3.5 h-3.5" />
-                        <span>7 kun</span>
-                      </div>
-                    );
-                  })()}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           {/* Description */}
           <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{risk.description}</p>
 
@@ -365,6 +317,62 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
             )}
           </AnimatePresence>
         </div>
+
+        {/* Bottom trend chart on hover */}
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 140, opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+              className="overflow-hidden border-t border-border/40"
+            >
+              <div className="px-5 pt-3 pb-1 flex items-center justify-between">
+                <p className="text-[11px] font-medium text-muted-foreground">{risk.trendLabel} — oyma-oy</p>
+              </div>
+              <div className="px-2 h-[100px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={risk.trend}>
+                    <defs>
+                      <linearGradient id={`area-${risk.id}`} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={severityColor} stopOpacity={0.2} />
+                        <stop offset="100%" stopColor={severityColor} stopOpacity={0.02} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" strokeOpacity={0.4} />
+                    <XAxis
+                      dataKey="month"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        background: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        padding: '6px 10px',
+                      }}
+                      labelStyle={{ color: 'hsl(var(--muted-foreground))', fontSize: '11px' }}
+                      formatter={(val: number) => [val.toLocaleString(), risk.trendLabel]}
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="v"
+                      stroke={severityColor}
+                      strokeWidth={2}
+                      fill={`url(#area-${risk.id})`}
+                      dot={false}
+                      activeDot={{ r: 3.5, fill: severityColor, strokeWidth: 0 }}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
