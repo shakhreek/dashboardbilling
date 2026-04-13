@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 export interface ModuleCardData {
   id: string;
+  slug: string;
   title: string;
   icon: React.ElementType;
   color: string;
