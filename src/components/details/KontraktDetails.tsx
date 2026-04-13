@@ -58,8 +58,8 @@ const KontraktDetails = () => {
         <div className="flex justify-between text-xs text-muted-foreground mt-2">
           <span>To'langan: {paidSum.toLocaleString()} mlrd so'm</span>
           <span>Jami: {totalSum.toLocaleString()} mlrd so'm</span>
+        </div>
       </div>
-
 
       {/* Monthly chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
