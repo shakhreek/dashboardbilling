@@ -80,7 +80,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Jami qarzdor shartnomalar", value: "12 340" },
       { label: "90+ kun kechikkan", value: "3 456" },
       { label: "180+ kun kechikkan", value: "1 890" },
-      { label: "365+ kun kechikkan", value: 728 },
+      { label: "O'rtacha kechikish kuni", value: "142 kun" },
     ],
     chartType: "line",
     chartData: [
