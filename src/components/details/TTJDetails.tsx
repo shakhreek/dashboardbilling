@@ -1,5 +1,5 @@
 import { Progress } from "@/components/ui/progress";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Building2, Users, Clock, Banknote } from "lucide-react";
 
 const stats = [
@@ -22,11 +22,17 @@ const monthlyPayments = [
   { month: "Iyun", tolangan: 100, qarzdorlik: 45 },
 ];
 
-const buildings = [
-  { name: "1-bino", total: 1200, occupied: 1150 },
-  { name: "2-bino", total: 1400, occupied: 1280 },
-  { name: "3-bino", total: 1300, occupied: 1100 },
-  { name: "4-bino", total: 1300, occupied: 990 },
+const monthlyOccupancy = [
+  { month: "Sen", bandlik: 88 },
+  { month: "Okt", bandlik: 91 },
+  { month: "Noy", bandlik: 93 },
+  { month: "Dek", bandlik: 90 },
+  { month: "Yan", bandlik: 94 },
+  { month: "Fev", bandlik: 95 },
+  { month: "Mar", bandlik: 92 },
+  { month: "Apr", bandlik: 89 },
+  { month: "May", bandlik: 85 },
+  { month: "Iyun", bandlik: 72 },
 ];
 
 const TTJDetails = () => {
@@ -87,6 +93,23 @@ const TTJDetails = () => {
             <Bar dataKey="tolangan" name="To'langan" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
             <Bar dataKey="qarzdorlik" name="Qarzdorlik" fill="hsl(350, 70%, 55%)" radius={[4, 4, 0, 0]} />
           </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Monthly occupancy line chart */}
+      <div className="rounded-xl p-5 border border-border bg-card">
+        <h4 className="text-sm font-semibold mb-4 text-foreground">Oyma-oy bandlik (%)</h4>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={monthlyOccupancy}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
+            <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+            <YAxis tick={{ fontSize: 11 }} domain={[60, 100]} tickFormatter={(v) => `${v}%`} />
+            <Tooltip
+              contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }}
+              formatter={(v: number) => [`${v}%`, "Bandlik"]}
+            />
+            <Line type="monotone" dataKey="bandlik" name="Bandlik" stroke="hsl(217, 91%, 60%)" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
