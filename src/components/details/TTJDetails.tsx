@@ -1,4 +1,5 @@
 import { Progress } from "@/components/ui/progress";
+import UnreviewedApplications from "@/components/UnreviewedApplications";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Building2, Users, Clock, Banknote } from "lucide-react";
 
@@ -113,6 +114,8 @@ const TTJDetails = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+      <UnreviewedApplications />
     </div>
   );
 };
