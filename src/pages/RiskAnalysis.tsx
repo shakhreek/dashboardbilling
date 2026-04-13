@@ -37,15 +37,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
       { label: "Umumiy farq summasi", value: "3.2 mlrd so'm" },
     ],
-    chartType: "bar",
-    chartData: [
-      { name: "TDIU", value: 312 },
-      { name: "TTU", value: 245 },
-      { name: "SamDTU", value: 198 },
-      { name: "TDYU", value: 167 },
-      { name: "AndMI", value: 145 },
-      { name: "Boshqa", value: 180 },
-    ],
+    chartData: [],
   },
   {
     id: "hemis-ttj",
@@ -60,14 +52,7 @@ const riskDetails: RiskDetail[] = [
       { label: "To'lanmagan qoldiq", value: "124 mln so'm" },
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
     ],
-    chartType: "pie",
-    chartData: [
-      { name: "TDIU", value: 23, fill: "hsl(217, 91%, 60%)" },
-      { name: "TTU", value: 18, fill: "hsl(142, 71%, 45%)" },
-      { name: "SamDTU", value: 15, fill: "hsl(270, 70%, 55%)" },
-      { name: "TDYU", value: 12, fill: "hsl(45, 90%, 50%)" },
-      { name: "Boshqa", value: 18, fill: "hsl(350, 70%, 55%)" },
-    ],
+    chartData: [],
   },
   {
     id: "super-kontrakt",
@@ -82,12 +67,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Xatolik foizi", value: "0.003%" },
       { label: "Tuzatish kerak", value: "18 ta" },
     ],
-    chartType: "bar",
-    chartData: [
-      { name: "Oshiq summa", value: 14 },
-      { name: "Kam summa", value: 6 },
-      { name: "Dublikat", value: 3 },
-    ],
+    chartData: [],
   },
   {
     id: "otm-debt-aging",
