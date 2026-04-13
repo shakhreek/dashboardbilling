@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
+import { useCountUp } from "@/hooks/useCountUp";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line,
 } from "recharts";
@@ -141,6 +142,11 @@ const severityConfig: Record<Severity, { bg: string; text: string; label: string
     icon: <CheckCircle className="w-5 h-5 text-emerald-500" />,
     border: "border-l-emerald-500",
   },
+};
+
+const AnimatedRiskValue = ({ value, delay }: { value: string | number; delay: number }) => {
+  const animated = useCountUp(String(value), 1400, delay);
+  return <>{animated}</>;
 };
 
 const RiskAnalysis = () => {
