@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
@@ -7,18 +8,11 @@ import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
 import DonutGauge from "@/components/DonutGauge";
 import ModuleCard, { moduleCards } from "@/components/ModuleCard";
-import ModuleDetailSheet from "@/components/ModuleDetailSheet";
 import { statCards } from "@/data/dashboardData";
 
 const Index = () => {
   const [year, setYear] = useState("2025-2026");
-  const [selectedModule, setSelectedModule] = useState<string | null>(null);
-  const [sheetOpen, setSheetOpen] = useState(false);
-
-  const handleModuleClick = (moduleId: string) => {
-    setSelectedModule(moduleId);
-    setSheetOpen(true);
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="flex min-h-screen bg-background relative">
@@ -55,7 +49,7 @@ const Index = () => {
                 <ModuleCard
                   key={mod.id}
                   data={mod}
-                  onViewDetails={() => handleModuleClick(mod.id)}
+                  onViewDetails={() => navigate(`/module/${mod.slug}`)}
                 />
               ))}
           </div>
@@ -64,12 +58,6 @@ const Index = () => {
           </div>
         </main>
       </div>
-
-      <ModuleDetailSheet
-        moduleName={selectedModule}
-        open={sheetOpen}
-        onOpenChange={setSheetOpen}
-      />
     </div>
   );
 };
