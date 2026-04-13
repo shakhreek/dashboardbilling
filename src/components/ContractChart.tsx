@@ -68,14 +68,15 @@ const ContractChart = () => {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
               <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="hsl(215, 16%, 47%)" />
-              <YAxis tick={{ fontSize: 10 }} stroke="hsl(215, 16%, 47%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+              <YAxis yAxisId="left" tick={{ fontSize: 10 }} stroke="hsl(217, 91%, 60%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10 }} stroke="hsl(270, 70%, 55%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
               <Tooltip
                 formatter={(value: number) => value.toLocaleString()}
                 contentStyle={{ borderRadius: 8, border: "1px solid hsl(214, 32%, 91%)" }}
               />
-              <Area type="monotone" dataKey="shartnoma" name="Shartnoma" stroke="hsl(217, 91%, 60%)" fill="url(#gradShartnoma)" strokeWidth={2} />
-              <Area type="monotone" dataKey="kredit" name="Kredit" stroke="hsl(270, 70%, 55%)" fill="url(#gradKredit)" strokeWidth={2} />
-              <Area type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="hsl(142, 71%, 45%)" fill="url(#gradTTJ)" strokeWidth={2} />
+              <Area yAxisId="left" type="monotone" dataKey="shartnoma" name="Shartnoma" stroke="hsl(217, 91%, 60%)" fill="url(#gradShartnoma)" strokeWidth={2} />
+              <Area yAxisId="right" type="monotone" dataKey="kredit" name="Kredit" stroke="hsl(270, 70%, 55%)" fill="url(#gradKredit)" strokeWidth={2} />
+              <Area yAxisId="right" type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="hsl(142, 71%, 45%)" fill="url(#gradTTJ)" strokeWidth={2} />
             </AreaChart>
           </ResponsiveContainer>
           <div className="flex justify-center gap-5 mt-3">
