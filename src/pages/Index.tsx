@@ -8,6 +8,7 @@ import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
 import DonutGauge from "@/components/DonutGauge";
 import ModuleCard, { moduleCards } from "@/components/ModuleCard";
+import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
 
 const Index = () => {
@@ -39,6 +40,10 @@ const Index = () => {
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 mb-6">
             <ContractChart />
             <DonutGauge />
+          </div>
+
+          <div className="mb-6">
+            <TopOTMCharts />
           </div>
 
           {/* Module Cards */}
