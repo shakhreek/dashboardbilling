@@ -1,14 +1,16 @@
-import { FileText, CreditCard, Building2, Award, Home, Landmark, TrendingUp, TrendingDown, Users, ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { FileText, CreditCard, Building2, Award, Home, Landmark, TrendingUp, TrendingDown, ArrowUpRight, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface ModuleCardData {
   id: string;
   title: string;
   icon: React.ElementType;
-  gradient: string;
-  iconBg: string;
+  color: string;
+  lightColor: string;
   metrics: { label: string; value: string; trend?: "up" | "down"; trendValue?: string }[];
+  mainValue: string;
+  mainLabel: string;
 }
 
 export const moduleCards: ModuleCardData[] = [
@@ -16,74 +18,81 @@ export const moduleCards: ModuleCardData[] = [
     id: "To'lov kontrakt",
     title: "Kontrakt",
     icon: FileText,
-    gradient: "from-blue-500 to-blue-600",
-    iconBg: "bg-blue-100",
+    color: "hsl(217, 91%, 60%)",
+    lightColor: "hsl(217, 91%, 95%)",
+    mainValue: "14 440",
+    mainLabel: "mlrd so'm",
     metrics: [
       { label: "Arizalar soni", value: "12 450", trend: "up", trendValue: "+3.2%" },
-      { label: "Tasdiqlangan shartnomalar", value: "11 230" },
-      { label: "Jami shartnoma summasi", value: "14 440 mlrd" },
-      { label: "To'langan summa", value: "7 253 mlrd", trend: "up", trendValue: "+12%" },
+      { label: "Tasdiqlangan", value: "11 230" },
+      { label: "To'langan", value: "7 253 mlrd", trend: "up", trendValue: "+12%" },
     ],
   },
   {
     id: "Kredit modul",
     title: "Kredit modul",
     icon: CreditCard,
-    gradient: "from-purple-500 to-purple-600",
-    iconBg: "bg-purple-100",
+    color: "hsl(270, 70%, 55%)",
+    lightColor: "hsl(270, 70%, 95%)",
+    mainValue: "3 210",
+    mainLabel: "mlrd so'm",
     metrics: [
       { label: "Arizalar soni", value: "142 850", trend: "up", trendValue: "+5.1%" },
-      { label: "Shartnomalar soni", value: "128 740" },
-      { label: "Shartnoma summasi", value: "3 210 mlrd" },
+      { label: "Shartnomalar", value: "128 740" },
       { label: "To'lovlar", value: "1 670 mlrd", trend: "down", trendValue: "-2.4%" },
     ],
   },
   {
     id: "TTJ",
-    title: "TTJ (Talabalar turar joyi)",
+    title: "TTJ",
     icon: Building2,
-    gradient: "from-emerald-500 to-emerald-600",
-    iconBg: "bg-emerald-100",
+    color: "hsl(142, 71%, 45%)",
+    lightColor: "hsl(142, 71%, 95%)",
+    mainValue: "4 520",
+    mainLabel: "talaba",
     metrics: [
       { label: "Arizalar soni", value: "5 670" },
-      { label: "Shartnomalar soni", value: "4 890" },
-      { label: "Shartnoma summasi", value: "890 mlrd" },
-      { label: "TTJda turgan talabalar", value: "4 520", trend: "up", trendValue: "+8%" },
+      { label: "Shartnomalar", value: "4 890" },
+      { label: "Jami summa", value: "890 mlrd", trend: "up", trendValue: "+8%" },
     ],
   },
   {
     id: "Stipendiya",
     title: "Stipendiya",
     icon: Award,
-    gradient: "from-amber-500 to-amber-600",
-    iconBg: "bg-amber-100",
+    color: "hsl(45, 90%, 50%)",
+    lightColor: "hsl(45, 90%, 95%)",
+    mainValue: "2 340",
+    mainLabel: "talaba",
     metrics: [
-      { label: "Stipendiya oluvchilar", value: "2 340", trend: "up", trendValue: "+4.5%" },
-      { label: "Jami to'lanadigan summa", value: "3 600 mlrd" },
+      { label: "Oluvchilar", value: "2 340", trend: "up", trendValue: "+4.5%" },
+      { label: "Jami summa", value: "3 600 mlrd" },
     ],
   },
   {
     id: "Ijara",
     title: "Ijara subsidiyasi",
     icon: Home,
-    gradient: "from-rose-500 to-rose-600",
-    iconBg: "bg-rose-100",
+    color: "hsl(350, 70%, 55%)",
+    lightColor: "hsl(350, 70%, 95%)",
+    mainValue: "18 900",
+    mainLabel: "ariza",
     metrics: [
-      { label: "Arizalar soni", value: "18 900" },
-      { label: "Jami to'lanadigan summa", value: "2 100 mlrd" },
-      { label: "Subsidiya oluvchilar", value: "14 500", trend: "up", trendValue: "+6.3%" },
+      { label: "Jami summa", value: "2 100 mlrd" },
+      { label: "Oluvchilar", value: "14 500", trend: "up", trendValue: "+6.3%" },
     ],
   },
   {
     id: "TTJ Subsidiya",
     title: "TTJ Subsidiya",
     icon: Landmark,
-    gradient: "from-indigo-500 to-indigo-600",
-    iconBg: "bg-indigo-100",
+    color: "hsl(239, 84%, 60%)",
+    lightColor: "hsl(239, 84%, 95%)",
+    mainValue: "27 800",
+    mainLabel: "ariza",
     metrics: [
-      { label: "Arizalar soni", value: "27 800" },
-      { label: "To'lanadigan summa", value: "4 500 mlrd" },
-      { label: "Subsidiya oluvchilar", value: "23 400", trend: "up", trendValue: "+7.1%" },
+      { label: "Jami summa", value: "4 500 mlrd" },
+      { label: "Oluvchilar", value: "23 400", trend: "up", trendValue: "+7.1%" },
     ],
   },
 ];
@@ -94,54 +103,102 @@ interface Props {
 }
 
 const ModuleCard = ({ data, onViewDetails }: Props) => {
+  const [isHovered, setIsHovered] = useState(false);
   const Icon = data.icon;
 
   return (
-    <Card className="overflow-hidden border border-border transition-all duration-300 hover:shadow-xl hover:scale-[1.02] group cursor-pointer" onClick={onViewDetails}>
-      {/* Colored top strip */}
-      <div className={`h-1.5 bg-gradient-to-r ${data.gradient}`} />
+    <div
+      className="relative group cursor-pointer"
+      onClick={onViewDetails}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Glow effect on hover */}
+      <div
+        className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
+        style={{ background: data.color, opacity: isHovered ? 0.15 : 0 }}
+      />
 
-      <CardContent className="p-5">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-lg ${data.iconBg} flex items-center justify-center`}>
-              <Icon className="w-5 h-5" style={{ color: `var(--module-icon)` }} />
-            </div>
-            <h3 className="font-semibold text-foreground text-sm">{data.title}</h3>
-          </div>
-          <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-        </div>
+      <div className="relative bg-card rounded-xl border border-border overflow-hidden transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02] group-hover:border-transparent">
+        {/* Top gradient bar */}
+        <div className="h-1" style={{ background: `linear-gradient(90deg, ${data.color}, ${data.color}80)` }} />
 
-        {/* Metrics */}
-        <div className="space-y-3">
-          {data.metrics.map((m) => (
-            <div key={m.label} className="flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">{m.label}</span>
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-semibold text-foreground">{m.value}</span>
-                {m.trend && (
-                  <span className={`flex items-center text-xs font-medium ${m.trend === "up" ? "text-emerald-600" : "text-rose-500"}`}>
-                    {m.trend === "up" ? <TrendingUp className="w-3 h-3 mr-0.5" /> : <TrendingDown className="w-3 h-3 mr-0.5" />}
-                    {m.trendValue}
-                  </span>
-                )}
+        <div className="p-5">
+          {/* Header */}
+          <div className="flex items-start justify-between mb-5">
+            <div className="flex items-center gap-3">
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                style={{ backgroundColor: data.lightColor }}
+              >
+                <Icon className="w-5 h-5" style={{ color: data.color }} />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground text-sm">{data.title}</h3>
+                <div className="flex items-baseline gap-1.5 mt-0.5">
+                  <span className="text-xl font-bold text-foreground">{data.mainValue}</span>
+                  <span className="text-xs text-muted-foreground">{data.mainLabel}</span>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0"
+              style={{ backgroundColor: data.lightColor }}
+            >
+              <ArrowUpRight className="w-4 h-4" style={{ color: data.color }} />
+            </div>
+          </div>
 
-        {/* Button */}
-        <Button
-          variant="outline"
-          size="sm"
-          className={`w-full mt-4 text-xs group-hover:bg-gradient-to-r group-hover:${data.gradient} group-hover:text-white group-hover:border-transparent transition-all`}
-          onClick={(e) => { e.stopPropagation(); onViewDetails(); }}
-        >
-          Batafsil ko'rish
-        </Button>
-      </CardContent>
-    </Card>
+          {/* Metrics */}
+          <div className="space-y-2.5">
+            {data.metrics.map((m, idx) => (
+              <div
+                key={m.label}
+                className="flex items-center justify-between py-1.5 px-3 rounded-lg transition-colors duration-200 hover:bg-accent/50"
+                style={{
+                  animationDelay: `${idx * 50}ms`,
+                }}
+              >
+                <span className="text-xs text-muted-foreground">{m.label}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-foreground tabular-nums">{m.value}</span>
+                  {m.trend && (
+                    <span
+                      className={cn(
+                        "flex items-center gap-0.5 text-[11px] font-medium px-1.5 py-0.5 rounded-full",
+                        m.trend === "up"
+                          ? "bg-emerald-500/10 text-emerald-600"
+                          : "bg-rose-500/10 text-rose-500"
+                      )}
+                    >
+                      {m.trend === "up" ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                      {m.trendValue}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer button */}
+          <button
+            className="w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border"
+            style={{
+              borderColor: isHovered ? data.color : "hsl(var(--border))",
+              color: isHovered ? "white" : "hsl(var(--muted-foreground))",
+              background: isHovered ? `linear-gradient(135deg, ${data.color}, ${data.color}cc)` : "transparent",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onViewDetails();
+            }}
+          >
+            <Sparkles className="w-3.5 h-3.5" style={{ opacity: isHovered ? 1 : 0 }} />
+            Batafsil ko'rish
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
