@@ -136,9 +136,9 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
             <div className="flex items-center gap-3">
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 border-2"
-                style={{ borderColor: data.color, backgroundColor: "transparent" }}
+                style={{ borderColor: "hsl(225, 30%, 25%)", backgroundColor: "transparent" }}
               >
-                <Icon className="w-5 h-5" style={{ color: data.color }} />
+                <Icon className="w-5 h-5" style={{ color: "hsl(225, 30%, 25%)" }} />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground text-sm">{data.title}</h3>
@@ -150,9 +150,9 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
             </div>
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 border-2"
-              style={{ borderColor: data.color, backgroundColor: "transparent" }}
+              style={{ borderColor: "hsl(225, 30%, 25%)", backgroundColor: "transparent" }}
             >
-              <ArrowUpRight className="w-4 h-4" style={{ color: data.color }} />
+              <ArrowUpRight className="w-4 h-4" style={{ color: "hsl(225, 30%, 25%)" }} />
             </div>
           </div>
 
