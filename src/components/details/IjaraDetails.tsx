@@ -1,4 +1,5 @@
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import UzbekistanMap from "@/components/UzbekistanMap";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import { FileText, Banknote, Users, CheckCircle } from "lucide-react";
 
@@ -23,11 +24,20 @@ const monthlyData = [
 ];
 
 const regionData = [
-  { name: "Toshkent sh.", value: 3200 },
-  { name: "Samarqand", value: 2100 },
-  { name: "Buxoro", value: 1800 },
-  { name: "Farg'ona", value: 1650 },
-  { name: "Andijon", value: 1420 },
+  { id: "toshkent_sh", name: "Toshkent sh.", value: 3200 },
+  { id: "samarqand", name: "Samarqand", value: 2100 },
+  { id: "buxoro", name: "Buxoro", value: 1800 },
+  { id: "fergana", name: "Farg'ona", value: 1650 },
+  { id: "andijon", name: "Andijon", value: 1420 },
+  { id: "namangan", name: "Namangan", value: 1280 },
+  { id: "qashqadaryo", name: "Qashqadaryo", value: 1100 },
+  { id: "surxondaryo", name: "Surxondaryo", value: 890 },
+  { id: "toshkent", name: "Toshkent vil.", value: 960 },
+  { id: "xorazm", name: "Xorazm", value: 750 },
+  { id: "navoiy", name: "Navoiy", value: 620 },
+  { id: "jizzax", name: "Jizzax", value: 540 },
+  { id: "sirdaryo", name: "Sirdaryo", value: 430 },
+  { id: "karakalpakstan", name: "Qoraqalpog'iston", value: 360 },
 ];
 
 const IjaraDetails = () => {
@@ -65,18 +75,13 @@ const IjaraDetails = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Region breakdown */}
+      {/* Region map */}
       <div className="rounded-xl p-5 border border-border bg-card">
-        <h4 className="text-sm font-semibold mb-4 text-foreground">Hududlar bo'yicha oluvchilar soni</h4>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={regionData} layout="vertical" margin={{ left: 10, right: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11 }} />
-            <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={120} />
-            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} />
-            <Bar dataKey="value" name="Oluvchilar" fill="hsl(350, 70%, 60%)" radius={[0, 4, 4, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <UzbekistanMap
+          data={regionData}
+          title="Hududlar bo'yicha oluvchilar soni"
+          valueLabel="Oluvchilar"
+        />
       </div>
 
       <UnreviewedApplications />
