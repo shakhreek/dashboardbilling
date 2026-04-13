@@ -109,20 +109,11 @@ const HeroBanner = ({ cards }: Props) => {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Sparkline background */}
-              <div className="absolute bottom-0 left-0 right-0 h-16 opacity-60">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={sparkData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id={`spark-${index}`} x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={config.sparkFrom} stopOpacity={0.4} />
-                        <stop offset="100%" stopColor={config.sparkTo} stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <Area type="monotone" dataKey="v" stroke={config.sparkFrom} strokeWidth={1.5} fill={`url(#spark-${index})`} dot={false} />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
+              {/* Gradient background only */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-1 opacity-40"
+                style={{ background: `linear-gradient(to right, ${config.sparkFrom}, ${config.sparkTo})` }}
+              />
 
               {/* Content */}
               <div className="relative z-10">
