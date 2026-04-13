@@ -1,111 +1,266 @@
 import { useState } from "react";
-import { Clock, CheckCircle2, AlertTriangle, XCircle, ArrowUpRight } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, FileText, CreditCard, Home, GraduationCap, Building2, Landmark, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-interface ActivityItem {
-  id: number;
-  module: string;
-  action: string;
-  time: string;
-  status: "success" | "warning" | "error" | "pending";
-  amount?: string;
+interface ModuleMetric {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  value: number;
+  total: number;
+  percentage: number;
+  trend: "up" | "down" | "neutral";
+  trendValue: string;
+  color: string;
+  bgGradient: string;
 }
 
-const activities: ActivityItem[] = [
-  { id: 1, module: "Kontrakt", action: "Yangi shartnoma tasdiqlandi", time: "2 daqiqa oldin", status: "success", amount: "12.5 mln" },
-  { id: 2, module: "Kredit", action: "To'lov kechiktirildi", time: "15 daqiqa oldin", status: "warning", amount: "3.2 mln" },
-  { id: 3, module: "TTJ", action: "Joy ajratildi — 3-bino", time: "32 daqiqa oldin", status: "success" },
-  { id: 4, module: "Stipendiya", action: "Beshlik stipendiya tayinlandi", time: "1 soat oldin", status: "success", amount: "1.8 mln" },
-  { id: 5, module: "Ijara", action: "Ariza rad etildi", time: "2 soat oldin", status: "error" },
-  { id: 6, module: "Subsidiya", action: "To'lov jarayonda", time: "3 soat oldin", status: "pending", amount: "8.4 mln" },
-  { id: 7, module: "Kontrakt", action: "Fakultet hisoboti yuklandi", time: "4 soat oldin", status: "success" },
-  { id: 8, module: "Kredit", action: "Yangi ariza keldi", time: "5 soat oldin", status: "pending", amount: "5.0 mln" },
+const modules: ModuleMetric[] = [
+  {
+    id: "kontrakt",
+    name: "Kontrakt",
+    icon: <FileText className="w-4 h-4" />,
+    value: 787674,
+    total: 850000,
+    percentage: 92,
+    trend: "up",
+    trendValue: "+5.2%",
+    color: "hsl(217, 91%, 60%)",
+    bgGradient: "from-blue-500/10 to-blue-600/5",
+  },
+  {
+    id: "kredit",
+    name: "Kredit",
+    icon: <CreditCard className="w-4 h-4" />,
+    value: 142850,
+    total: 180000,
+    percentage: 79,
+    trend: "down",
+    trendValue: "-2.1%",
+    color: "hsl(270, 70%, 55%)",
+    bgGradient: "from-purple-500/10 to-purple-600/5",
+  },
+  {
+    id: "ttj",
+    name: "TTJ",
+    icon: <Home className="w-4 h-4" />,
+    value: 4520,
+    total: 5200,
+    percentage: 87,
+    trend: "up",
+    trendValue: "+3.8%",
+    color: "hsl(142, 71%, 45%)",
+    bgGradient: "from-emerald-500/10 to-emerald-600/5",
+  },
+  {
+    id: "stipendiya",
+    name: "Stipendiya",
+    icon: <GraduationCap className="w-4 h-4" />,
+    value: 2340,
+    total: 2500,
+    percentage: 94,
+    trend: "up",
+    trendValue: "+1.5%",
+    color: "hsl(45, 90%, 50%)",
+    bgGradient: "from-amber-500/10 to-amber-600/5",
+  },
+  {
+    id: "ijara",
+    name: "Ijara",
+    icon: <Building2 className="w-4 h-4" />,
+    value: 18900,
+    total: 22000,
+    percentage: 86,
+    trend: "neutral",
+    trendValue: "0.0%",
+    color: "hsl(350, 70%, 55%)",
+    bgGradient: "from-rose-500/10 to-rose-600/5",
+  },
+  {
+    id: "subsidiya",
+    name: "Subsidiya",
+    icon: <Landmark className="w-4 h-4" />,
+    value: 2340,
+    total: 2780,
+    percentage: 84,
+    trend: "up",
+    trendValue: "+8.2%",
+    color: "hsl(239, 84%, 60%)",
+    bgGradient: "from-indigo-500/10 to-indigo-600/5",
+  },
 ];
 
-const statusConfig = {
-  success: { icon: CheckCircle2, color: "hsl(142, 71%, 45%)", bg: "bg-emerald-500/10", label: "Bajarildi" },
-  warning: { icon: AlertTriangle, color: "hsl(45, 90%, 50%)", bg: "bg-amber-500/10", label: "Ogohlantirish" },
-  error: { icon: XCircle, color: "hsl(350, 70%, 55%)", bg: "bg-rose-500/10", label: "Rad etildi" },
-  pending: { icon: Clock, color: "hsl(217, 91%, 60%)", bg: "bg-blue-500/10", label: "Jarayonda" },
-};
-
-const moduleColors: Record<string, string> = {
-  "Kontrakt": "hsl(217, 91%, 60%)",
-  "Kredit": "hsl(270, 70%, 55%)",
-  "TTJ": "hsl(142, 71%, 45%)",
-  "Stipendiya": "hsl(45, 90%, 50%)",
-  "Ijara": "hsl(350, 70%, 55%)",
-  "Subsidiya": "hsl(239, 84%, 60%)",
-};
-
-const DonutGauge = () => {
-  const [filter, setFilter] = useState<string>("all");
-  const filters = ["all", "success", "warning", "error", "pending"];
-  const filterLabels: Record<string, string> = {
-    all: "Barchasi", success: "Bajarildi", warning: "Ogohlantirish", error: "Xatolik", pending: "Jarayonda"
-  };
-
-  const filtered = filter === "all" ? activities : activities.filter(a => a.status === filter);
+const CircularGauge = ({
+  percentage,
+  color,
+  size = 56,
+  strokeWidth = 4,
+}: {
+  percentage: number;
+  color: string;
+  size?: number;
+  strokeWidth?: number;
+}) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="bg-card rounded-xl border border-border p-5 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Clock className="w-5 h-5 text-primary" />
-          <h3 className="text-base font-semibold text-foreground">So'nggi faoliyat</h3>
-        </div>
-        <span className="text-xs text-muted-foreground">{activities.length} ta</span>
-      </div>
-
-      {/* Filter pills */}
-      <div className="flex gap-1 mb-4 flex-wrap">
-        {filters.map(f => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
-              filter === f ? "bg-primary text-primary-foreground shadow-sm" : "bg-secondary text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {filterLabels[f]}
-          </button>
-        ))}
-      </div>
-
-      {/* Activity list */}
-      <div className="flex-1 space-y-1 overflow-y-auto max-h-[280px] pr-1">
-        {filtered.map((item) => {
-          const config = statusConfig[item.status];
-          const StatusIcon = config.icon;
-          return (
-            <div
-              key={item.id}
-              className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-accent/50 transition-colors cursor-pointer group"
-            >
-              <div className={`w-8 h-8 rounded-lg ${config.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                <StatusIcon className="w-4 h-4" style={{ color: config.color }} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className="text-xs font-semibold px-1.5 py-0.5 rounded"
-                    style={{ backgroundColor: `${moduleColors[item.module]}15`, color: moduleColors[item.module] }}
-                  >
-                    {item.module}
-                  </span>
-                  {item.amount && (
-                    <span className="text-xs font-medium text-foreground">{item.amount}</span>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.action}</p>
-                <p className="text-[10px] text-muted-foreground/60 mt-0.5">{item.time}</p>
-              </div>
-              <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
-            </div>
-          );
-        })}
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="transform -rotate-90">
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          className="text-muted/20"
+        />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          className="transition-all duration-1000 ease-out"
+          style={{
+            filter: `drop-shadow(0 0 4px ${color}40)`,
+          }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-sm font-bold text-foreground">{percentage}%</span>
       </div>
     </div>
   );
 };
 
-export default DonutGauge;
+const TrendIcon = ({ trend, value }: { trend: "up" | "down" | "neutral"; value: string }) => {
+  const icons = {
+    up: <TrendingUp className="w-3 h-3" />,
+    down: <TrendingDown className="w-3 h-3" />,
+    neutral: <Minus className="w-3 h-3" />,
+  };
+
+  const colors = {
+    up: "text-emerald-500",
+    down: "text-rose-500",
+    neutral: "text-muted-foreground",
+  };
+
+  return (
+    <div className={cn("flex items-center gap-1 text-xs font-medium", colors[trend])}>
+      {icons[trend]}
+      <span>{value}</span>
+    </div>
+  );
+};
+
+const ModulePerformancePanel = () => {
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
+  const [hoveredModule, setHoveredModule] = useState<string | null>(null);
+
+  const activeModules = selectedModule
+    ? modules.filter((m) => m.id === selectedModule)
+    : modules;
+
+  return (
+    <div className="bg-card rounded-xl border border-border p-5 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-base font-semibold text-foreground">Modullar samaradorligi</h3>
+          <p className="text-xs text-muted-foreground mt-0.5">Real vaqt statistikasi</p>
+        </div>
+        {selectedModule && (
+          <button
+            onClick={() => setSelectedModule(null)}
+            className="text-xs text-primary hover:text-primary/80 font-medium transition-colors"
+          >
+            Barchasi
+          </button>
+        )}
+      </div>
+
+      {/* Module Grid */}
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        {activeModules.map((module) => (
+          <button
+            key={module.id}
+            onClick={() => setSelectedModule(module.id === selectedModule ? null : module.id)}
+            onMouseEnter={() => setHoveredModule(module.id)}
+            onMouseLeave={() => setHoveredModule(null)}
+            className={cn(
+              "relative p-3 rounded-xl border text-left transition-all duration-300 group",
+              "bg-gradient-to-br",
+              module.bgGradient,
+              selectedModule === module.id
+                ? "border-primary/50 ring-1 ring-primary/20"
+                : "border-border hover:border-primary/30",
+              hoveredModule === module.id && "scale-[1.02]"
+            )}
+          >
+            <div className="flex items-start justify-between mb-2">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{ backgroundColor: `${module.color}20`, color: module.color }}
+              >
+                {module.icon}
+              </div>
+              <CircularGauge percentage={module.percentage} color={module.color} size={44} strokeWidth={3} />
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-foreground">{module.name}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">
+                  {module.value.toLocaleString()}
+                </span>
+                <TrendIcon trend={module.trend} value={module.trendValue} />
+              </div>
+            </div>
+
+            {selectedModule === module.id && (
+              <div className="absolute inset-x-0 -bottom-px h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Summary Stats */}
+      <div className="mt-auto pt-4 border-t border-border">
+        <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="p-2 rounded-lg bg-secondary/50">
+            <p className="text-lg font-bold text-foreground">
+              {Math.round(modules.reduce((acc, m) => acc + m.percentage, 0) / modules.length)}%
+            </p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wide">O'rtacha</p>
+          </div>
+          <div className="p-2 rounded-lg bg-secondary/50">
+            <p className="text-lg font-bold text-emerald-500">
+              {modules.filter((m) => m.trend === "up").length}
+            </p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wide">O'sish</p>
+          </div>
+          <div className="p-2 rounded-lg bg-secondary/50">
+            <p className="text-lg font-bold text-foreground">
+              {modules.reduce((acc, m) => acc + m.value, 0).toLocaleString()}
+            </p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Jami</p>
+          </div>
+        </div>
+
+        <button className="w-full mt-3 flex items-center justify-center gap-2 py-2 rounded-lg bg-primary/10 text-primary text-xs font-medium hover:bg-primary/20 transition-colors group">
+          <span>Batafsil hisobot</span>
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default ModulePerformancePanel;
