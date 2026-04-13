@@ -9,7 +9,7 @@ const Sidebar = () => {
     setExpanded((p) => ({ ...p, [key]: !p[key] }));
 
   return (
-    <aside className="w-[260px] min-h-screen flex-shrink-0 flex flex-col"
+    <aside className="w-[260px] h-screen sticky top-0 flex-shrink-0 flex flex-col"
       style={{ background: "hsl(225, 30%, 16%)" }}>
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b" style={{ borderColor: "hsl(225, 20%, 25%)" }}>
