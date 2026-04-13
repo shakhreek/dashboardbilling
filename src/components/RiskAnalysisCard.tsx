@@ -1,4 +1,4 @@
-import { Shield, AlertTriangle, CheckCircle, XCircle, ExternalLink, Activity } from "lucide-react";
+import { Shield, ExternalLink, Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -50,42 +50,35 @@ const riskData: RiskRow[] = [
   },
 ];
 
-const severityConfig: Record<Severity, { bg: string; ring: string; icon: React.ReactNode; label: string }> = {
+const severityStyles: Record<Severity, { dot: string; ring: string; valueCls: string; borderCls: string }> = {
   red: {
-    bg: "bg-red-500",
-    ring: "ring-red-500/30",
-    icon: <XCircle className="w-4 h-4 text-red-500" />,
-    label: "Yuqori xavf",
+    dot: "bg-red-500",
+    ring: "ring-red-500/20",
+    valueCls: "text-red-600 dark:text-red-400",
+    borderCls: "border-l-red-500",
   },
   yellow: {
-    bg: "bg-yellow-400",
-    ring: "ring-yellow-400/30",
-    icon: <AlertTriangle className="w-4 h-4 text-yellow-500" />,
-    label: "O'rtacha xavf",
+    dot: "bg-yellow-400",
+    ring: "ring-yellow-400/20",
+    valueCls: "text-yellow-600 dark:text-yellow-400",
+    borderCls: "border-l-yellow-400",
   },
   green: {
-    bg: "bg-emerald-500",
-    ring: "ring-emerald-500/30",
-    icon: <CheckCircle className="w-4 h-4 text-emerald-500" />,
-    label: "Normal",
+    dot: "bg-emerald-500",
+    ring: "ring-emerald-500/20",
+    valueCls: "text-emerald-600 dark:text-emerald-400",
+    borderCls: "border-l-emerald-500",
   },
-};
-
-const overallSeverity = (rows: RiskRow[]): Severity => {
-  if (rows.some((r) => r.severity === "red")) return "red";
-  if (rows.some((r) => r.severity === "yellow")) return "yellow";
-  return "green";
 };
 
 const RiskAnalysisCard = () => {
-  const overall = overallSeverity(riskData);
-  const overallCfg = severityConfig[overall];
   const redCount = riskData.filter((r) => r.severity === "red").length;
   const yellowCount = riskData.filter((r) => r.severity === "yellow").length;
+  const greenCount = riskData.filter((r) => r.severity === "green").length;
 
   return (
     <Card className="card-hover overflow-hidden">
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500/10 to-orange-500/10 flex items-center justify-center">
@@ -96,83 +89,56 @@ const RiskAnalysisCard = () => {
               <p className="text-xs text-muted-foreground mt-0.5">Billing tizimi holati</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${
-              overall === "red" ? "bg-red-500/10 text-red-600 dark:text-red-400" :
-              overall === "yellow" ? "bg-yellow-400/10 text-yellow-600 dark:text-yellow-400" :
-              "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-            }`}>
-              <span className={`w-2 h-2 rounded-full ${overallCfg.bg} animate-pulse`} />
-              {redCount > 0 ? `${redCount} xavfli` : yellowCount > 0 ? `${yellowCount} ogohlantirish` : "Hammasi yaxshi"}
-            </span>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500" /> {redCount} xavfli</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-yellow-400" /> {yellowCount} ogohlantirish</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> {greenCount} normal</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Activity className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">bugun, 09:30</span>
+            </div>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0 space-y-1">
-        {riskData.map((row, i) => {
-          const cfg = severityConfig[row.severity];
-          return (
-            <div
-              key={row.title}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
-            >
-              {/* Signal light */}
-              <div className="flex-shrink-0">
-                <div className={`w-3 h-3 rounded-full ${cfg.bg} ring-4 ${cfg.ring}`} />
-              </div>
-
-              {/* Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-foreground">{row.title}</span>
-                  <span className="hidden sm:inline text-xs text-muted-foreground">·</span>
-                  <span className="hidden sm:inline text-xs text-muted-foreground truncate">{row.metric}</span>
-                </div>
-              </div>
-
-              {/* Value */}
-              <div className="flex-shrink-0 text-right">
-                <span className={`text-sm font-bold tabular-nums ${
-                  row.severity === "red" ? "text-red-600 dark:text-red-400" :
-                  row.severity === "yellow" ? "text-yellow-600 dark:text-yellow-400" :
-                  "text-emerald-600 dark:text-emerald-400"
-                }`}>
-                  {row.value}
-                </span>
-              </div>
-
-              {/* Action */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex-shrink-0 h-7 px-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={() => window.open(row.reportPath, "_self")}
+      <CardContent className="pt-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          {riskData.map((row) => {
+            const style = severityStyles[row.severity];
+            return (
+              <div
+                key={row.title}
+                className={`relative rounded-lg border border-l-[3px] ${style.borderCls} bg-muted/30 p-4 flex flex-col justify-between gap-3 hover:bg-muted/60 transition-colors group`}
               >
-                <ExternalLink className="w-3 h-3 mr-1" />
-                Hisobot
-              </Button>
-            </div>
-          );
-        })}
-
-        {/* Footer summary */}
-        <div className="flex items-center justify-between pt-3 mt-2 border-t border-border">
-          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-            <Activity className="w-3.5 h-3.5" />
-            <span>Oxirgi yangilanish: bugun, 09:30</span>
-          </div>
-          <div className="flex gap-3">
-            {(["red", "yellow", "green"] as Severity[]).map((s) => {
-              const count = riskData.filter((r) => r.severity === s).length;
-              return (
-                <div key={s} className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <span className={`w-2 h-2 rounded-full ${severityConfig[s].bg}`} />
-                  {count}
+                {/* Signal + Title */}
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`w-2.5 h-2.5 rounded-full ${style.dot} ring-4 ${style.ring}`} />
+                    <span className="text-sm font-semibold text-foreground leading-tight">{row.title}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-snug">{row.metric}</p>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Value */}
+                <div className={`text-2xl font-bold tabular-nums ${style.valueCls}`}>
+                  {row.value}
+                </div>
+
+                {/* Action */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full h-7 text-xs justify-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity"
+                  onClick={() => window.open(row.reportPath, "_self")}
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  Hisobot
+                </Button>
+              </div>
+            );
+          })}
         </div>
       </CardContent>
     </Card>

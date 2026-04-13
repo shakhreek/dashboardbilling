@@ -79,13 +79,12 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_1.2fr] gap-6 mb-6 items-start">
-            <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
-              <RiskAnalysisCard />
-            </div>
-            <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
-              <TopOTMCharts />
-            </div>
+          <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
+            <RiskAnalysisCard />
+          </div>
+
+          <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
+            <TopOTMCharts />
           </div>
         </main>
       </div>
