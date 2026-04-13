@@ -135,10 +135,10 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
           <div className="flex items-start justify-between mb-5">
             <div className="flex items-center gap-3">
               <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                style={{ backgroundColor: "hsl(225, 30%, 22%)" }}
+                className="w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 border-2"
+                style={{ borderColor: data.color, backgroundColor: "transparent" }}
               >
-                <Icon className="w-5 h-5" style={{ color: "hsl(220, 20%, 90%)" }} />
+                <Icon className="w-5 h-5" style={{ color: data.color }} />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground text-sm">{data.title}</h3>
