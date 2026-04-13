@@ -1,4 +1,5 @@
 import { Progress } from "@/components/ui/progress";
+import UnreviewedApplications from "@/components/UnreviewedApplications";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { FileText, CheckCircle, AlertTriangle, TrendingUp } from "lucide-react";
 
@@ -81,6 +82,8 @@ const KontraktDetails = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
+
+      <UnreviewedApplications />
     </div>
   );
 };

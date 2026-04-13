@@ -1,4 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import UnreviewedApplications from "@/components/UnreviewedApplications";
 import { FileText, CheckCircle, AlertTriangle, CreditCard } from "lucide-react";
 
 const monthlyData = [
@@ -62,6 +63,8 @@ const KreditDetails = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
+
+      <UnreviewedApplications />
     </div>
   );
 };

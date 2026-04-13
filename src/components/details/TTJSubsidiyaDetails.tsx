@@ -1,4 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import UnreviewedApplications from "@/components/UnreviewedApplications";
 
 const funnelData = [
   { stage: "Yangi arizalar", count: 2780, fill: "hsl(239, 84%, 67%)" },
@@ -57,6 +58,8 @@ const TTJSubsidiyaDetails = () => {
           );
         })}
       </div>
+
+      <UnreviewedApplications />
     </div>
   );
 };
