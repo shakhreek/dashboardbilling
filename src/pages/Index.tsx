@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
 import HeaderBar from "@/components/HeaderBar";
@@ -55,28 +55,32 @@ const Index = () => {
         <HeaderBar year={year} onYearChange={setYear} onMenuToggle={() => setSidebarOpen(true)} />
 
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
-          <div className="animate-fade-in">
+          {/* Unified grid: stat cards + chart + module cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6 animate-fade-in grid-flow-row-dense">
+            {/* HeroBanner renders: title (col-span-full) + 5 stat cards */}
             <HeroBanner cards={statCards} />
-          </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 mb-6 animate-fade-in stagger-2" style={{ animationDelay: "0.1s" }}>
-            <ContractChart />
-            <DonutGauge />
-          </div>
-
-          {/* Module Cards */}
-          <div className="mb-6">
-            <h3 className="text-base font-semibold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.15s" }}>Modullar statistikasi</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {moduleCards.map((mod, i) => (
-                <div key={mod.id} className="animate-fade-in opacity-0" style={{ animationDelay: `${0.2 + i * 0.05}s` }}>
-                  <ModuleCard
-                    data={mod}
-                    onViewDetails={() => navigate(`/module/${mod.slug}`)}
-                  />
-                </div>
-              ))}
+            {/* Chart area - fills cols 1-2, spans 2 rows on desktop */}
+            <div className="col-span-2 sm:col-span-3 lg:col-span-2 lg:row-span-2">
+              <div className="flex flex-col gap-3 h-full">
+                <ContractChart />
+                <DonutGauge />
+              </div>
             </div>
+
+            {/* Module cards - flow into cols 3-5 on desktop */}
+            {moduleCards.map((mod, i) => (
+              <div
+                key={mod.id}
+                className="col-span-1 animate-fade-in opacity-0"
+                style={{ animationDelay: `${0.3 + i * 0.05}s` }}
+              >
+                <ModuleCard
+                  data={mod}
+                  onViewDetails={() => navigate(`/module/${mod.slug}`)}
+                />
+              </div>
+            ))}
           </div>
 
           <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
