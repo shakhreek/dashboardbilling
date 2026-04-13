@@ -202,7 +202,7 @@ const RiskAnalysis = () => {
                   <Shield className="w-6 h-6 text-red-500" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">Risk Analysis · Health Check</h1>
+                  <h1 className="text-2xl font-bold text-foreground">Xavf tahlili · Salomatlik tekshiruvi</h1>
                   <p className="text-sm text-muted-foreground">Billing tizimi salomatligi — batafsil tahlil</p>
                 </div>
               </div>
