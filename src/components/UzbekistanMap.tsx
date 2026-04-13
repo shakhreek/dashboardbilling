@@ -113,7 +113,7 @@ const UzbekistanMap = ({ data, title = "Hududlar bo\'yicha taqsimot", valueLabel
 
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="flex-1 relative">
-          <svg viewBox="0 0 1000 652" className="w-full h-auto" style={{ maxHeight: 420 }}>
+          <svg viewBox="0 0 1000 652" className="w-full h-auto" style={{ maxHeight: 600 }}>
             {Object.entries(regionPaths).map(([id, path]) => {
               const rd = dataMap.get(id);
               const value = rd?.value ?? 0;
