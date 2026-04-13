@@ -50,23 +50,6 @@ const TTJSubsidiyaDetails = () => {
         })}
       </div>
 
-      {/* Funnel chart */}
-      <div className="rounded-xl p-5 border border-border bg-card">
-        <h4 className="text-sm font-semibold mb-4 text-foreground">Ariza holati</h4>
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={funnelData} layout="vertical" barSize={28} margin={{ left: 10, right: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11 }} />
-            <YAxis dataKey="stage" type="category" tick={{ fontSize: 11 }} width={140} />
-            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} />
-            <Bar dataKey="count" name="Soni" radius={[0, 6, 6, 0]}>
-              {funnelData.map((entry, i) => (
-                <Cell key={i} fill={entry.fill} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
 
       {/* Monthly line chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
