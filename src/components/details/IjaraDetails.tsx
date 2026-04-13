@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { FileText, Banknote, Users, CheckCircle } from "lucide-react";
 
 const stats = [
@@ -54,13 +54,13 @@ const IjaraDetails = () => {
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Oy kesimida subsidiya to'lovlari (mln)</h4>
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={monthlyData} barGap={4}>
+          <LineChart data={monthlyData}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
             <YAxis tick={{ fontSize: 11 }} />
             <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} formatter={(v: number) => [`${v} mln`, "To'langan"]} />
-            <Bar dataKey="tolangan" name="To'langan" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
-          </BarChart>
+            <Line type="monotone" dataKey="tolangan" name="To'langan" stroke="hsl(350, 70%, 55%)" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+          </LineChart>
         </ResponsiveContainer>
       </div>
 
