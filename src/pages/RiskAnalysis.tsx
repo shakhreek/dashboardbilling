@@ -35,6 +35,7 @@ interface RiskDetail {
   details: { label: string; value: string | number }[];
   trend: { month: string; v: number }[];
   trendLabel: string;
+}
 
 const riskDetails: RiskDetail[] = [
   {
