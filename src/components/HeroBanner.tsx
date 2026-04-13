@@ -11,11 +11,11 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const sparklineMap: Record<string, number[]> = {
-  "Korxonalar": [120, 135, 148, 155, 160, 171],
+  "OTM lar": [150, 155, 160, 165, 168, 171],
   "Shartnomalar": [650000, 780000, 890000, 950000, 1000000, 1022696],
   "To'lovlar soni": [1800000, 1950000, 2100000, 2250000, 2350000, 2413174],
   "To'lanmagan summa": [3200, 3100, 3050, 3000, 2960, 2924],
-  "Kirishlar soni": [12, 8, 15, 5, 3, 0],
+  "Talabalar soni": [42000, 43500, 45000, 46200, 47500, 48920],
 };
 
 const colorConfig: Record<string, { gradient: string; text: string; sparkFrom: string; sparkTo: string }> = {
