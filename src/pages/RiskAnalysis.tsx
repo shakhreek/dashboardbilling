@@ -1,10 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X } from "lucide-react";
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
 import { useCountUp } from "@/hooks/useCountUp";
+
+const hemisTtjStudents = [
+  { name: "Abdullayev Jasur", otm: "TDIU" },
+  { name: "Karimova Nilufar", otm: "TDIU" },
+  { name: "Rahimov Sardor", otm: "TATU" },
+  { name: "Xasanova Madina", otm: "SamDU" },
+  { name: "Toshmatov Bekzod", otm: "TDIU" },
+  { name: "Ergasheva Zulfiya", otm: "NamMQI" },
+  { name: "Mirzayev Otabek", otm: "TATU" },
+  { name: "Sultonova Dilfuza", otm: "BuxDU" },
+  { name: "Qodirov Azizbek", otm: "TDIU" },
+  { name: "Nazarova Shoira", otm: "SamDU" },
+  { name: "Yusupov Ulugbek", otm: "TDIU" },
+  { name: "Aliyeva Kamola", otm: "TATU" },
+];
 
 type Severity = "red" | "yellow" | "green";
 
@@ -126,6 +142,8 @@ const AnimatedRiskValue = ({ value, delay }: { value: string | number; delay: nu
 
 const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isHemisTtj = risk.id === "hemis-ttj";
   const cfg = severityConfig[risk.severity];
   const SeverityIcon = cfg.icon;
   const severityColor = cfg.color;
@@ -196,21 +214,75 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
 
           {/* Detail metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {risk.details.map((d, dIdx) => (
-              <div
-                key={d.label}
-                className="rounded-xl border border-border/60 p-3.5 transition-all duration-300 hover:bg-accent/50 hover:border-border cursor-default"
-              >
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: severityColor, opacity: 0.5 }} />
-                  <p className="text-[11px] text-muted-foreground">{d.label}</p>
+            {risk.details.map((d, dIdx) => {
+              const isClickable = isHemisTtj && d.label === "O'chirilgan talabalar";
+              return (
+                <div
+                  key={d.label}
+                  className={`rounded-xl border border-border/60 p-3.5 transition-all duration-300 hover:bg-accent/50 hover:border-border ${isClickable ? 'cursor-pointer ring-1 ring-transparent hover:ring-red-500/30' : 'cursor-default'}`}
+                  onClick={isClickable ? () => setIsExpanded(!isExpanded) : undefined}
+                >
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: severityColor, opacity: 0.5 }} />
+                    <p className="text-[11px] text-muted-foreground">{d.label}</p>
+                    {isClickable && (
+                      <ChevronDown
+                        className="w-3 h-3 text-muted-foreground ml-auto transition-transform duration-300"
+                        style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                      />
+                    )}
+                  </div>
+                  <p className="text-lg font-bold text-foreground tabular-nums">
+                    <AnimatedRiskValue value={d.value} delay={400 + index * 150 + dIdx * 80} />
+                  </p>
                 </div>
-                <p className="text-lg font-bold text-foreground tabular-nums">
-                  <AnimatedRiskValue value={d.value} delay={400 + index * 150 + dIdx * 80} />
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
+          {/* Expandable table for HEMIS-TTJ */}
+          <AnimatePresence>
+            {isHemisTtj && isExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="mt-4 rounded-xl border border-border/60 overflow-hidden">
+                  <div className="max-h-52 overflow-y-auto">
+                    <table className="w-full text-sm">
+                      <thead className="sticky top-0 bg-muted/80 backdrop-blur-sm">
+                        <tr>
+                          <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">#</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">Talaba ismi</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">OTM nomi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {hemisTtjStudents.map((s, i) => (
+                          <tr key={i} className="border-t border-border/40 hover:bg-accent/30 transition-colors">
+                            <td className="px-4 py-2 text-xs text-muted-foreground">{i + 1}</td>
+                            <td className="px-4 py-2 text-foreground font-medium">{s.name}</td>
+                            <td className="px-4 py-2 text-muted-foreground">{s.otm}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="flex justify-end px-4 py-2 border-t border-border/40 bg-muted/30">
+                    <button
+                      onClick={() => setIsExpanded(false)}
+                      className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-lg hover:bg-accent/50"
+                    >
+                      Yopish
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
