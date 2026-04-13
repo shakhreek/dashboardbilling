@@ -20,7 +20,17 @@ const Index = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-background relative">
+      {/* Background image */}
+      <div
+        className="fixed inset-0 z-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: `url(${dashboardBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       <div className="hidden lg:block">
         <Sidebar />
       </div>
