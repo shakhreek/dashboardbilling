@@ -6,7 +6,6 @@ import dashboardBg from "@/assets/dashboard-bg.jpg";
 import HeaderBar from "@/components/HeaderBar";
 import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
-import DonutGauge from "@/components/DonutGauge";
 import ModuleCard, { moduleCards } from "@/components/ModuleCard";
 import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
