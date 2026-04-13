@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import KontraktDetails from "@/components/details/KontraktDetails";
@@ -25,6 +25,10 @@ const ModuleDetail = () => {
   const navigate = useNavigate();
   const [year, setYear] = useState("2025-2026");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [moduleId]);
 
   const moduleInfo = moduleId ? modulesMap[moduleId] : null;
   const Details = moduleInfo?.component;
