@@ -108,6 +108,7 @@ export const moduleCards: ModuleCardData[] = [
 interface Props {
   data: ModuleCardData;
   onViewDetails: () => void;
+  compact?: boolean;
 }
 
 const AnimatedMetric = ({ value, delay }: { value: string; delay: number }) => {
@@ -115,9 +116,38 @@ const AnimatedMetric = ({ value, delay }: { value: string; delay: number }) => {
   return <>{animated}</>;
 };
 
-const ModuleCard = ({ data, onViewDetails }: Props) => {
+const ModuleCard = ({ data, onViewDetails, compact = false }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const Icon = data.icon;
+
+  if (compact) {
+    return (
+      <div
+        className="relative group cursor-pointer"
+        onClick={onViewDetails}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="relative bg-card rounded-lg border border-border p-3 transition-all duration-300 hover:shadow-md hover:border-primary/30">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center"
+              style={{ backgroundColor: data.lightColor }}
+            >
+              <Icon className="w-4 h-4" style={{ color: data.color }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-medium text-foreground truncate">{data.title}</h4>
+              <p className="text-xs text-muted-foreground">
+                <AnimatedMetric value={data.mainValue} delay={200} /> {data.mainLabel}
+              </p>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
