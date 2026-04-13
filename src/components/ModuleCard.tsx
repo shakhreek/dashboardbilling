@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { FileText, CreditCard, Building2, Award, Home, Landmark, TrendingUp, TrendingDown, ArrowUpRight, Sparkles } from "lucide-react";
+import { FileText, CreditCard, Building2, Award, Home, Landmark, TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCountUp } from "@/hooks/useCountUp";
+import { AreaChart, Area, ResponsiveContainer } from "recharts";
 
 export interface ModuleCardData {
   id: string;
@@ -13,18 +14,20 @@ export interface ModuleCardData {
   metrics: { label: string; value: string; trend?: "up" | "down"; trendValue?: string }[];
   mainValue: string;
   mainLabel: string;
+  sparkline?: number[];
 }
 
 export const moduleCards: ModuleCardData[] = [
   {
     id: "To'lov kontrakt",
     slug: "tolov-kontrakt",
-    title: "Kontrakt",
+    title: "Kontrakt to'lovlari",
     icon: FileText,
     color: "hsl(217, 91%, 60%)",
     lightColor: "hsl(217, 91%, 95%)",
     mainValue: "14 440",
     mainLabel: "mlrd so'm",
+    sparkline: [4200, 5800, 7100, 8900, 11200, 14440],
     metrics: [
       { label: "Arizalar soni", value: "12 450", trend: "up", trendValue: "+3.2%" },
       { label: "Tasdiqlangan", value: "11 230" },
@@ -34,12 +37,13 @@ export const moduleCards: ModuleCardData[] = [
   {
     id: "Kredit modul",
     slug: "kredit-modul",
-    title: "Kredit modul",
+    title: "Kredit moduli",
     icon: CreditCard,
     color: "hsl(270, 70%, 55%)",
     lightColor: "hsl(270, 70%, 95%)",
     mainValue: "3 210",
     mainLabel: "mlrd so'm",
+    sparkline: [1200, 1800, 2100, 2500, 2900, 3210],
     metrics: [
       { label: "Arizalar soni", value: "142 850", trend: "up", trendValue: "+5.1%" },
       { label: "Shartnomalar", value: "128 740" },
@@ -49,12 +53,13 @@ export const moduleCards: ModuleCardData[] = [
   {
     id: "TTJ",
     slug: "ttj",
-    title: "TTJ",
+    title: "Talabalar turar joyi",
     icon: Building2,
     color: "hsl(142, 71%, 45%)",
     lightColor: "hsl(142, 71%, 95%)",
     mainValue: "4 520",
     mainLabel: "talaba",
+    sparkline: [2100, 2800, 3200, 3700, 4100, 4520],
     metrics: [
       { label: "Arizalar soni", value: "5 670" },
       { label: "Shartnomalar", value: "4 890" },
@@ -70,6 +75,7 @@ export const moduleCards: ModuleCardData[] = [
     lightColor: "hsl(45, 90%, 95%)",
     mainValue: "2 340",
     mainLabel: "talaba",
+    sparkline: [900, 1200, 1500, 1800, 2100, 2340],
     metrics: [
       { label: "Oluvchilar", value: "2 340", trend: "up", trendValue: "+4.5%" },
       { label: "Jami summa", value: "3 600 mlrd" },
@@ -84,6 +90,7 @@ export const moduleCards: ModuleCardData[] = [
     lightColor: "hsl(350, 70%, 95%)",
     mainValue: "18 900",
     mainLabel: "ariza",
+    sparkline: [8000, 10500, 13000, 15200, 17100, 18900],
     metrics: [
       { label: "Jami summa", value: "2 100 mlrd" },
       { label: "Oluvchilar", value: "14 500", trend: "up", trendValue: "+6.3%" },
@@ -98,6 +105,7 @@ export const moduleCards: ModuleCardData[] = [
     lightColor: "hsl(239, 84%, 95%)",
     mainValue: "27 800",
     mainLabel: "ariza",
+    sparkline: [12000, 16000, 19500, 22800, 25400, 27800],
     metrics: [
       { label: "Jami summa", value: "4 500 mlrd" },
       { label: "Oluvchilar", value: "23 400", trend: "up", trendValue: "+7.1%" },
@@ -105,19 +113,21 @@ export const moduleCards: ModuleCardData[] = [
   },
 ];
 
-interface Props {
-  data: ModuleCardData;
-  onViewDetails: () => void;
-}
-
 const AnimatedMetric = ({ value, delay }: { value: string; delay: number }) => {
   const animated = useCountUp(value, 1200, delay);
   return <>{animated}</>;
 };
 
+interface Props {
+  data: ModuleCardData;
+  onViewDetails: () => void;
+}
+
 const ModuleCard = ({ data, onViewDetails }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const Icon = data.icon;
+
+  const sparkData = (data.sparkline || []).map((v, i) => ({ v, i }));
 
   return (
     <div
@@ -126,56 +136,101 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Glow effect on hover */}
+      {/* Glow effect */}
       <div
-        className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
-        style={{ background: data.color, opacity: isHovered ? 0.15 : 0 }}
+        className="absolute -inset-1.5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl"
+        style={{ background: data.color, opacity: isHovered ? 0.12 : 0 }}
       />
 
-      <div className="relative bg-card rounded-xl border border-border overflow-hidden transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02] group-hover:border-transparent">
-        {/* Top gradient bar */}
-        <div className="h-1" style={{ background: `linear-gradient(90deg, ${data.color}, ${data.color}80)` }} />
+      <div className="relative bg-card rounded-2xl border border-border overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:scale-[1.02] group-hover:border-transparent">
+        {/* Background sparkline chart */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity duration-500 pointer-events-none">
+          {sparkData.length > 0 && (
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={sparkData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id={`grad-${data.id}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={data.color} stopOpacity={1} />
+                    <stop offset="100%" stopColor={data.color} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area type="monotone" dataKey="v" stroke={data.color} fill={`url(#grad-${data.id})`} strokeWidth={2} />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
+        </div>
 
-        <div className="p-5">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-5">
+        {/* Top accent bar */}
+        <div
+          className="h-1 transition-all duration-300 group-hover:h-1.5"
+          style={{ background: `linear-gradient(90deg, ${data.color}, ${data.color}60)` }}
+        />
+
+        <div className="relative p-5">
+          {/* Header row */}
+          <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
               <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 border-2"
-                style={{ borderColor: "hsl(225, 30%, 25%)", backgroundColor: "transparent" }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
+                style={{
+                  background: `linear-gradient(135deg, ${data.color}18, ${data.color}08)`,
+                  border: `1.5px solid ${data.color}30`,
+                }}
               >
-                <Icon className="w-5 h-5" style={{ color: "hsl(225, 30%, 25%)" }} />
+                <Icon className="w-5.5 h-5.5" style={{ color: data.color }} />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground text-sm">{data.title}</h3>
-                <div className="flex items-baseline gap-1.5 mt-0.5">
-                  <span className="text-xl font-bold text-foreground"><AnimatedMetric value={data.mainValue} delay={200} /></span>
-                  <span className="text-xs text-muted-foreground">{data.mainLabel}</span>
-                </div>
+                <h3 className="font-semibold text-foreground text-sm tracking-tight">{data.title}</h3>
+                <p className="text-[11px] text-muted-foreground mt-0.5">Joriy o'quv yili</p>
               </div>
             </div>
+
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 border-2"
-              style={{ borderColor: "hsl(225, 30%, 25%)", backgroundColor: "transparent" }}
+              className="w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0"
+              style={{
+                background: `${data.color}15`,
+                border: `1px solid ${data.color}30`,
+              }}
             >
-              <ArrowUpRight className="w-4 h-4" style={{ color: "hsl(225, 30%, 25%)" }} />
+              <ArrowUpRight className="w-3.5 h-3.5" style={{ color: data.color }} />
             </div>
           </div>
 
-          {/* Metrics */}
-          <div className="space-y-2.5">
+          {/* Main value */}
+          <div className="mb-5 pl-1">
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-bold text-foreground tracking-tight">
+                <AnimatedMetric value={data.mainValue} delay={200} />
+              </span>
+              <span className="text-sm text-muted-foreground font-medium">{data.mainLabel}</span>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="h-px bg-border/60 mb-4" />
+
+          {/* Metrics list */}
+          <div className="space-y-2">
             {data.metrics.map((m, idx) => (
               <div
                 key={m.label}
-                className="flex items-center justify-between py-1.5 px-3 rounded-lg transition-colors duration-200 hover:bg-accent/50"
-                style={{
-                  animationDelay: `${idx * 50}ms`,
-                }}
+                className="flex items-center justify-between py-2 px-3 rounded-xl transition-all duration-200 hover:bg-accent/60"
               >
-                <span className="text-xs text-muted-foreground">{m.label}</span>
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-semibold tabular-nums ${m.value === "0" || m.value === "0mlrd" || m.value === "0 mlrd" ? "text-muted-foreground/50" : "text-foreground"}`}>
-                    {m.value === "0" || m.value === "0mlrd" || m.value === "0 mlrd" ? (
+                  <div
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: data.color, opacity: 0.6 }}
+                  />
+                  <span className="text-xs text-muted-foreground">{m.label}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={cn(
+                    "text-sm font-semibold tabular-nums",
+                    (m.value === "0" || m.value === "0mlrd" || m.value === "0 mlrd")
+                      ? "text-muted-foreground/50"
+                      : "text-foreground"
+                  )}>
+                    {(m.value === "0" || m.value === "0mlrd" || m.value === "0 mlrd") ? (
                       <span className="text-muted-foreground/40">—</span>
                     ) : (
                       <AnimatedMetric value={m.value} delay={300 + idx * 100} />
@@ -184,9 +239,9 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
                   {m.trend && (
                     <span
                       className={cn(
-                        "flex items-center gap-0.5 text-[11px] font-medium px-1.5 py-0.5 rounded-full",
+                        "flex items-center gap-0.5 text-[11px] font-medium px-2 py-0.5 rounded-full",
                         m.trend === "up"
-                          ? "bg-emerald-500/10 text-emerald-600"
+                          ? "bg-emerald-500/10 text-emerald-500"
                           : "bg-rose-500/10 text-rose-500"
                       )}
                     >
@@ -199,15 +254,21 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
             ))}
           </div>
 
-          {/* Footer button */}
+          {/* Footer */}
           <button
-            className="w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-border text-muted-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary"
+            className="w-full mt-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 flex items-center justify-center gap-2 border text-muted-foreground hover:text-primary-foreground hover:border-transparent"
+            style={{
+              borderColor: `${data.color}25`,
+              background: isHovered ? undefined : 'transparent',
+              ...(isHovered ? { background: data.color, color: 'white', borderColor: 'transparent' } : {}),
+            }}
             onClick={(e) => {
               e.stopPropagation();
               onViewDetails();
             }}
           >
-            Batafsil ko'rish
+            <span>Batafsil ko'rish</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
