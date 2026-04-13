@@ -55,28 +55,40 @@ const Index = () => {
         <HeaderBar year={year} onYearChange={setYear} onMenuToggle={() => setSidebarOpen(true)} />
 
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
-          <div className="animate-fade-in">
-            <HeroBanner cards={statCards} />
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 mb-6 animate-fade-in stagger-2" style={{ animationDelay: "0.1s" }}>
-            <ContractChart />
-            <DonutGauge />
-          </div>
-
-          {/* Module Cards */}
-          <div className="mb-6">
-            <h3 className="text-base font-semibold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.15s" }}>Modullar statistikasi</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {moduleCards.map((mod, i) => (
-                <div key={mod.id} className="animate-fade-in opacity-0" style={{ animationDelay: `${0.2 + i * 0.05}s` }}>
-                  <ModuleCard
-                    data={mod}
-                    onViewDetails={() => navigate(`/module/${mod.slug}`)}
-                  />
-                </div>
-              ))}
+          {/* Top Section: 4 stat cards + (5th card with modules) */}
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 mb-6">
+            {/* Left: 4 stat cards */}
+            <div className="animate-fade-in">
+              <HeroBanner cards={statCards.slice(0, 4)} showTitle={true} />
             </div>
+
+            {/* Right: 5th stat card + Module Cards */}
+            <div className="space-y-4">
+              <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
+                <HeroBanner cards={statCards.slice(4, 5)} showTitle={false} singleCard={true} />
+              </div>
+
+              {/* Module Cards */}
+              <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.2s" }}>
+                <h3 className="text-sm font-semibold text-foreground mb-3">Modullar tahlili</h3>
+                <div className="space-y-2">
+                  {moduleCards.map((mod, i) => (
+                    <div key={mod.id} className="animate-fade-in opacity-0" style={{ animationDelay: `${0.25 + i * 0.05}s` }}>
+                      <ModuleCard
+                        data={mod}
+                        compact={true}
+                        onViewDetails={() => navigate(`/module/${mod.slug}`)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contract Chart */}
+          <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.4s" }}>
+            <ContractChart />
           </div>
 
           <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
