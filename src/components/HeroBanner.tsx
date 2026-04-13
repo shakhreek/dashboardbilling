@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useCountUp } from "@/hooks/useCountUp";
 import {
   BarChart3, FileText, HandCoins, CircleDollarSign, CheckCircle,
-  TrendingUp, TrendingDown, ArrowUpRight, Users, Zap
+  TrendingUp, TrendingDown, ArrowUpRight, Users, Zap, GraduationCap
 } from "lucide-react";
-import { AreaChart, Area, ResponsiveContainer } from "recharts";
 import type { StatCard as StatCardType } from "@/data/dashboardData";
 
 const iconMap: Record<string, React.ElementType> = {
-  BarChart3, FileText, HandCoins, CircleDollarSign, CheckCircle,
+  BarChart3, FileText, HandCoins, CircleDollarSign, CheckCircle, GraduationCap,
 };
 
 const sparklineMap: Record<string, number[]> = {
