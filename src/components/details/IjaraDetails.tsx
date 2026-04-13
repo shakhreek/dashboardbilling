@@ -1,4 +1,5 @@
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import UnreviewedApplications from "@/components/UnreviewedApplications";
 import { FileText, Banknote, Users, CheckCircle } from "lucide-react";
 
 const stats = [
@@ -77,6 +78,8 @@ const IjaraDetails = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+      <UnreviewedApplications />
     </div>
   );
 };
