@@ -57,7 +57,7 @@ const HeaderBar = ({ year, onYearChange, onMenuToggle }: HeaderBarProps) => {
           <p className="text-sm font-semibold text-foreground">
             Tashkilot : TOSHKENT DAVLAT YURIDIK UNIVERSITETI
           </p>
-          <p className="text-xs text-muted-foreground">Foydalanuvchi : SH.HA.GULMUXAMMEDOV</p>
+          <p className="text-xs text-muted-foreground">Foydalanuvchi : SH.HA.GULMUXAMMEDOV{currentPage && <span className="ml-2 text-primary font-medium">· {currentPage}</span>}</p>
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-3">
