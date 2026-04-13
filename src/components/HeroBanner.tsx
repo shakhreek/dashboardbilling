@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCountUp } from "@/hooks/useCountUp";
 import {
   BarChart3, FileText, HandCoins, CircleDollarSign, CheckCircle,
   TrendingUp, TrendingDown, ArrowUpRight, Users, Zap
@@ -62,6 +63,11 @@ const trendData: Record<string, { value: string; up: boolean }> = {
 interface Props {
   cards: StatCardType[];
 }
+
+const AnimatedValue = ({ value, delay }: { value: string; delay: number }) => {
+  const animated = useCountUp(value, 1500, delay);
+  return <p className="text-xl font-bold text-foreground leading-tight">{animated}</p>;
+};
 
 const HeroBanner = ({ cards }: Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -139,7 +145,7 @@ const HeroBanner = ({ cards }: Props) => {
                     </span>
                   )}
                 </div>
-                <p className="text-xl font-bold text-foreground leading-tight">{card.value}</p>
+                <AnimatedValue value={card.value} delay={index * 100} />
                 <p className="text-xs text-muted-foreground mt-0.5">{card.label}</p>
               </div>
             </div>
