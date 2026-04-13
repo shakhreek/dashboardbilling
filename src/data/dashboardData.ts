@@ -1,87 +1,70 @@
-export interface ModuleMetric {
+export interface StatCard {
   label: string;
-  value: string | number;
-}
-
-export interface ModuleData {
-  id: string;
-  title: string;
+  value: string;
   icon: string;
-  theme: string;
-  metrics: ModuleMetric[];
+  color: string;
 }
 
-export const modules: ModuleData[] = [
+export interface ModuleRow {
+  name: string;
+  icon: string;
+  contracts: number;
+  paidSum: string;
+  debt: string;
+}
+
+export const statCards: StatCard[] = [
+  { label: "Korxonalar", value: "171", icon: "BarChart3", color: "purple" },
+  { label: "Shartnomalar", value: "1 022 696", icon: "FileText", color: "blue" },
+  { label: "To'lovlar soni", value: "2 413 174", icon: "HandCoins", color: "rose" },
+  { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan" },
+  { label: "Kirishlar soni", value: "0", icon: "CheckCircle", color: "green" },
+];
+
+export const chartData = [
+  { month: "Sentabr", shartnoma: 358620, kredit: 1200, yotoqxona: 800 },
+  { month: "Oktabr", shartnoma: 286696, kredit: 2100, yotoqxona: 1500 },
+  { month: "Noyabr", shartnoma: 95000, kredit: 5200, yotoqxona: 3200 },
+  { month: "Dekabr", shartnoma: 42000, kredit: 8400, yotoqxona: 5800 },
+  { month: "Yanvar", shartnoma: 28000, kredit: 15200, yotoqxona: 12000 },
+  { month: "Fevral", shartnoma: 18000, kredit: 35600, yotoqxona: 25000 },
+  { month: "Mart", shartnoma: 12000, kredit: 52000, yotoqxona: 38000 },
+  { month: "Aprel", shartnoma: 8000, kredit: 58000, yotoqxona: 42000 },
+  { month: "May", shartnoma: 5000, kredit: 62000, yotoqxona: 48000 },
+  { month: "Iyun", shartnoma: 3500, kredit: 64000, yotoqxona: 52000 },
+  { month: "Iyul", shartnoma: 72000, kredit: 68000, yotoqxona: 55000 },
+  { month: "Avgust", shartnoma: 45000, kredit: 70000, yotoqxona: 58000 },
+];
+
+export const moduleRows: ModuleRow[] = [
+  { name: "To'lov kontrakt", icon: "📝", contracts: 787674, paidSum: "14 440 mlrd", debt: "7 187 mlrd" },
+  { name: "Kredit modul", icon: "💳", contracts: 142850, paidSum: "3 210 mlrd", debt: "1 540 mlrd" },
+  { name: "TTJ", icon: "🏠", contracts: 48920, paidSum: "890 mlrd", debt: "320 mlrd" },
+  { name: "Stipendiya", icon: "🎓", contracts: 23400, paidSum: "3 600 mlrd", debt: "0" },
+  { name: "Ijara", icon: "🏢", contracts: 18900, paidSum: "2 100 mlrd", debt: "450 mlrd" },
+  { name: "TTJ Subsidiya", icon: "🏛️", contracts: 27800, paidSum: "4 500 mlrd", debt: "980 mlrd" },
+];
+
+export const sidebarSections = [
   {
-    id: "kontrakt",
-    title: "Kontrakt",
-    icon: "FileText",
-    theme: "blue",
-    metrics: [
-      { label: "Arizalar soni", value: 12450 },
-      { label: "Tasdiqlangan shartnomalar soni", value: 11230 },
-      { label: "Jami shartnoma summasi", value: "45.2 mlrd so'm" },
-      { label: "To'langan summa", value: "38.7 mlrd so'm" },
-    ],
+    title: "IJARA (VM-605)",
+    items: ["Ma'lumotlar", "Hujjatlar", "Hisobotlar"],
   },
   {
-    id: "kredit",
-    title: "Kredit modul",
-    icon: "CreditCard",
-    theme: "purple",
-    metrics: [
-      { label: "Arizalar soni", value: 3420 },
-      { label: "Shartnomalar soni", value: 2870 },
-      { label: "Shartnoma summasi", value: "12.8 mlrd so'm" },
-      { label: "To'lovlar", value: "9.4 mlrd so'm" },
-    ],
+    title: "TTJ SUBSIDIYA (VM-32)",
+    items: ["Ma'lumotlar", "Hujjatlar", "Hisobotlar"],
   },
   {
-    id: "ttj",
-    title: "TTJ",
-    icon: "Building2",
-    theme: "green",
-    metrics: [
-      { label: "Arizalar soni", value: 5670 },
-      { label: "Shartnomalar soni", value: 4890 },
-      { label: "Shartnoma summasi", value: "8.3 mlrd so'm" },
-      { label: "To'lovlar", value: "7.1 mlrd so'm" },
-      { label: "TTJda turgan talabalar soni", value: 4520 },
-    ],
+    title: "MAGISTR QIZLAR (VM-447)",
+    items: ["Hujjatlar"],
   },
   {
-    id: "stipendiya",
-    title: "Stipendiya",
-    icon: "Award",
-    theme: "amber",
-    metrics: [
-      { label: "Stipendiya oluvchilar soni", value: 2340 },
-      { label: "Jami to'lanadigan summa", value: "3.6 mlrd so'm" },
-    ],
-  },
-  {
-    id: "ijara",
-    title: "Ijara",
-    icon: "Home",
-    theme: "rose",
-    metrics: [
-      { label: "Arizalar soni", value: 1890 },
-      { label: "Jami to'lanadigan summa", value: "2.1 mlrd so'm" },
-      { label: "Ijara subsidiyasi oladigan talabalar soni", value: 1450 },
-    ],
-  },
-  {
-    id: "ttj-subsidiya",
-    title: "TTJ Subsidiya",
-    icon: "Landmark",
-    theme: "indigo",
-    metrics: [
-      { label: "Arizalar soni", value: 2780 },
-      { label: "To'lanadigan summa", value: "4.5 mlrd so'm" },
-      { label: "Subsidiya oluvchilar soni", value: 2340 },
-    ],
+    title: "MODDIY QO'LLAB-QUVVATLASH (VM-585)",
+    items: ["OTM ma'sullari", "Yoriqnomalar", "Texnik qo'llab quvvatlash"],
   },
 ];
+
+export const academicYears = ["2025-2026", "2024-2025", "2023-2024"];
 
 export const kontraktChartData = [
   { faculty: "Iqtisodiyot", contracts: 2340 },
@@ -124,19 +107,4 @@ export const ttjSubsidiyaFunnelData = [
   { stage: "Yangi arizalar", count: 2780 },
   { stage: "Tasdiqlangan", count: 2340 },
   { stage: "To'langan", count: 2100 },
-];
-
-export const academicYears = [
-  "2024-2025",
-  "2023-2024",
-  "2022-2023",
-];
-
-export const faculties = [
-  "Barcha fakultetlar",
-  "Iqtisodiyot",
-  "Huquq",
-  "Tibbiyot",
-  "Pedagogika",
-  "IT va dasturlash",
 ];
