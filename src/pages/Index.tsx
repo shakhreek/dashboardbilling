@@ -4,7 +4,7 @@ import HeaderBar from "@/components/HeaderBar";
 import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
 import DonutGauge from "@/components/DonutGauge";
-import ModulesTable from "@/components/ModulesTable";
+import ModuleCard, { moduleCards } from "@/components/ModuleCard";
 import ModuleDetailSheet from "@/components/ModuleDetailSheet";
 import { statCards } from "@/data/dashboardData";
 
@@ -13,8 +13,8 @@ const Index = () => {
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const handleModuleClick = (moduleName: string) => {
-    setSelectedModule(moduleName);
+  const handleModuleClick = (moduleId: string) => {
+    setSelectedModule(moduleId);
     setSheetOpen(true);
   };
 
@@ -35,7 +35,19 @@ const Index = () => {
             <DonutGauge />
           </div>
 
-          <ModulesTable onModuleClick={handleModuleClick} />
+          {/* Module Cards */}
+          <div className="mb-6">
+            <h3 className="text-base font-semibold text-foreground mb-4">Modullar statistikasi</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {moduleCards.map((mod) => (
+                <ModuleCard
+                  key={mod.id}
+                  data={mod}
+                  onViewDetails={() => handleModuleClick(mod.id)}
+                />
+              ))}
+            </div>
+          </div>
         </main>
       </div>
 
