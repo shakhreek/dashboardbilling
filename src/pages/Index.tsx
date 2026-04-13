@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import dashboardBg from "@/assets/dashboard-bg.jpg";
 import HeaderBar from "@/components/HeaderBar";
 import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
