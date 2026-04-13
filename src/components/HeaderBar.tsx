@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Menu, X, User, Calendar } from "lucide-react";
+import { Menu, User, Calendar, Moon, Sun } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +10,23 @@ interface HeaderBarProps {
 }
 
 const HeaderBar = ({ year, onYearChange, onMenuToggle }: HeaderBarProps) => {
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
+
+  const toggleDark = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    }
+  }, []);
+
   return (
     <header className="flex items-center justify-between px-4 sm:px-6 py-3 bg-card border-b border-border backdrop-blur-sm bg-opacity-95">
       <div className="flex items-center gap-3">
@@ -34,6 +51,13 @@ const HeaderBar = ({ year, onYearChange, onMenuToggle }: HeaderBarProps) => {
           <Calendar className="w-3.5 h-3.5" />
           OTMni tanlash
         </Button>
+        <button
+          onClick={toggleDark}
+          className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-accent transition-colors"
+          title={isDark ? "Yorug' rejim" : "Qorong'i rejim"}
+        >
+          {isDark ? <Sun className="w-4 h-4 text-foreground" /> : <Moon className="w-4 h-4 text-foreground" />}
+        </button>
         <span className="text-sm text-muted-foreground hidden md:inline">O'zbek tili</span>
         <Select value={year} onValueChange={onYearChange}>
           <SelectTrigger className="w-[130px] sm:w-[160px] h-8 text-xs">
