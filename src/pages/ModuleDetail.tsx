@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Menu, X } from "lucide-react";
+import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import KontraktDetails from "@/components/details/KontraktDetails";
@@ -9,7 +10,6 @@ import StipendiyaDetails from "@/components/details/StipendiyaDetails";
 import IjaraDetails from "@/components/details/IjaraDetails";
 import TTJSubsidiyaDetails from "@/components/details/TTJSubsidiyaDetails";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
-import { useState } from "react";
 
 const modulesMap: Record<string, { component: React.ComponentType; title: string; description: string; color: string }> = {
   "tolov-kontrakt": { component: KontraktDetails, title: "Kontrakt", description: "Shartnomalar va to'lovlar statistikasi", color: "hsl(217, 91%, 60%)" },
@@ -24,6 +24,7 @@ const ModuleDetail = () => {
   const { moduleId } = useParams<{ moduleId: string }>();
   const navigate = useNavigate();
   const [year, setYear] = useState("2025-2026");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const moduleInfo = moduleId ? modulesMap[moduleId] : null;
   const Details = moduleInfo?.component;
@@ -52,16 +53,33 @@ const ModuleDetail = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
+
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden" onClick={() => setSidebarOpen(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="relative w-[260px] h-full animate-slide-in-left" onClick={(e) => e.stopPropagation()}>
+            <Sidebar />
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="absolute top-4 right-[-40px] w-8 h-8 rounded-full bg-card flex items-center justify-center shadow-lg"
+            >
+              <X className="w-4 h-4 text-foreground" />
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="hidden lg:block relative z-10">
         <Sidebar />
       </div>
 
       <div className="flex-1 flex flex-col min-w-0 relative z-10">
-        <HeaderBar year={year} onYearChange={setYear} />
+        <HeaderBar year={year} onYearChange={setYear} onMenuToggle={() => setSidebarOpen(true)} />
 
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
           {/* Back button & Header */}
-          <div className="mb-6">
+          <div className="mb-6 animate-fade-in">
             <button
               onClick={() => navigate("/")}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -72,7 +90,7 @@ const ModuleDetail = () => {
 
             <div className="flex items-center gap-3">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-105"
                 style={{ backgroundColor: `${moduleInfo.color}20` }}
               >
                 <div className="w-6 h-6 rounded-full" style={{ backgroundColor: moduleInfo.color }} />
@@ -85,7 +103,7 @@ const ModuleDetail = () => {
           </div>
 
           {/* Module content */}
-          <div className="w-full">
+          <div className="w-full animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
             <Details />
           </div>
         </main>
