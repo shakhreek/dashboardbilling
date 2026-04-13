@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown } from "lucide-react";
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown, TrendingUp, TrendingDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
@@ -32,6 +33,7 @@ interface RiskDetail {
   severity: Severity;
   description: string;
   details: { label: string; value: string | number }[];
+  trend: { day: string; v: number }[];
 }
 
 const riskDetails: RiskDetail[] = [
@@ -47,6 +49,10 @@ const riskDetails: RiskDetail[] = [
       { label: "Nomuvofiqliklar soni", value: "1 247" },
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
     ],
+    trend: [
+      { day: "Du", v: 1120 }, { day: "Se", v: 1145 }, { day: "Cho", v: 1180 },
+      { day: "Pa", v: 1160 }, { day: "Ju", v: 1210 }, { day: "Sh", v: 1230 }, { day: "Ya", v: 1247 },
+    ],
   },
   {
     id: "hemis-ttj",
@@ -59,6 +65,10 @@ const riskDetails: RiskDetail[] = [
       { label: "Faol TTJ shartnomalari", value: "4 520" },
       { label: "O'chirilgan talabalar", value: 86 },
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
+    ],
+    trend: [
+      { day: "Du", v: 72 }, { day: "Se", v: 74 }, { day: "Cho", v: 78 },
+      { day: "Pa", v: 80 }, { day: "Ju", v: 82 }, { day: "Sh", v: 84 }, { day: "Ya", v: 86 },
     ],
   },
   {
@@ -74,6 +84,10 @@ const riskDetails: RiskDetail[] = [
       { label: "Xatolik foizi", value: "0.003%" },
       { label: "Farq summasi", value: "156 mln so'm" },
     ],
+    trend: [
+      { day: "Du", v: 28 }, { day: "Se", v: 26 }, { day: "Cho", v: 25 },
+      { day: "Pa", v: 24 }, { day: "Ju", v: 24 }, { day: "Sh", v: 23 }, { day: "Ya", v: 23 },
+    ],
   },
   {
     id: "otm-debt-aging",
@@ -88,6 +102,10 @@ const riskDetails: RiskDetail[] = [
       { label: "180+ kun kechikkan", value: "1 890" },
       { label: "O'rtacha kechikish kuni", value: "142 kun" },
     ],
+    trend: [
+      { day: "Du", v: 11800 }, { day: "Se", v: 11950 }, { day: "Cho", v: 12050 },
+      { day: "Pa", v: 12100 }, { day: "Ju", v: 12200 }, { day: "Sh", v: 12300 }, { day: "Ya", v: 12340 },
+    ],
   },
   {
     id: "unpaid-contracts",
@@ -101,6 +119,10 @@ const riskDetails: RiskDetail[] = [
       { label: "To'lov qilinmagan shartnoma soni", value: "4 312" },
       { label: "To'lanmagan summa", value: "48.5 mlrd so'm" },
       { label: "O'rtacha shartnoma", value: "11.2 mln so'm" },
+    ],
+    trend: [
+      { day: "Du", v: 4450 }, { day: "Se", v: 4420 }, { day: "Cho", v: 4390 },
+      { day: "Pa", v: 4370 }, { day: "Ju", v: 4350 }, { day: "Sh", v: 4330 }, { day: "Ya", v: 4312 },
     ],
   },
 ];
