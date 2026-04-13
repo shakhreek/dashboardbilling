@@ -1,18 +1,9 @@
 import { useState } from "react";
 import {
-  RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
-  ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell
+  AreaChart, Area, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell
 } from "recharts";
-import { BarChart3, Activity, Layers } from "lucide-react";
-
-const radarData = [
-  { module: "Kontrakt", arizalar: 85, tolangan: 72, shartnoma: 90 },
-  { module: "Kredit", arizalar: 68, tolangan: 52, shartnoma: 78 },
-  { module: "TTJ", arizalar: 45, tolangan: 40, shartnoma: 55 },
-  { module: "Stipendiya", arizalar: 60, tolangan: 58, shartnoma: 62 },
-  { module: "Ijara", arizalar: 50, tolangan: 42, shartnoma: 48 },
-  { module: "Subsidiya", arizalar: 72, tolangan: 65, shartnoma: 70 },
-];
+import { BarChart3, TrendingUp, Activity } from "lucide-react";
+import { chartData } from "@/data/dashboardData";
 
 const comparisonData = [
   { name: "Kontrakt", current: 14440, previous: 12800, color: "hsl(217, 91%, 60%)" },
@@ -23,10 +14,10 @@ const comparisonData = [
   { name: "Subsidiya", current: 4500, previous: 3900, color: "hsl(239, 84%, 60%)" },
 ];
 
-type ViewMode = "radar" | "comparison";
+type ViewMode = "area" | "comparison";
 
 const ContractChart = () => {
-  const [view, setView] = useState<ViewMode>("radar");
+  const [view, setView] = useState<ViewMode>("area");
 
   return (
     <div className="bg-card rounded-xl border border-border p-5">
@@ -37,13 +28,13 @@ const ContractChart = () => {
         </div>
         <div className="flex gap-1 bg-secondary rounded-lg p-0.5">
           <button
-            onClick={() => setView("radar")}
+            onClick={() => setView("area")}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1 ${
-              view === "radar" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
+              view === "area" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
-            Radar
+            <TrendingUp className="w-3.5 h-3.5" />
+            Dinamika
           </button>
           <button
             onClick={() => setView("comparison")}
@@ -57,18 +48,49 @@ const ContractChart = () => {
         </div>
       </div>
 
-      {view === "radar" ? (
-        <ResponsiveContainer width="100%" height={320}>
-          <RadarChart data={radarData}>
-            <PolarGrid stroke="hsl(214, 32%, 91%)" />
-            <PolarAngleAxis dataKey="module" tick={{ fontSize: 11, fill: "hsl(215, 16%, 47%)" }} />
-            <PolarRadiusAxis tick={{ fontSize: 10 }} />
-            <Radar name="Arizalar" dataKey="arizalar" stroke="hsl(217, 91%, 60%)" fill="hsl(217, 91%, 60%)" fillOpacity={0.2} strokeWidth={2} />
-            <Radar name="To'langan" dataKey="tolangan" stroke="hsl(142, 71%, 45%)" fill="hsl(142, 71%, 45%)" fillOpacity={0.2} strokeWidth={2} />
-            <Radar name="Shartnoma" dataKey="shartnoma" stroke="hsl(270, 70%, 55%)" fill="hsl(270, 70%, 55%)" fillOpacity={0.15} strokeWidth={2} />
-            <Tooltip />
-          </RadarChart>
-        </ResponsiveContainer>
+      {view === "area" ? (
+        <>
+          <ResponsiveContainer width="100%" height={320}>
+            <AreaChart data={chartData}>
+              <defs>
+                <linearGradient id="gradShartnoma" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="gradKredit" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="gradTTJ" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
+              <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="hsl(215, 16%, 47%)" />
+              <YAxis tick={{ fontSize: 10 }} stroke="hsl(215, 16%, 47%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+              <Tooltip
+                formatter={(value: number) => value.toLocaleString()}
+                contentStyle={{ borderRadius: 8, border: "1px solid hsl(214, 32%, 91%)" }}
+              />
+              <Area type="monotone" dataKey="shartnoma" name="Shartnoma" stroke="hsl(217, 91%, 60%)" fill="url(#gradShartnoma)" strokeWidth={2} />
+              <Area type="monotone" dataKey="kredit" name="Kredit" stroke="hsl(270, 70%, 55%)" fill="url(#gradKredit)" strokeWidth={2} />
+              <Area type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="hsl(142, 71%, 45%)" fill="url(#gradTTJ)" strokeWidth={2} />
+            </AreaChart>
+          </ResponsiveContainer>
+          <div className="flex justify-center gap-5 mt-3">
+            {[
+              { label: "Shartnoma", color: "hsl(217, 91%, 60%)" },
+              { label: "Kredit", color: "hsl(270, 70%, 55%)" },
+              { label: "Yotoqxona", color: "hsl(142, 71%, 45%)" },
+            ].map((l) => (
+              <div key={l.label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: l.color }} />
+                {l.label}
+              </div>
+            ))}
+          </div>
+        </>
       ) : (
         <ResponsiveContainer width="100%" height={320}>
           <BarChart data={comparisonData} barGap={6}>
@@ -87,22 +109,6 @@ const ContractChart = () => {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      )}
-
-      {/* Legend for radar */}
-      {view === "radar" && (
-        <div className="flex justify-center gap-5 mt-3">
-          {[
-            { label: "Arizalar", color: "hsl(217, 91%, 60%)" },
-            { label: "To'langan", color: "hsl(142, 71%, 45%)" },
-            { label: "Shartnoma", color: "hsl(270, 70%, 55%)" },
-          ].map((l) => (
-            <div key={l.label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: l.color }} />
-              {l.label}
-            </div>
-          ))}
-        </div>
       )}
     </div>
   );
