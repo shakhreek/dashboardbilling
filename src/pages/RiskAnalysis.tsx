@@ -32,7 +32,7 @@ const riskDetails: RiskDetail[] = [
     severity: "red",
     description: "Shartnoma summalarida aniqlangan nomuvofiqliklar. OTMlar bo'yicha taqsimot summasi va hujjatlardagi summa o'rtasidagi farqlar.",
     details: [
-      { label: "Jami tekshirilgan shartnomalar", value: "45 320" },
+      { label: "Talabalar soni", value: "45 320" },
       { label: "Nomuvofiq shartnomalar", value: "1 247" },
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
       { label: "Umumiy farq summasi", value: "3.2 mlrd so'm" },
