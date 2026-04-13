@@ -9,16 +9,16 @@ const stats = [
 ];
 
 const monthlyData = [
-  { month: "Sen", tolangan: 230, qarzdorlik: 40 },
-  { month: "Okt", tolangan: 215, qarzdorlik: 35 },
-  { month: "Noy", tolangan: 205, qarzdorlik: 45 },
-  { month: "Dek", tolangan: 225, qarzdorlik: 30 },
-  { month: "Yan", tolangan: 180, qarzdorlik: 50 },
-  { month: "Fev", tolangan: 195, qarzdorlik: 38 },
-  { month: "Mar", tolangan: 210, qarzdorlik: 42 },
-  { month: "Apr", tolangan: 175, qarzdorlik: 55 },
-  { month: "May", tolangan: 220, qarzdorlik: 32 },
-  { month: "Iyun", tolangan: 190, qarzdorlik: 48 },
+  { month: "Sen", tolangan: 230 },
+  { month: "Okt", tolangan: 215 },
+  { month: "Noy", tolangan: 205 },
+  { month: "Dek", tolangan: 225 },
+  { month: "Yan", tolangan: 180 },
+  { month: "Fev", tolangan: 195 },
+  { month: "Mar", tolangan: 210 },
+  { month: "Apr", tolangan: 175 },
+  { month: "May", tolangan: 220 },
+  { month: "Iyun", tolangan: 190 },
 ];
 
 const regionData = [
@@ -58,10 +58,8 @@ const IjaraDetails = () => {
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
             <YAxis tick={{ fontSize: 11 }} />
-            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} />
-            <Legend wrapperStyle={{ fontSize: "12px" }} />
+            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} formatter={(v: number) => [`${v} mln`, "To'langan"]} />
             <Bar dataKey="tolangan" name="To'langan" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="qarzdorlik" name="Qarzdorlik" fill="hsl(350, 70%, 55%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
