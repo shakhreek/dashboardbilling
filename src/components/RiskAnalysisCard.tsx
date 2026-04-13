@@ -21,28 +21,28 @@ const riskData: RiskRow[] = [
     reportPath: "/reports/qayta-taqsimot",
   },
   {
-    title: "HEMIS-TTJ Sync",
+    title: "HEMIS-TTJ sinxronizatsiya",
     metric: "O'chirilgan talabalar shartnomalari",
     value: 86,
     severity: "red",
     reportPath: "/reports/hemis-ttj-sync",
   },
   {
-    title: "Super Kontrakt Check",
+    title: "Shartnoma summasi tekshiruvi",
     metric: "Noto'g'ri summa mosliklari",
     value: 23,
     severity: "yellow",
     reportPath: "/reports/super-kontrakt",
   },
   {
-    title: "OTM Debt Aging",
+    title: "OTM qarz eskirishi",
     metric: "Maksimal kechikish kunlari",
     value: "365+",
     severity: "red",
     reportPath: "/reports/otm-debt-aging",
   },
   {
-    title: "Unpaid Contracts",
+    title: "To'lanmagan shartnomalar",
     metric: "0 to'lovli tasdiqlangan shartnomalar",
     value: "4 312",
     severity: "yellow",
@@ -86,7 +86,7 @@ const RiskAnalysisCard = () => {
               <Shield className="w-5 h-5 text-red-500" />
             </div>
             <div>
-              <CardTitle className="text-base">Risk Analysis · Health Check</CardTitle>
+              <CardTitle className="text-base">Xavf tahlili · Salomatlik tekshiruvi</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">Billing tizimi holati</p>
             </div>
           </div>
