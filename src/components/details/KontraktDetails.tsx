@@ -1,7 +1,6 @@
-import { Progress } from "@/components/ui/progress";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
-import { useCountUp } from "@/hooks/useCountUp";
+import AnimatedProgressCard from "@/components/AnimatedProgressCard";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { FileText, CheckCircle, AlertTriangle, TrendingUp } from "lucide-react";
 
@@ -36,18 +35,7 @@ const KontraktDetails = () => {
       {/* Stats grid */}
       <AnimatedStatsGrid stats={stats} />
 
-      {/* Progress bar */}
-      <div className="rounded-xl p-5 border border-border bg-card">
-        <div className="flex justify-between text-sm mb-2">
-          <span className="font-medium text-foreground">To'lov holati</span>
-          <span className="font-semibold text-foreground">{pct}%</span>
-        </div>
-        <Progress value={pct} className="h-3" />
-        <div className="flex justify-between text-xs text-muted-foreground mt-2">
-          <span>To'langan: {paidSum.toLocaleString()} mlrd so'm</span>
-          <span>Jami: {totalSum.toLocaleString()} mlrd so'm</span>
-        </div>
-      </div>
+      <AnimatedProgressCard totalSum={totalSum} paidSum={paidSum} formatValue={(v) => v.toLocaleString()} />
 
       {/* Monthly chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
