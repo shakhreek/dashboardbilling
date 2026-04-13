@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import dashboardBg from "@/assets/dashboard-bg.jpg";
 import HeaderBar from "@/components/HeaderBar";
 import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
@@ -19,12 +20,22 @@ const Index = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <div className="hidden lg:block">
+    <div className="flex min-h-screen bg-background relative">
+      {/* Background image */}
+      <div
+        className="fixed inset-0 z-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: `url(${dashboardBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      <div className="hidden lg:block relative z-10">
         <Sidebar />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 relative z-10">
         <HeaderBar year={year} onYearChange={setYear} />
 
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
