@@ -19,7 +19,7 @@ interface RiskDetail {
   severity: Severity;
   description: string;
   details: { label: string; value: string | number }[];
-  chartType: "bar" | "pie" | "line";
+  chartType?: "bar" | "pie" | "line";
   chartData: any[];
 }
 
@@ -37,15 +37,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
       { label: "Umumiy farq summasi", value: "3.2 mlrd so'm" },
     ],
-    chartType: "bar",
-    chartData: [
-      { name: "TDIU", value: 312 },
-      { name: "TTU", value: 245 },
-      { name: "SamDTU", value: 198 },
-      { name: "TDYU", value: 167 },
-      { name: "AndMI", value: 145 },
-      { name: "Boshqa", value: 180 },
-    ],
+    chartData: [],
   },
   {
     id: "hemis-ttj",
@@ -60,14 +52,7 @@ const riskDetails: RiskDetail[] = [
       { label: "To'lanmagan qoldiq", value: "124 mln so'm" },
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
     ],
-    chartType: "pie",
-    chartData: [
-      { name: "TDIU", value: 23, fill: "hsl(217, 91%, 60%)" },
-      { name: "TTU", value: 18, fill: "hsl(142, 71%, 45%)" },
-      { name: "SamDTU", value: 15, fill: "hsl(270, 70%, 55%)" },
-      { name: "TDYU", value: 12, fill: "hsl(45, 90%, 50%)" },
-      { name: "Boshqa", value: 18, fill: "hsl(350, 70%, 55%)" },
-    ],
+    chartData: [],
   },
   {
     id: "super-kontrakt",
@@ -82,12 +67,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Xatolik foizi", value: "0.003%" },
       { label: "Tuzatish kerak", value: "18 ta" },
     ],
-    chartType: "bar",
-    chartData: [
-      { name: "Oshiq summa", value: 14 },
-      { name: "Kam summa", value: 6 },
-      { name: "Dublikat", value: 3 },
-    ],
+    chartData: [],
   },
   {
     id: "otm-debt-aging",
@@ -274,9 +254,9 @@ const RiskAnalysis = () => {
                   <CardContent className="pt-0">
                     <p className="text-sm text-muted-foreground mb-5">{risk.description}</p>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6">
+                    <div className={`grid gap-6 ${risk.chartData.length > 0 ? "grid-cols-1 lg:grid-cols-[1fr_1.2fr]" : "grid-cols-1"}`}>
                       {/* Stats */}
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className={`grid ${risk.chartData.length > 0 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-4"} gap-3`}>
                         {risk.details.map((d) => (
                           <div key={d.label} className="rounded-lg bg-muted/40 p-3">
                             <p className="text-xs text-muted-foreground mb-1">{d.label}</p>
@@ -285,58 +265,38 @@ const RiskAnalysis = () => {
                         ))}
                       </div>
 
-                      {/* Chart */}
-                      <div className="h-48">
-                        <ResponsiveContainer width="100%" height="100%">
-                          {risk.chartType === "bar" ? (
-                            <BarChart data={risk.chartData}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                              <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                              <Tooltip
-                                contentStyle={{
-                                  backgroundColor: "hsl(var(--card))",
-                                  border: "1px solid hsl(var(--border))",
-                                  borderRadius: 8,
-                                  fontSize: 12,
-                                }}
-                              />
-                              <Bar dataKey="value" fill={risk.severity === "red" ? "hsl(0, 70%, 55%)" : "hsl(45, 90%, 50%)"} radius={[4, 4, 0, 0]} />
-                            </BarChart>
-                          ) : risk.chartType === "pie" ? (
-                            <PieChart>
-                              <Pie data={risk.chartData} cx="50%" cy="50%" innerRadius={40} outerRadius={70} dataKey="value" paddingAngle={3}>
-                                {risk.chartData.map((entry: any, idx: number) => (
-                                  <Cell key={idx} fill={entry.fill} />
-                                ))}
-                              </Pie>
-                              <Tooltip
-                                contentStyle={{
-                                  backgroundColor: "hsl(var(--card))",
-                                  border: "1px solid hsl(var(--border))",
-                                  borderRadius: 8,
-                                  fontSize: 12,
-                                }}
-                              />
-                            </PieChart>
-                          ) : (
-                            <LineChart data={risk.chartData}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                              <XAxis dataKey="month" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                              <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                              <Tooltip
-                                contentStyle={{
-                                  backgroundColor: "hsl(var(--card))",
-                                  border: "1px solid hsl(var(--border))",
-                                  borderRadius: 8,
-                                  fontSize: 12,
-                                }}
-                              />
-                              <Line type="monotone" dataKey="count" stroke="hsl(0, 70%, 55%)" strokeWidth={2} dot={{ r: 3 }} />
-                            </LineChart>
-                          )}
-                        </ResponsiveContainer>
-                      </div>
+                      {risk.chartData.length > 0 && (
+                        <div className="h-48">
+                          <ResponsiveContainer width="100%" height="100%">
+                            {risk.chartType === "bar" ? (
+                              <BarChart data={risk.chartData}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                                <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                                <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
+                                <Bar dataKey="value" fill={risk.severity === "red" ? "hsl(0, 70%, 55%)" : "hsl(45, 90%, 50%)"} radius={[4, 4, 0, 0]} />
+                              </BarChart>
+                            ) : risk.chartType === "pie" ? (
+                              <PieChart>
+                                <Pie data={risk.chartData} cx="50%" cy="50%" innerRadius={40} outerRadius={70} dataKey="value" paddingAngle={3}>
+                                  {risk.chartData.map((entry: any, idx: number) => (
+                                    <Cell key={idx} fill={entry.fill} />
+                                  ))}
+                                </Pie>
+                                <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
+                              </PieChart>
+                            ) : (
+                              <LineChart data={risk.chartData}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                                <XAxis dataKey="month" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                                <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                                <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
+                                <Line type="monotone" dataKey="count" stroke="hsl(0, 70%, 55%)" strokeWidth={2} dot={{ r: 3 }} />
+                              </LineChart>
+                            )}
+                          </ResponsiveContainer>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
