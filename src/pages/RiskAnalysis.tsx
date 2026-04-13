@@ -1,10 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X } from "lucide-react";
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
 import { useCountUp } from "@/hooks/useCountUp";
+
+const hemisTtjStudents = [
+  { name: "Abdullayev Jasur", otm: "TDIU" },
+  { name: "Karimova Nilufar", otm: "TDIU" },
+  { name: "Rahimov Sardor", otm: "TATU" },
+  { name: "Xasanova Madina", otm: "SamDU" },
+  { name: "Toshmatov Bekzod", otm: "TDIU" },
+  { name: "Ergasheva Zulfiya", otm: "NamMQI" },
+  { name: "Mirzayev Otabek", otm: "TATU" },
+  { name: "Sultonova Dilfuza", otm: "BuxDU" },
+  { name: "Qodirov Azizbek", otm: "TDIU" },
+  { name: "Nazarova Shoira", otm: "SamDU" },
+  { name: "Yusupov Ulugbek", otm: "TDIU" },
+  { name: "Aliyeva Kamola", otm: "TATU" },
+];
 
 type Severity = "red" | "yellow" | "green";
 
