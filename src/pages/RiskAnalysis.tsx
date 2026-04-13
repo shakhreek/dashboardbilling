@@ -49,7 +49,7 @@ const riskDetails: RiskDetail[] = [
     details: [
       { label: "Faol TTJ shartnomalari", value: "4 520" },
       { label: "O'chirilgan talabalar", value: 86 },
-      { label: "To'lanmagan qoldiq", value: "124 mln so'm" },
+      
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
     ],
     chartData: [],
