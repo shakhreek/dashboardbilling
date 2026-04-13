@@ -10,6 +10,7 @@ import DonutGauge from "@/components/DonutGauge";
 import ModuleCard, { moduleCards } from "@/components/ModuleCard";
 import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
+import RiskAnalysisCard from "@/components/RiskAnalysisCard";
 
 const Index = () => {
   const [year, setYear] = useState("2025-2026");
@@ -78,8 +79,13 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
-            <TopOTMCharts />
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+            <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
+              <RiskAnalysisCard />
+            </div>
+            <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
+              <TopOTMCharts />
+            </div>
           </div>
         </main>
       </div>
