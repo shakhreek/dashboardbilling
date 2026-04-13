@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, FileSearch, TrendingUp, TrendingDown, X } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
@@ -148,6 +148,10 @@ const RiskAnalysis = () => {
   const [year, setYear] = useState("2025-2026");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const redCount = riskDetails.filter((r) => r.severity === "red").length;
   const yellowCount = riskDetails.filter((r) => r.severity === "yellow").length;
 
@@ -243,7 +247,9 @@ const RiskAnalysis = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className={`text-2xl font-bold tabular-nums ${cfg.text}`}>{risk.value}</span>
+                        <span className={`text-2xl font-bold tabular-nums ${cfg.text}`}>
+                          <AnimatedRiskValue value={risk.value} delay={200 + i * 150} />
+                        </span>
                         <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${cfg.bg} ${cfg.text}`}>
                           {cfg.label}
                         </span>
@@ -260,7 +266,9 @@ const RiskAnalysis = () => {
                         {risk.details.map((d) => (
                           <div key={d.label} className="rounded-lg bg-muted/40 p-3">
                             <p className="text-xs text-muted-foreground mb-1">{d.label}</p>
-                            <p className="text-lg font-bold text-foreground tabular-nums">{d.value}</p>
+                            <p className="text-lg font-bold text-foreground tabular-nums">
+                              <AnimatedRiskValue value={d.value} delay={400 + i * 150} />
+                            </p>
                           </div>
                         ))}
                       </div>
