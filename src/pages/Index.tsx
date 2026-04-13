@@ -60,7 +60,7 @@ const Index = () => {
             <TopOTMCharts />
           </div>
 
-          <UnreviewedApplications />
+          
         </main>
       </div>
     </div>
