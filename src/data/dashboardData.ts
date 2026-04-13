@@ -18,7 +18,7 @@ export const statCards: StatCard[] = [
   { label: "Shartnomalar", value: "1 022 696", icon: "FileText", color: "blue" },
   { label: "To'lovlar soni", value: "2 413 174", icon: "HandCoins", color: "rose" },
   { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan" },
-  { label: "Kirishlar soni", value: "0", icon: "CheckCircle", color: "green" },
+  { label: "Talabalar soni", value: "48 920", icon: "GraduationCap", color: "green" },
 ];
 
 export const chartData = [
