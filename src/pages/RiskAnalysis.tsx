@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, ChevronRight, X } from "lucide-react";
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle, XCircle, Activity, X } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import HeaderBar from "@/components/HeaderBar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
 import { useCountUp } from "@/hooks/useCountUp";
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, AreaChart, Area,
-} from "recharts";
 
 type Severity = "red" | "yellow" | "green";
 
@@ -19,8 +16,6 @@ interface RiskDetail {
   severity: Severity;
   description: string;
   details: { label: string; value: string | number }[];
-  chartType?: "bar" | "pie" | "line";
-  chartData: any[];
 }
 
 const riskDetails: RiskDetail[] = [
@@ -36,14 +31,6 @@ const riskDetails: RiskDetail[] = [
       { label: "Nomuvofiqliklar soni", value: "1 247" },
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
     ],
-    chartType: "bar",
-    chartData: [
-      { name: "TDIU", value: 245 },
-      { name: "TATU", value: 198 },
-      { name: "SamDU", value: 167 },
-      { name: "TDYU", value: 142 },
-      { name: "Boshqa", value: 495 },
-    ],
   },
   {
     id: "hemis-ttj",
@@ -56,14 +43,6 @@ const riskDetails: RiskDetail[] = [
       { label: "Faol TTJ shartnomalari", value: "4 520" },
       { label: "O'chirilgan talabalar", value: 86 },
       { label: "Eng ko'p OTM", value: "TDIU — 23 ta" },
-    ],
-    chartType: "bar",
-    chartData: [
-      { name: "TDIU", value: 23 },
-      { name: "TATU", value: 18 },
-      { name: "NamDU", value: 15 },
-      { name: "SamDU", value: 12 },
-      { name: "Boshqa", value: 18 },
     ],
   },
   {
@@ -79,7 +58,6 @@ const riskDetails: RiskDetail[] = [
       { label: "Xatolik foizi", value: "0.003%" },
       { label: "Farq summasi", value: "156 mln so'm" },
     ],
-    chartData: [],
   },
   {
     id: "otm-debt-aging",
@@ -93,19 +71,6 @@ const riskDetails: RiskDetail[] = [
       { label: "90+ kun kechikkan", value: "3 456" },
       { label: "180+ kun kechikkan", value: "1 890" },
       { label: "O'rtacha kechikish kuni", value: "142 kun" },
-    ],
-    chartType: "line",
-    chartData: [
-      { month: "Yan", count: 8500 },
-      { month: "Fev", count: 9200 },
-      { month: "Mar", count: 9800 },
-      { month: "Apr", count: 10400 },
-      { month: "May", count: 10900 },
-      { month: "Iyun", count: 11200 },
-      { month: "Iyul", count: 11600 },
-      { month: "Avg", count: 11900 },
-      { month: "Sen", count: 12100 },
-      { month: "Okt", count: 12340 },
     ],
   },
   {
@@ -121,50 +86,35 @@ const riskDetails: RiskDetail[] = [
       { label: "To'lanmagan summa", value: "48.5 mlrd so'm" },
       { label: "O'rtacha shartnoma", value: "11.2 mln so'm" },
     ],
-    chartType: "bar",
-    chartData: [
-      { name: "Bakalavr", value: 2840 },
-      { name: "Magistr", value: 890 },
-      { name: "Sirtqi", value: 412 },
-      { name: "Kechki", value: 170 },
-    ],
   },
 ];
 
 const severityConfig: Record<Severity, {
   color: string;
-  lightBg: string;
   text: string;
   label: string;
   icon: React.ElementType;
-  gradient: string;
   shadow: string;
 }> = {
   red: {
     color: "hsl(0, 70%, 55%)",
-    lightBg: "bg-red-500/5",
     text: "text-red-600 dark:text-red-400",
     label: "Yuqori xavf",
     icon: XCircle,
-    gradient: "from-red-500/10 to-orange-500/5",
     shadow: "rgba(239,68,68,0.12)",
   },
   yellow: {
     color: "hsl(45, 90%, 50%)",
-    lightBg: "bg-yellow-400/5",
     text: "text-yellow-600 dark:text-yellow-400",
     label: "O'rtacha xavf",
     icon: AlertTriangle,
-    gradient: "from-yellow-400/10 to-amber-500/5",
     shadow: "rgba(250,204,21,0.12)",
   },
   green: {
     color: "hsl(142, 71%, 45%)",
-    lightBg: "bg-emerald-500/5",
     text: "text-emerald-600 dark:text-emerald-400",
     label: "Normal",
     icon: CheckCircle,
-    gradient: "from-emerald-500/10 to-green-500/5",
     shadow: "rgba(16,185,129,0.12)",
   },
 };
@@ -176,15 +126,13 @@ const AnimatedRiskValue = ({ value, delay }: { value: string | number; delay: nu
 
 const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const cfg = severityConfig[risk.severity];
   const SeverityIcon = cfg.icon;
-
-  const severityColor = risk.severity === "red" ? "hsl(0, 70%, 55%)" : risk.severity === "yellow" ? "hsl(45, 90%, 50%)" : "hsl(142, 71%, 45%)";
+  const severityColor = cfg.color;
 
   return (
     <div
-      className={`relative group animate-fade-in opacity-0`}
+      className="relative group animate-fade-in opacity-0"
       style={{ animationDelay: `${0.1 + index * 0.08}s`, animationFillMode: "forwards" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -207,7 +155,7 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                className="relative w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
                 style={{
                   background: `linear-gradient(135deg, ${severityColor}18, ${severityColor}08)`,
                   border: `1.5px solid ${severityColor}30`,
@@ -215,9 +163,7 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
               >
                 <SeverityIcon className="w-5 h-5" style={{ color: severityColor }} />
                 {risk.severity === "red" && (
-                  <span
-                    className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"
-                  />
+                  <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
                 )}
               </div>
               <div>
@@ -227,15 +173,13 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="text-right">
-                <span className={`text-3xl font-bold tabular-nums ${cfg.text} transition-transform duration-300 inline-block`}
-                  style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
-                >
-                  <AnimatedRiskValue value={risk.value} delay={200 + index * 150} />
-                </span>
-              </div>
+              <span className={`text-3xl font-bold tabular-nums ${cfg.text} transition-transform duration-300 inline-block`}
+                style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
+              >
+                <AnimatedRiskValue value={risk.value} delay={200 + index * 150} />
+              </span>
               <span
-                className={`text-[11px] font-semibold px-2.5 py-1.5 rounded-full border`}
+                className="text-[11px] font-semibold px-2.5 py-1.5 rounded-full border"
                 style={{
                   background: `${severityColor}10`,
                   color: severityColor,
@@ -250,85 +194,22 @@ const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) =>
           {/* Description */}
           <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{risk.description}</p>
 
-          {/* Stats + Chart grid */}
-          <div className={`grid gap-5 ${risk.chartData.length > 0 ? "grid-cols-1 lg:grid-cols-[1fr_1.2fr]" : "grid-cols-1"}`}>
-            {/* Detail metrics */}
-            <div className={`grid ${risk.chartData.length > 0 ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-4"} gap-3`}>
-              {risk.details.map((d, dIdx) => (
-                <div
-                  key={d.label}
-                  className="rounded-xl border border-border/60 p-3.5 transition-all duration-300 hover:bg-accent/50 hover:border-border group/stat cursor-default"
-                >
-                  <p className="text-[11px] text-muted-foreground mb-1.5">{d.label}</p>
-                  <p className="text-lg font-bold text-foreground tabular-nums">
-                    <AnimatedRiskValue value={d.value} delay={400 + index * 150 + dIdx * 80} />
-                  </p>
+          {/* Detail metrics */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {risk.details.map((d, dIdx) => (
+              <div
+                key={d.label}
+                className="rounded-xl border border-border/60 p-3.5 transition-all duration-300 hover:bg-accent/50 hover:border-border cursor-default"
+              >
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: severityColor, opacity: 0.5 }} />
+                  <p className="text-[11px] text-muted-foreground">{d.label}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Chart */}
-            {risk.chartData.length > 0 && (
-              <div className="h-52 rounded-xl border border-border/40 bg-muted/20 p-3">
-                <ResponsiveContainer width="100%" height="100%">
-                  {risk.chartType === "bar" ? (
-                    <BarChart data={risk.chartData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.5} />
-                      <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "hsl(var(--card))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 12,
-                          fontSize: 12,
-                          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                        }}
-                      />
-                      <Bar dataKey="value" fill={severityColor} radius={[6, 6, 0, 0]} />
-                    </BarChart>
-                  ) : risk.chartType === "pie" ? (
-                    <PieChart>
-                      <Pie data={risk.chartData} cx="50%" cy="50%" innerRadius={40} outerRadius={70} dataKey="value" paddingAngle={3}>
-                        {risk.chartData.map((entry: any, idx: number) => (
-                          <Cell key={idx} fill={entry.fill} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "hsl(var(--card))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 12,
-                          fontSize: 12,
-                        }}
-                      />
-                    </PieChart>
-                  ) : (
-                    <AreaChart data={risk.chartData}>
-                      <defs>
-                        <linearGradient id={`risk-grad-${risk.id}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={severityColor} stopOpacity={0.3} />
-                          <stop offset="100%" stopColor={severityColor} stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.5} />
-                      <XAxis dataKey="month" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "hsl(var(--card))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 12,
-                          fontSize: 12,
-                          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                        }}
-                      />
-                      <Area type="monotone" dataKey="count" stroke={severityColor} fill={`url(#risk-grad-${risk.id})`} strokeWidth={2.5} dot={{ r: 3, fill: severityColor }} activeDot={{ r: 5 }} />
-                    </AreaChart>
-                  )}
-                </ResponsiveContainer>
+                <p className="text-lg font-bold text-foreground tabular-nums">
+                  <AnimatedRiskValue value={d.value} delay={400 + index * 150 + dIdx * 80} />
+                </p>
               </div>
-            )}
+            ))}
           </div>
         </div>
       </div>
