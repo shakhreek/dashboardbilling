@@ -41,7 +41,7 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "hemis-ttj",
-    title: "HEMIS-TTJ Sync",
+    title: "HEMIS-TTJ sinxronizatsiya",
     metric: "O'chirilgan talabalar shartnomalari",
     value: 86,
     severity: "red",
@@ -56,7 +56,7 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "super-kontrakt",
-    title: "Super Kontrakt Check",
+    title: "Shartnoma summasi tekshiruvi",
     metric: "Noto'g'ri summa mosliklari",
     value: 23,
     severity: "yellow",
@@ -71,7 +71,7 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "otm-debt-aging",
-    title: "OTM Debt Aging",
+    title: "OTM qarz eskirishi",
     metric: "Maksimal kechikish kunlari",
     value: "365+",
     severity: "red",
@@ -98,7 +98,7 @@ const riskDetails: RiskDetail[] = [
   },
   {
     id: "unpaid-contracts",
-    title: "Unpaid Contracts",
+    title: "To'lanmagan shartnomalar",
     metric: "0 to'lovli tasdiqlangan shartnomalar",
     value: "4 312",
     severity: "yellow",
