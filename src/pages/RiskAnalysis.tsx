@@ -21,7 +21,7 @@ interface RiskDetail {
 const riskDetails: RiskDetail[] = [
   {
     id: "qayta-taqsimot",
-    title: "Qayta taqsimot",
+    title: "Qayta taqsimot tahlili",
     metric: "Nomuvofiqliklar soni",
     value: "1 247",
     severity: "red",
