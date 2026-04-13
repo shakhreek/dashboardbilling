@@ -254,7 +254,7 @@ const RiskAnalysis = () => {
                   <CardContent className="pt-0">
                     <p className="text-sm text-muted-foreground mb-5">{risk.description}</p>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6">
+                    <div className={`grid gap-6 ${risk.chartData.length > 0 ? "grid-cols-1 lg:grid-cols-[1fr_1.2fr]" : "grid-cols-1"}`}>
                       {/* Stats */}
                       <div className="grid grid-cols-2 gap-3">
                         {risk.details.map((d) => (
