@@ -182,7 +182,7 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
 
           {/* Footer button */}
           <button
-            className="w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-border text-muted-foreground group-hover:border-transparent group-hover:text-white"
+            className="w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-border text-muted-foreground group-hover:border-transparent group-hover:!text-white"
             style={isHovered ? {
               background: `linear-gradient(135deg, ${data.color}, ${data.color}cc)`,
             } : undefined}
