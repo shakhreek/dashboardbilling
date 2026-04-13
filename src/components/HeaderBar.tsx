@@ -1,5 +1,6 @@
 import { Menu, User, Calendar, Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +10,20 @@ interface HeaderBarProps {
   onMenuToggle?: () => void;
 }
 
+const pageNames: Record<string, string> = {
+  "/": "Bosh sahifa",
+  "/risk-analysis": "Xavf tahlili",
+  "/module/tolov-kontrakt": "Kontrakt",
+  "/module/kredit-modul": "Kredit modul",
+  "/module/ttj": "TTJ",
+  "/module/stipendiya": "Stipendiya",
+  "/module/ijara": "Ijara subsidiyasi",
+  "/module/ttj-subsidiya": "TTJ Subsidiya",
+};
+
 const HeaderBar = ({ year, onYearChange, onMenuToggle }: HeaderBarProps) => {
+  const location = useLocation();
+  const currentPage = pageNames[location.pathname] || "";
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
 
   const toggleDark = () => {

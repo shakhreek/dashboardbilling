@@ -174,7 +174,13 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
               >
                 <span className="text-xs text-muted-foreground">{m.label}</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-foreground tabular-nums"><AnimatedMetric value={m.value} delay={300 + idx * 100} /></span>
+                  <span className={`text-sm font-semibold tabular-nums ${m.value === "0" || m.value === "0mlrd" || m.value === "0 mlrd" ? "text-muted-foreground/50" : "text-foreground"}`}>
+                    {m.value === "0" || m.value === "0mlrd" || m.value === "0 mlrd" ? (
+                      <span className="text-muted-foreground/40">—</span>
+                    ) : (
+                      <AnimatedMetric value={m.value} delay={300 + idx * 100} />
+                    )}
+                  </span>
                   {m.trend && (
                     <span
                       className={cn(
