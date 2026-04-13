@@ -142,7 +142,8 @@ const AnimatedRiskValue = ({ value, delay }: { value: string | number; delay: nu
 
 const RiskDetailCard = ({ risk, index }: { risk: RiskDetail; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cfg = severityConfig[risk.severity];
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isHemisTtj = risk.id === "hemis-ttj";
   const SeverityIcon = cfg.icon;
   const severityColor = cfg.color;
 
