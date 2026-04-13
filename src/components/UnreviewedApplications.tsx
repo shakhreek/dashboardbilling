@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const filters = ["Jami", "Ijara", "Kredit-modul", "Shartnoma"] as const;
+
 
 const applicationData = [
   { name: "MIRZO ULUG'BEK NOMIDAGI O'ZBEKISTON MILLIY UNIVERSITETI", count: 1964 },
@@ -25,7 +25,6 @@ const applicationData = [
 const INITIAL_COUNT = 5;
 
 const UnreviewedApplications = () => {
-  const [activeFilter, setActiveFilter] = useState<string>("Jami");
   const [showAll, setShowAll] = useState(false);
 
   const visibleData = showAll ? applicationData : applicationData.slice(0, INITIAL_COUNT);
@@ -36,21 +35,6 @@ const UnreviewedApplications = () => {
         <h3 className="text-base font-semibold text-foreground">
           Arizalarni ko'rib chiqmagan OTMlar
         </h3>
-        <div className="flex gap-2">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setActiveFilter(f)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                activeFilter === f
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-muted text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
       </div>
 
       <Table>
