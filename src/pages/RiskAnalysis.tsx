@@ -35,7 +35,7 @@ const riskDetails: RiskDetail[] = [
       { label: "Talabalar soni", value: "45 320" },
       { label: "Nomuvofiqliklar soni", value: "1 247" },
       { label: "Nomuvofiqlik foizi", value: "2.75%" },
-      { label: "Umumiy farq summasi", value: "3.2 mlrd so'm" },
+      
     ],
     chartData: [],
   },
