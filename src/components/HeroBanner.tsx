@@ -62,6 +62,8 @@ const trendData: Record<string, { value: string; up: boolean }> = {
 
 interface Props {
   cards: StatCardType[];
+  showTitle?: boolean;
+  singleCard?: boolean;
 }
 
 const AnimatedValue = ({ value, delay }: { value: string; delay: number }) => {
@@ -69,30 +71,36 @@ const AnimatedValue = ({ value, delay }: { value: string; delay: number }) => {
   return <p className="text-xl font-bold text-foreground leading-tight">{animated}</p>;
 };
 
-const HeroBanner = ({ cards }: Props) => {
+const HeroBanner = ({ cards, showTitle = true, singleCard = false }: Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  const gridClass = singleCard 
+    ? "" 
+    : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3";
+
   return (
-    <div className="mb-6 space-y-4">
-      {/* Title row */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-            <Zap className="w-4 h-4" style={{ color: "white" }} />
+    <div className={`space-y-4 ${singleCard ? '' : ''}`}>
+      {/* Title row - only show if showTitle is true */}
+      {showTitle && (
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+              <Zap className="w-4 h-4" style={{ color: "white" }} />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">Asosiy ko'rsatkichlar</h2>
+              <p className="text-xs text-muted-foreground">Real vaqtda yangilanadi</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-lg font-bold text-foreground">Asosiy ko'rsatkichlar</h2>
-            <p className="text-xs text-muted-foreground">Real vaqtda yangilanadi</p>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-medium" style={{ color: "hsl(142, 71%, 45%)" }}>Jonli</span>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs font-medium" style={{ color: "hsl(142, 71%, 45%)" }}>Jonli</span>
-        </div>
-      </div>
+      )}
 
       {/* Cards grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div className={singleCard ? "" : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3"}>
         {cards.map((card, index) => {
           const Icon = iconMap[card.icon] || FileText;
           const config = colorConfig[card.color] || colorConfig.blue;
