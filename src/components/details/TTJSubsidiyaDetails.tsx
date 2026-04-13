@@ -4,10 +4,10 @@ import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import { FileText, CheckCircle, Users, Banknote } from "lucide-react";
 
 const stats = [
-  { label: "Arizalar soni", value: "27 800", icon: FileText, color: "hsl(239, 84%, 60%)" },
-  { label: "Tasdiqlangan", value: "23 400", icon: CheckCircle, color: "hsl(142, 71%, 45%)" },
-  { label: "Jami summa", value: "4 500 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)" },
-  { label: "Oluvchilar", value: "23 400", icon: Users, color: "hsl(270, 70%, 55%)" },
+  { label: "Arizalar soni", value: "27 800", icon: FileText, color: "hsl(239, 84%, 60%)", trend: "up" as const, trendValue: "+7.1%" },
+  { label: "Tasdiqlangan", value: "23 400", icon: CheckCircle, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+5.4%" },
+  { label: "Jami summa", value: "4 500 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+11.2%" },
+  { label: "Oluvchilar", value: "23 400", icon: Users, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+7.1%" },
 ];
 
 const funnelData = [

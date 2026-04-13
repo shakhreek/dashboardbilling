@@ -19,10 +19,10 @@ const monthlyData = [
 
 
 const stats = [
-  { label: "Jami shartnomalar", value: "787 674", icon: FileText, color: "hsl(217, 91%, 55%)" },
-  { label: "Tasdiqlangan", value: "724 510", icon: CheckCircle, color: "hsl(142, 71%, 45%)" },
-  { label: "Qarzdorlik", value: "7 187 mlrd", icon: AlertTriangle, color: "hsl(350, 70%, 55%)" },
-  { label: "Kontraktda o'qiyotgan talabalar soni", value: "787 674", icon: TrendingUp, color: "hsl(217, 91%, 55%)" },
+  { label: "Jami shartnomalar", value: "787 674", icon: FileText, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+3.2%" },
+  { label: "Tasdiqlangan", value: "724 510", icon: CheckCircle, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+2.8%" },
+  { label: "Qarzdorlik", value: "7 187 mlrd", icon: AlertTriangle, color: "hsl(350, 70%, 55%)", trend: "down" as const, trendValue: "-1.5%" },
+  { label: "Kontraktda o'qiyotgan talabalar soni", value: "787 674", icon: TrendingUp, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+4.1%" },
 ];
 
 const KontraktDetails = () => {
