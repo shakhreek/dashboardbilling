@@ -17,6 +17,7 @@ export interface ModuleCardData {
 export const moduleCards: ModuleCardData[] = [
   {
     id: "To'lov kontrakt",
+    slug: "tolov-kontrakt",
     title: "Kontrakt",
     icon: FileText,
     color: "hsl(217, 91%, 60%)",
@@ -31,6 +32,7 @@ export const moduleCards: ModuleCardData[] = [
   },
   {
     id: "Kredit modul",
+    slug: "kredit-modul",
     title: "Kredit modul",
     icon: CreditCard,
     color: "hsl(270, 70%, 55%)",
@@ -45,6 +47,7 @@ export const moduleCards: ModuleCardData[] = [
   },
   {
     id: "TTJ",
+    slug: "ttj",
     title: "TTJ",
     icon: Building2,
     color: "hsl(142, 71%, 45%)",
@@ -59,6 +62,7 @@ export const moduleCards: ModuleCardData[] = [
   },
   {
     id: "Stipendiya",
+    slug: "stipendiya",
     title: "Stipendiya",
     icon: Award,
     color: "hsl(45, 90%, 50%)",
@@ -72,6 +76,7 @@ export const moduleCards: ModuleCardData[] = [
   },
   {
     id: "Ijara",
+    slug: "ijara",
     title: "Ijara subsidiyasi",
     icon: Home,
     color: "hsl(350, 70%, 55%)",
@@ -85,6 +90,7 @@ export const moduleCards: ModuleCardData[] = [
   },
   {
     id: "TTJ Subsidiya",
+    slug: "ttj-subsidiya",
     title: "TTJ Subsidiya",
     icon: Landmark,
     color: "hsl(239, 84%, 60%)",
