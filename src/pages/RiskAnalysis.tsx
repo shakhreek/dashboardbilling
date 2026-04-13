@@ -19,7 +19,7 @@ interface RiskDetail {
   severity: Severity;
   description: string;
   details: { label: string; value: string | number }[];
-  chartType: "bar" | "pie" | "line";
+  chartType?: "bar" | "pie" | "line";
   chartData: any[];
 }
 
