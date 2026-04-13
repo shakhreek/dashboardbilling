@@ -1,5 +1,5 @@
 import { Progress } from "@/components/ui/progress";
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Building2, Users, Clock, Banknote } from "lucide-react";
 
 const stats = [
@@ -23,16 +23,16 @@ const monthlyPayments = [
 ];
 
 const monthlyOccupancy = [
-  { month: "Sen", bandlik: 88 },
-  { month: "Okt", bandlik: 91 },
-  { month: "Noy", bandlik: 93 },
-  { month: "Dek", bandlik: 90 },
-  { month: "Yan", bandlik: 94 },
-  { month: "Fev", bandlik: 95 },
-  { month: "Mar", bandlik: 92 },
-  { month: "Apr", bandlik: 89 },
-  { month: "May", bandlik: 85 },
-  { month: "Iyun", bandlik: 72 },
+  { month: "Sen", bandlik: 4580, bosh: 620 },
+  { month: "Okt", bandlik: 4730, bosh: 470 },
+  { month: "Noy", bandlik: 4830, bosh: 370 },
+  { month: "Dek", bandlik: 4680, bosh: 520 },
+  { month: "Yan", bandlik: 4890, bosh: 310 },
+  { month: "Fev", bandlik: 4940, bosh: 260 },
+  { month: "Mar", bandlik: 4780, bosh: 420 },
+  { month: "Apr", bandlik: 4630, bosh: 570 },
+  { month: "May", bandlik: 4420, bosh: 780 },
+  { month: "Iyun", bandlik: 3740, bosh: 1460 },
 ];
 
 const TTJDetails = () => {
@@ -96,20 +96,21 @@ const TTJDetails = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Monthly occupancy line chart */}
+      {/* Monthly occupancy bar chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
-        <h4 className="text-sm font-semibold mb-4 text-foreground">Oyma-oy bandlik (%)</h4>
+        <h4 className="text-sm font-semibold mb-4 text-foreground">Oyma-oy bandlik va bo'sh joylar</h4>
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={monthlyOccupancy}>
+          <BarChart data={monthlyOccupancy} barGap={4}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 11 }} domain={[60, 100]} tickFormatter={(v) => `${v}%`} />
+            <YAxis tick={{ fontSize: 11 }} />
             <Tooltip
               contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }}
-              formatter={(v: number) => [`${v}%`, "Bandlik"]}
             />
-            <Line type="monotone" dataKey="bandlik" name="Bandlik" stroke="hsl(217, 91%, 60%)" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-          </LineChart>
+            <Legend wrapperStyle={{ fontSize: "12px" }} />
+            <Bar dataKey="bandlik" name="Band joylar" fill="hsl(217, 91%, 60%)" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="bosh" name="Bo'sh joylar" fill="hsl(35, 80%, 50%)" radius={[4, 4, 0, 0]} />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </div>
