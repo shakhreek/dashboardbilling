@@ -5,19 +5,25 @@ import HeroBanner from "@/components/HeroBanner";
 import ContractChart from "@/components/ContractChart";
 import DonutGauge from "@/components/DonutGauge";
 import ModulesTable from "@/components/ModulesTable";
+import ModuleDetailSheet from "@/components/ModuleDetailSheet";
 import { statCards } from "@/data/dashboardData";
 
 const Index = () => {
   const [year, setYear] = useState("2025-2026");
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const handleModuleClick = (moduleName: string) => {
+    setSelectedModule(moduleName);
+    setSheetOpen(true);
+  };
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Sidebar - hidden on mobile */}
       <div className="hidden lg:block">
         <Sidebar />
       </div>
 
-      {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         <HeaderBar year={year} onYearChange={setYear} />
 
@@ -29,9 +35,15 @@ const Index = () => {
             <DonutGauge />
           </div>
 
-          <ModulesTable />
+          <ModulesTable onModuleClick={handleModuleClick} />
         </main>
       </div>
+
+      <ModuleDetailSheet
+        moduleName={selectedModule}
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+      />
     </div>
   );
 };
