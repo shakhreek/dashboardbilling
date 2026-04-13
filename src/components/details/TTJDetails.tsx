@@ -67,24 +67,6 @@ const TTJDetails = () => {
         </div>
       </div>
 
-      {/* Buildings breakdown */}
-      <div className="rounded-xl p-5 border border-border bg-card">
-        <h4 className="text-sm font-semibold mb-3 text-foreground">Binolar bo'yicha bandlik</h4>
-        <div className="space-y-3">
-          {buildings.map((b) => {
-            const bPct = Math.round((b.occupied / b.total) * 100);
-            return (
-              <div key={b.name}>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="font-medium text-foreground">{b.name}</span>
-                  <span className="text-muted-foreground">{b.occupied}/{b.total} ({bPct}%)</span>
-                </div>
-                <Progress value={bPct} className="h-2" />
-              </div>
-            );
-          })}
-        </div>
-      </div>
 
       {/* Monthly payments chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
