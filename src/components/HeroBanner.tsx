@@ -52,11 +52,11 @@ const colorConfig: Record<string, { gradient: string; text: string; sparkFrom: s
 };
 
 const trendData: Record<string, { value: string; up: boolean }> = {
-  "Korxonalar": { value: "+6.8%", up: true },
+  "OTM lar": { value: "+6.8%", up: true },
   "Shartnomalar": { value: "+12.3%", up: true },
   "To'lovlar soni": { value: "+8.5%", up: true },
   "To'lanmagan summa": { value: "-4.2%", up: false },
-  "Kirishlar soni": { value: "0%", up: true },
+  "Talabalar soni": { value: "+3.2%", up: true },
 };
 
 interface Props {
