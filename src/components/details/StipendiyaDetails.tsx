@@ -4,10 +4,10 @@ import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import { GraduationCap, Award, Users, Banknote } from "lucide-react";
 
 const stats = [
-  { label: "Stipendiya oluvchilar", value: "2 340", icon: Users, color: "hsl(45, 90%, 50%)" },
-  { label: "Jami summa", value: "3 600 mlrd", icon: Banknote, color: "hsl(142, 71%, 45%)" },
-  { label: "Prezident stipendiyasi", value: "490", icon: Award, color: "hsl(15, 85%, 50%)" },
-  { label: "O'rtacha stipendiya", value: "1.54 mln", icon: GraduationCap, color: "hsl(217, 91%, 55%)" },
+  { label: "Stipendiya oluvchilar", value: "2 340", icon: Users, color: "hsl(45, 90%, 50%)", trend: "up" as const, trendValue: "+4.5%" },
+  { label: "Jami summa", value: "3 600 mlrd", icon: Banknote, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+7.2%" },
+  { label: "Prezident stipendiyasi", value: "490", icon: Award, color: "hsl(15, 85%, 50%)", trend: "up" as const, trendValue: "+12" },
+  { label: "O'rtacha stipendiya", value: "1.54 mln", icon: GraduationCap, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+3.1%" },
 ];
 
 const monthlyData = [

@@ -5,10 +5,10 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Building2, Users, Clock, Banknote } from "lucide-react";
 
 const stats = [
-  { label: "Umumiy TTJ lar soni", value: "248", icon: Building2, color: "hsl(217, 91%, 55%)" },
-  { label: "TTJ da turgan talabalar", value: "48 920", icon: Users, color: "hsl(142, 71%, 45%)" },
-  { label: "Navbatda turganlar", value: "12 340", icon: Clock, color: "hsl(35, 80%, 50%)" },
-  { label: "Jami joylar", value: "52 000", icon: Building2, color: "hsl(270, 70%, 55%)" },
+  { label: "Umumiy TTJ lar soni", value: "248", icon: Building2, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+2" },
+  { label: "TTJ da turgan talabalar", value: "48 920", icon: Users, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+6.3%" },
+  { label: "Navbatda turganlar", value: "12 340", icon: Clock, color: "hsl(35, 80%, 50%)", trend: "down" as const, trendValue: "-4.1%" },
+  { label: "Jami joylar", value: "52 000", icon: Building2, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+3.8%" },
 ];
 
 const monthlyPayments = [

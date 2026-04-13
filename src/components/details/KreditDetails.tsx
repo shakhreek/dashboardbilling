@@ -17,10 +17,10 @@ const monthlyData = [
 ];
 
 const stats = [
-  { label: "Arizalar soni", value: "142 850", icon: FileText, color: "hsl(270, 70%, 55%)" },
-  { label: "Shartnomalar", value: "128 740", icon: CreditCard, color: "hsl(270, 70%, 55%)" },
-  { label: "To'langan summa", value: "3 210 mlrd", icon: CheckCircle, color: "hsl(142, 71%, 45%)" },
-  { label: "Qarzdorlik", value: "1 540 mlrd", icon: AlertTriangle, color: "hsl(350, 70%, 55%)" },
+  { label: "Arizalar soni", value: "142 850", icon: FileText, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+5.1%" },
+  { label: "Shartnomalar", value: "128 740", icon: CreditCard, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+3.7%" },
+  { label: "To'langan summa", value: "3 210 mlrd", icon: CheckCircle, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+8.2%" },
+  { label: "Qarzdorlik", value: "1 540 mlrd", icon: AlertTriangle, color: "hsl(350, 70%, 55%)", trend: "down" as const, trendValue: "-2.4%" },
 ];
 
 const KreditDetails = () => {
