@@ -10,6 +10,7 @@ import DonutGauge from "@/components/DonutGauge";
 import ModuleCard, { moduleCards } from "@/components/ModuleCard";
 import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
+import RiskAnalysisCard from "@/components/RiskAnalysisCard";
 
 const Index = () => {
   const [year, setYear] = useState("2025-2026");
