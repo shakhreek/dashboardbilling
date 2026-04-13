@@ -105,7 +105,7 @@ const riskDetails: RiskDetail[] = [
     description: "Tasdiqlangan, lekin hech qanday to'lov amalga oshirilmagan shartnomalar. Kurs boshlangandan beri 0 so'm to'langan.",
     details: [
       { label: "Jami tasdiqlangan", value: "787 674" },
-      { label: "0 to'lovli", value: "4 312" },
+      { label: "To'lov qilinmagan shartnoma soni", value: "4 312" },
       { label: "To'lanmagan summa", value: "48.5 mlrd so'm" },
       { label: "O'rtacha shartnoma", value: "11.2 mln so'm" },
     ],
