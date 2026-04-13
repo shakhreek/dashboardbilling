@@ -73,8 +73,37 @@ const KontraktDetails = () => {
         <div className="flex justify-between text-xs text-muted-foreground mt-2">
           <span>To'langan: {paidSum.toLocaleString()} mlrd so'm</span>
           <span>Jami: {totalSum.toLocaleString()} mlrd so'm</span>
+      </div>
+
+      {/* Top OTM charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="rounded-xl p-5 border border-border bg-card">
+          <h4 className="text-sm font-semibold mb-4 text-foreground">Eng ko'p daromadga ega top 5 ta OTM</h4>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={topDaromad} layout="vertical" margin={{ left: 20, right: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" horizontal={false} />
+              <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v) => `${v} mld`} />
+              <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={180} />
+              <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} formatter={(v: number) => [`${v} mld`, "Daromad"]} />
+              <Bar dataKey="value" fill="hsl(217, 91%, 65%)" radius={[0, 4, 4, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="rounded-xl p-5 border border-border bg-card">
+          <h4 className="text-sm font-semibold mb-4 text-foreground">Eng ko'p qarzdorlikka ega top 5 ta OTM</h4>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={topQarzdorlik} layout="vertical" margin={{ left: 20, right: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" horizontal={false} />
+              <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v) => `${v} mld`} />
+              <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={180} />
+              <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} formatter={(v: number) => [`${v} mld`, "Qarzdorlik"]} />
+              <Bar dataKey="value" fill="hsl(350, 70%, 65%)" radius={[0, 4, 4, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
+    </div>
 
       {/* Monthly chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
