@@ -182,10 +182,12 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
 
           {/* Footer button */}
           <button
-            className="w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border"
+            className={cn(
+              "w-full mt-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 flex items-center justify-center gap-2 border",
+              isHovered ? "text-white" : "text-muted-foreground"
+            )}
             style={{
-              borderColor: isHovered ? data.color : "hsl(var(--border))",
-              color: isHovered ? "white" : "hsl(var(--muted-foreground))",
+              borderColor: isHovered ? data.color : undefined,
               background: isHovered ? `linear-gradient(135deg, ${data.color}, ${data.color}cc)` : "transparent",
             }}
             onClick={(e) => {
