@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
