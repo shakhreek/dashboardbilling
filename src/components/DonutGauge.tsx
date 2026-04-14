@@ -53,7 +53,8 @@ const GaugeChart = () => {
   const frameRef = useRef<number>();
   const timerRef = useRef<ReturnType<typeof setInterval>>();
 
-  const slide = slides[currentSlide];
+  const safeIndex = currentSlide % slides.length;
+  const slide = slides[safeIndex];
 
   const size = 240;
   const cx = size / 2;
