@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Progress } from "@/components/ui/progress";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface Props {
   totalSum: number;
@@ -12,6 +13,7 @@ const AnimatedProgressCard = ({ totalSum, paidSum, formatValue }: Props) => {
   const [animPct, setAnimPct] = useState(0);
   const [animPaid, setAnimPaid] = useState(0);
   const frameRef = useRef<number>();
+  const remaining = totalSum - paidSum;
 
   const fmt = formatValue || ((v: number) => v.toLocaleString());
 
@@ -43,17 +45,37 @@ const AnimatedProgressCard = ({ totalSum, paidSum, formatValue }: Props) => {
   }, [targetPct, paidSum]);
 
   return (
-    <div className="rounded-xl p-5 border border-border bg-card animate-fade-in opacity-0" style={{ animationDelay: "0.2s" }}>
-      <div className="flex justify-between text-sm mb-2">
-        <span className="font-medium text-foreground">To'lov holati</span>
-        <span className="font-semibold text-foreground">{animPct}%</span>
-      </div>
-      <Progress value={animPct} className="h-3" />
-      <div className="flex justify-between text-xs text-muted-foreground mt-2">
-        <span>To'langan: {fmt(animPaid)} mlrd so'm</span>
-        <span>Jami: {fmt(totalSum)} mlrd so'm</span>
-      </div>
-    </div>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="rounded-xl p-5 border border-border bg-card animate-fade-in opacity-0 cursor-pointer" style={{ animationDelay: "0.2s" }}>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="font-medium text-foreground">To'lov holati</span>
+              <span className="font-semibold text-foreground">{animPct}%</span>
+            </div>
+            <Progress value={animPct} className="h-3" />
+            <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <span>To'langan: {fmt(animPaid)} mlrd so'm</span>
+              <span>Jami: {fmt(totalSum)} mlrd so'm</span>
+            </div>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="bottom" className="p-3 space-y-1.5 text-sm">
+          <div className="flex justify-between gap-6">
+            <span className="text-muted-foreground">Umumiy summa:</span>
+            <span className="font-semibold">{fmt(totalSum)} mlrd so'm</span>
+          </div>
+          <div className="flex justify-between gap-6">
+            <span className="text-muted-foreground">To'langan summa:</span>
+            <span className="font-semibold text-emerald-500">{fmt(paidSum)} mlrd so'm</span>
+          </div>
+          <div className="flex justify-between gap-6">
+            <span className="text-muted-foreground">Qoldiq summa:</span>
+            <span className="font-semibold text-rose-500">{fmt(remaining)} mlrd so'm</span>
+          </div>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
