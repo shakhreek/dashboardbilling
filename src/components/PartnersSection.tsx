@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import moliyaLogo from "@/assets/partners/moliya-vazirligi.png";
 import markaziyBankLogo from "@/assets/partners/markaziy-bank.png";
 import aloqabankLogo from "@/assets/partners/aloqabank.png";
@@ -16,24 +17,85 @@ const partners = [
   { name: "my.gov.uz", logo: mygovuzLogo },
 ];
 
+// Triple the array for seamless infinite scroll
+const infinitePartners = [...partners, ...partners, ...partners];
+
 const PartnersSection = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let animId: number;
+    let pos = el.scrollWidth / 3; // start at middle set
+    el.scrollLeft = pos;
+
+    const speed = 0.5;
+
+    const animate = () => {
+      pos += speed;
+      // Reset to middle set seamlessly
+      if (pos >= (el.scrollWidth / 3) * 2) {
+        pos -= el.scrollWidth / 3;
+      }
+      el.scrollLeft = pos;
+      setScrollLeft(pos);
+      setContainerWidth(el.clientWidth);
+      animId = requestAnimationFrame(animate);
+    };
+
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  const getOpacity = (index: number) => {
+    const el = scrollRef.current;
+    if (!el) return 0.15;
+
+    const itemWidth = 180;
+    const gap = 64;
+    const itemCenter = index * (itemWidth + gap) + itemWidth / 2 - scrollLeft;
+    const center = containerWidth / 2;
+    const distance = Math.abs(itemCenter - center);
+    const maxDistance = containerWidth / 2;
+
+    // Closer to center = more opaque (1.0), edges = dim (0.15)
+    const ratio = 1 - Math.min(distance / maxDistance, 1);
+    return 0.15 + ratio * 0.85;
+  };
+
+  const getGrayscale = (index: number) => {
+    const opacity = getOpacity(index);
+    // More centered = less grayscale
+    return `grayscale(${Math.round((1 - (opacity - 0.15) / 0.85) * 100)}%)`;
+  };
+
   return (
-    <div className="bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 py-8 px-10">
-      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider text-center mb-8">
-        Hamkorlar
-      </h4>
-      <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14 lg:gap-16">
-        {partners.map((partner) => (
+    <div className="bg-white rounded-2xl border border-border/50 py-8 px-2 overflow-hidden">
+      <div
+        ref={scrollRef}
+        className="flex items-center gap-16 overflow-hidden"
+        style={{ scrollBehavior: "auto" }}
+      >
+        {infinitePartners.map((partner, i) => (
           <div
-            key={partner.name}
-            className="opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-default"
+            key={`${partner.name}-${i}`}
+            className="flex-shrink-0 flex items-center justify-center transition-opacity duration-100"
+            style={{
+              width: 180,
+              opacity: getOpacity(i),
+              filter: getGrayscale(i),
+            }}
             title={partner.name}
           >
             <img
               src={partner.logo}
               alt={partner.name}
               loading="lazy"
-              className="h-14 md:h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              className="h-16 md:h-20 w-auto object-contain"
             />
           </div>
         ))}
