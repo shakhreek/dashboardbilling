@@ -1,3 +1,8 @@
+export interface StatCardSubLine {
+  label: string;
+  value: string;
+}
+
 export interface StatCard {
   label: string;
   value: string;
@@ -5,6 +10,7 @@ export interface StatCard {
   color: string;
   subLabel?: string;
   subValue?: string;
+  subLines?: StatCardSubLine[];
 }
 
 export interface ModuleRow {
