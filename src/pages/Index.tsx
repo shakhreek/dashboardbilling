@@ -11,12 +11,44 @@ import ModuleCard, { moduleCards } from "@/components/ModuleCard";
 import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
 import RiskAnalysisCard from "@/components/RiskAnalysisCard";
-
+import DashboardSkeleton from "@/components/DashboardSkeleton";
+import { useEffect } from "react";
 
 const Index = () => {
   const [year, setYear] = useState("2025-2026");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen bg-background relative">
+        <div
+          className="fixed inset-0 z-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage: `url(${dashboardBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        <div className="hidden lg:block relative z-10">
+          <Sidebar />
+        </div>
+        <div className="flex-1 flex flex-col min-w-0 relative z-10">
+          <HeaderBar year={year} onYearChange={setYear} onMenuToggle={() => setSidebarOpen(true)} />
+          <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+            <DashboardSkeleton />
+          </main>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-background relative">

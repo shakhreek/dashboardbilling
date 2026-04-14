@@ -70,18 +70,21 @@ const ContractChart = () => {
         <>
           <ResponsiveContainer width="100%" height={320}>
             <AreaChart data={chartData}>
-              <defs>
+               <defs>
                 <linearGradient id="gradShartnoma" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.4} />
+                  <stop offset="50%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.15} />
+                  <stop offset="100%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="gradKredit" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0.4} />
+                  <stop offset="50%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0.15} />
+                  <stop offset="100%" stopColor="hsl(270, 70%, 55%)" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="gradTTJ" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0.4} />
+                  <stop offset="50%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0.15} />
+                  <stop offset="100%" stopColor="hsl(142, 71%, 45%)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
@@ -103,7 +106,11 @@ const ContractChart = () => {
                   name={moduleColors[key].label}
                   stroke={moduleColors[key].stroke}
                   fill={moduleColors[key].fill}
-                  strokeWidth={2}
+                  strokeWidth={2.5}
+                  dot={{ r: 3, fill: moduleColors[key].stroke, stroke: "white", strokeWidth: 2 }}
+                  activeDot={{ r: 5, fill: moduleColors[key].stroke, stroke: "white", strokeWidth: 2 }}
+                  animationDuration={1200}
+                  animationEasing="ease-out"
                 />
               ))}
             </AreaChart>

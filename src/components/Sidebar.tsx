@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, FileText, Phone, Clock } from "lucide-react";
+import { ChevronDown, ChevronRight, FileText, Phone, Clock, Mail } from "lucide-react";
 import { sidebarSections } from "@/data/dashboardData";
 
 const Sidebar = () => {
@@ -23,7 +23,7 @@ const Sidebar = () => {
       </div>
 
       {/* Nav Sections */}
-      <nav className="flex-1 overflow-y-auto py-3">
+      <nav className="flex-1 overflow-y-auto py-3 scrollbar-thin">
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-1">
             <p className="px-5 py-2.5 text-xs font-bold tracking-wide" style={{ color: "white" }}>
@@ -52,19 +52,23 @@ const Sidebar = () => {
       </nav>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t" style={{ borderColor: "hsl(225, 20%, 25%)" }}>
-        <div className="flex items-center gap-2 text-xs mb-1" style={{ color: "white" }}>
-          <Clock className="w-3.5 h-3.5" />
-          <span className="font-semibold">Ish vaqti: 09:30 - 18:00</span>
+      <div className="px-5 py-4 border-t space-y-3" style={{ borderColor: "hsl(225, 20%, 25%)" }}>
+        <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg" style={{ background: "hsl(225, 25%, 20%)" }}>
+          <Clock className="w-4 h-4 flex-shrink-0" style={{ color: "hsl(217, 91%, 65%)" }} />
+          <div>
+            <p className="text-xs font-semibold" style={{ color: "white" }}>09:30 - 18:00</p>
+            <p className="text-[10px]" style={{ color: "hsl(220, 20%, 55%)" }}>Dushanba - Juma</p>
+          </div>
         </div>
-        <p className="text-xs mb-2" style={{ color: "hsl(220, 20%, 55%)" }}>Ish kunlari: Dushanba - Juma</p>
-        <div className="flex items-center gap-2 text-xs mb-1" style={{ color: "hsl(220, 20%, 70%)" }}>
-          <Phone className="w-3.5 h-3.5" />
-          99871-203-13-24
-        </div>
-        <div className="flex items-center gap-2 text-xs" style={{ color: "hsl(220, 20%, 70%)" }}>
-          <Phone className="w-3.5 h-3.5" />
-          99871-203-13-22
+        <div className="space-y-1.5 px-1">
+          <a href="tel:998712031324" className="flex items-center gap-2.5 text-xs py-1 rounded transition-colors hover:text-white" style={{ color: "hsl(220, 20%, 65%)" }}>
+            <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+            <span>99871-203-13-24</span>
+          </a>
+          <a href="tel:998712031322" className="flex items-center gap-2.5 text-xs py-1 rounded transition-colors hover:text-white" style={{ color: "hsl(220, 20%, 65%)" }}>
+            <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+            <span>99871-203-13-22</span>
+          </a>
         </div>
       </div>
     </aside>
