@@ -20,7 +20,7 @@ const TopOTMCharts = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="rounded-xl p-5 border border-border bg-card">
-        <h4 className="text-sm font-semibold mb-4 text-foreground">Eng ko'p daromadga ega top 5 ta OTM</h4>
+        <h4 className="text-sm font-semibold mb-4 text-foreground">Eng yaxshi to'lov undirayotgan top 5 ta OTM</h4>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={topDaromad} layout="vertical" margin={{ left: 10, right: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
