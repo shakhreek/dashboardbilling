@@ -106,7 +106,11 @@ const ContractChart = () => {
                   name={moduleColors[key].label}
                   stroke={moduleColors[key].stroke}
                   fill={moduleColors[key].fill}
-                  strokeWidth={2}
+                  strokeWidth={2.5}
+                  dot={{ r: 3, fill: moduleColors[key].stroke, stroke: "white", strokeWidth: 2 }}
+                  activeDot={{ r: 5, fill: moduleColors[key].stroke, stroke: "white", strokeWidth: 2 }}
+                  animationDuration={1200}
+                  animationEasing="ease-out"
                 />
               ))}
             </AreaChart>
