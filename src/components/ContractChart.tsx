@@ -19,7 +19,7 @@ type ViewMode = "area" | "comparison";
 const moduleTabs = [
   { label: "Barchasi", value: "all" },
   { label: "Kontrakt", value: "shartnoma" },
-  { label: "Kredit", value: "kredit" },
+  { label: "Kredit modul", value: "kredit" },
   { label: "TTJ", value: "yotoqxona" },
 ];
 
