@@ -95,10 +95,14 @@ const GaugeChart = () => {
     };
   }, [currentSlide, slide.percentage]);
 
+  const isPaused = useRef(false);
+
   // Auto-rotate
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      if (!isPaused.current) {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }
     }, INTERVAL);
     return () => clearInterval(timerRef.current);
   }, []);
