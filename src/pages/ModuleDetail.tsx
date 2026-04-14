@@ -10,8 +10,28 @@ import StipendiyaDetails from "@/components/details/StipendiyaDetails";
 import IjaraDetails from "@/components/details/IjaraDetails";
 import TTJSubsidiyaDetails from "@/components/details/TTJSubsidiyaDetails";
 import dashboardBg from "@/assets/dashboard-bg.jpg";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const modulesMap: Record<string, { component: React.ComponentType; title: string; description: string; color: string }> = {
+export const otmList = [
+  { value: "all", label: "Barcha OTMlar" },
+  { value: "tashkent-iqtisodiyot", label: "Toshkent davlat iqtisodiyot universiteti" },
+  { value: "tashkent-tibbiyot", label: "Toshkent tibbiyot universiteti" },
+  { value: "samarqand-tibbiyot", label: "Samarqand davlat tibbiyot universiteti" },
+  { value: "tashkent-yuridik", label: "Toshkent davlat yuridik universiteti" },
+  { value: "uzmu", label: "Mirzo Ulug'bek nomidagi O'zMU" },
+  { value: "andijon-tibbiyot", label: "Andijon davlat tibbiyot instituti" },
+  { value: "fargona-dtu", label: "Farg'ona davlat universiteti" },
+  { value: "buxoro-muhandislik", label: "Buxoro muhandislik-texnologiya instituti" },
+  { value: "namangan-muhandislik", label: "Namangan muhandislik-texnologiya instituti" },
+];
+
+const modulesMap: Record<string, { component: React.ComponentType<{ selectedOtm?: string }>; title: string; description: string; color: string }> = {
   "tolov-kontrakt": { component: KontraktDetails, title: "Kontrakt", description: "Shartnomalar va to'lovlar statistikasi", color: "hsl(217, 91%, 60%)" },
   "kredit-modul": { component: KreditDetails, title: "Kredit modul", description: "Kredit to'lovlari holati", color: "hsl(270, 70%, 55%)" },
   "ttj": { component: TTJDetails, title: "TTJ — Talabalar turar joyi", description: "Yotoqxona bandligi va statistikasi", color: "hsl(142, 71%, 45%)" },
@@ -25,6 +45,7 @@ const ModuleDetail = () => {
   const navigate = useNavigate();
   const [year, setYear] = useState("2025-2026");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedOtm, setSelectedOtm] = useState("all");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -92,23 +113,38 @@ const ModuleDetail = () => {
               Bosh sahifaga qaytish
             </button>
 
-            <div className="flex items-center gap-3">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-105"
-                style={{ backgroundColor: `${moduleInfo.color}20` }}
-              >
-                <div className="w-6 h-6 rounded-full" style={{ backgroundColor: moduleInfo.color }} />
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  style={{ backgroundColor: `${moduleInfo.color}20` }}
+                >
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: moduleInfo.color }} />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-foreground">{moduleInfo.title}</h1>
+                  <p className="text-sm text-muted-foreground">{moduleInfo.description}</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">{moduleInfo.title}</h1>
-                <p className="text-sm text-muted-foreground">{moduleInfo.description}</p>
-              </div>
+
+              <Select value={selectedOtm} onValueChange={setSelectedOtm}>
+                <SelectTrigger className="w-[320px] bg-card border-border">
+                  <SelectValue placeholder="OTM tanlang" />
+                </SelectTrigger>
+                <SelectContent>
+                  {otmList.map((otm) => (
+                    <SelectItem key={otm.value} value={otm.value}>
+                      {otm.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
           {/* Module content */}
           <div className="w-full animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-            <Details />
+            <Details selectedOtm={selectedOtm} />
           </div>
         </main>
       </div>
