@@ -20,9 +20,7 @@ const GaugeChart = () => {
       const progress = Math.min(elapsed / duration, 1);
       // easeOutExpo
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-
-      setAnimatedPercent(Math.round(eased * targetPercentage));
-      setAnimatedTicks(eased * targetPercentage);
+      setAnimatedValue(eased * targetPercentage);
 
       if (progress < 1) {
         frameRef.current = requestAnimationFrame(animate);
