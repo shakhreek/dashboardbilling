@@ -192,13 +192,13 @@ const GaugeChart = () => {
       <div className="w-full mt-4">
         <div className="flex items-center justify-between mb-2.5">
           <span className="text-sm text-muted-foreground">{slide.remainLabel}</span>
-          <span className="text-sm font-semibold text-muted-foreground">{remaining}%</span>
+          <span className="text-sm font-semibold text-muted-foreground">{animatedRemaining}%</span>
         </div>
         <div className="w-full h-2.5 bg-muted/40 rounded-full overflow-hidden">
           <div
-            className="h-full rounded-full transition-all duration-100"
+            className="h-full rounded-full"
             style={{
-              width: `${remaining}%`,
+              width: `${animatedRemaining}%`,
               background: `linear-gradient(90deg, ${slide.remainColor}, ${slide.remainColor})`,
             }}
           />
