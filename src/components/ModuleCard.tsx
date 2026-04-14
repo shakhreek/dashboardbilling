@@ -106,11 +106,12 @@ export const moduleCards: ModuleCardData[] = [
     color: "hsl(239, 84%, 60%)",
     lightColor: "hsl(239, 84%, 95%)",
     mainValue: "27 800",
-    mainLabel: "shartnomalar",
+    mainLabel: "subsidiya oluvchilar",
     sparkline: [12000, 16000, 19500, 22800, 25400, 27800],
     metrics: [
-      { label: "Jami summa", value: "4 500 mlrd" },
-      { label: "Oluvchilar", value: "23 400", trend: "up", trendValue: "+7.1%" },
+      { label: "Jami to'lanadigan summa", value: "4 500 mlrd" },
+      { label: "Arizalar soni", value: "31 200", trend: "up", trendValue: "+7.1%" },
+      { label: "To'langan summa", value: "3 520 mlrd", trend: "up", trendValue: "+6.4%" },
     ],
   },
 ];
