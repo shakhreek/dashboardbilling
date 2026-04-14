@@ -20,7 +20,7 @@ const slides: SlideData[] = [
     remainColor: "hsl(350, 75%, 60%)",
   },
   {
-    title: "Kredit",
+    title: "Kredit modul",
     percentage: 65,
     label: "To'langan summa",
     remainLabel: "Qoldiq summa",

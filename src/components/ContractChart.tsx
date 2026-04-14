@@ -7,7 +7,7 @@ import { chartData } from "@/data/dashboardData";
 
 const comparisonData = [
   { name: "Kontrakt", current: 14440, previous: 12800, color: "hsl(217, 91%, 60%)" },
-  { name: "Kredit", current: 3210, previous: 2900, color: "hsl(270, 70%, 55%)" },
+  { name: "Kredit modul", current: 3210, previous: 2900, color: "hsl(270, 70%, 55%)" },
   { name: "TTJ", current: 890, previous: 780, color: "hsl(142, 71%, 45%)" },
   { name: "Stipendiya", current: 3600, previous: 3200, color: "hsl(45, 90%, 50%)" },
   { name: "Ijara", current: 2100, previous: 1850, color: "hsl(350, 70%, 55%)" },
@@ -19,13 +19,13 @@ type ViewMode = "area" | "comparison";
 const moduleTabs = [
   { label: "Barchasi", value: "all" },
   { label: "Kontrakt", value: "shartnoma" },
-  { label: "Kredit", value: "kredit" },
+  { label: "Kredit modul", value: "kredit" },
   { label: "TTJ", value: "yotoqxona" },
 ];
 
 const moduleColors: Record<string, { stroke: string; fill: string; label: string }> = {
   shartnoma: { stroke: "hsl(217, 91%, 60%)", fill: "url(#gradShartnoma)", label: "Shartnoma" },
-  kredit: { stroke: "hsl(270, 70%, 55%)", fill: "url(#gradKredit)", label: "Kredit" },
+  kredit: { stroke: "hsl(270, 70%, 55%)", fill: "url(#gradKredit)", label: "Kredit modul" },
   yotoqxona: { stroke: "hsl(142, 71%, 45%)", fill: "url(#gradTTJ)", label: "Yotoqxona" },
 };
 

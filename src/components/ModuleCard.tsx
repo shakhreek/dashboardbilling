@@ -37,7 +37,7 @@ export const moduleCards: ModuleCardData[] = [
   {
     id: "Kredit modul",
     slug: "kredit-modul",
-    title: "Kredit moduli",
+    title: "Kredit modul",
     icon: CreditCard,
     color: "hsl(270, 70%, 55%)",
     lightColor: "hsl(270, 70%, 95%)",
