@@ -37,7 +37,7 @@ const GaugeChart = () => {
     };
   }, []);
 
-  const remaining = 100 - animatedPercent;
+  const remaining = 100 - Math.round(animatedValue);
 
   const ticks = useMemo(() => {
     const arr = [];
