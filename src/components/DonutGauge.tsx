@@ -67,7 +67,7 @@ const GaugeChart = () => {
             viewBox={`0 0 ${size} ${size / 2 + 30}`}
           >
             {ticks.map((tick, i) => {
-              const filled = tick.frac * 100 <= animatedTicks;
+              const filled = tick.frac * 100 <= animatedValue;
               return (
                 <line
                   key={i}
