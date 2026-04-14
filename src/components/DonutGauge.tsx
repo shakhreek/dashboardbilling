@@ -112,7 +112,8 @@ const GaugeChart = () => {
     resetTimer();
   };
 
-  const remaining = 100 - Math.round(animatedValue);
+  const remaining = 100 - slide.percentage;
+  const animatedRemaining = Math.round((animatedValue / slide.percentage) * remaining);
 
   const ticks = useMemo(() => {
     const arr = [];
