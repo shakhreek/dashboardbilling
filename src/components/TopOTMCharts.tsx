@@ -24,9 +24,9 @@ const TopOTMCharts = () => {
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={topDaromad} layout="vertical" margin={{ left: 10, right: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v) => `${v} mld`} />
-            <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={200} />
-            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))", fontSize: "12px" }} formatter={(v: number) => [`${v} mld`, "Daromad"]} />
+            <XAxis type="number" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `${v} mld`} />
+            <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} width={200} />
+            <Tooltip cursor={false} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))", fontSize: "12px", background: "hsl(var(--card))", color: "hsl(var(--foreground))", boxShadow: "none" }} formatter={(v: number) => [`${v} mld`, "To'lov"]} />
             <Bar dataKey="value" fill="hsl(217, 91%, 65%)" radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
@@ -37,9 +37,9 @@ const TopOTMCharts = () => {
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={topQarzdorlik} layout="vertical" margin={{ left: 10, right: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v) => `${v} mld`} />
-            <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={200} />
-            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))", fontSize: "12px" }} formatter={(v: number) => [`${v} mld`, "Qarzdorlik"]} />
+            <XAxis type="number" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `${v} mld`} />
+            <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} width={200} />
+            <Tooltip cursor={false} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))", fontSize: "12px", background: "hsl(var(--card))", color: "hsl(var(--foreground))", boxShadow: "none" }} formatter={(v: number) => [`${v} mld`, "Qarzdorlik"]} />
             <Bar dataKey="value" fill="hsl(350, 70%, 65%)" radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
