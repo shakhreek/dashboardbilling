@@ -2,8 +2,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 
 const GaugeChart = () => {
   const targetPercentage = 79;
-  const [animatedPercent, setAnimatedPercent] = useState(0);
-  const [animatedTicks, setAnimatedTicks] = useState(0);
+  const [animatedValue, setAnimatedValue] = useState(0);
   const frameRef = useRef<number>();
 
   const size = 240;
@@ -21,9 +20,7 @@ const GaugeChart = () => {
       const progress = Math.min(elapsed / duration, 1);
       // easeOutExpo
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-
-      setAnimatedPercent(Math.round(eased * targetPercentage));
-      setAnimatedTicks(eased * targetPercentage);
+      setAnimatedValue(eased * targetPercentage);
 
       if (progress < 1) {
         frameRef.current = requestAnimationFrame(animate);
@@ -40,7 +37,7 @@ const GaugeChart = () => {
     };
   }, []);
 
-  const remaining = 100 - animatedPercent;
+  const remaining = 100 - Math.round(animatedValue);
 
   const ticks = useMemo(() => {
     const arr = [];
@@ -70,7 +67,7 @@ const GaugeChart = () => {
             viewBox={`0 0 ${size} ${size / 2 + 30}`}
           >
             {ticks.map((tick, i) => {
-              const filled = tick.frac * 100 <= animatedTicks;
+              const filled = tick.frac * 100 <= animatedValue;
               return (
                 <line
                   key={i}
@@ -89,7 +86,7 @@ const GaugeChart = () => {
           </svg>
 
           <div className="absolute inset-0 flex flex-col items-center justify-end pb-0">
-            <span className="text-4xl font-bold text-foreground leading-none">{animatedPercent}%</span>
+            <span className="text-4xl font-bold text-foreground leading-none">{Math.round(animatedValue)}%</span>
             <span className="text-sm text-muted-foreground mt-2">Shartnoma olganlar</span>
           </div>
         </div>
