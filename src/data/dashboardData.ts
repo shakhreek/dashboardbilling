@@ -29,7 +29,11 @@ export const statCards: StatCard[] = [
     { label: "Summasi", value: "14 440 mlrd" },
   ]},
   { label: "To'lovlar soni", value: "1 774 007", icon: "HandCoins", color: "rose", subLabel: "Kredit shartnomalar • 3 210 mlrd", subValue: "142 850" },
-  { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan" },
+  { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan", subLines: [
+    { label: "TTJ da turuvchilar", value: "48 920" },
+    { label: "Shartnomalar soni", value: "52 340" },
+    { label: "Summasi", value: "890 mlrd" },
+  ]},
   { label: "Talabalar soni", value: "48 920", icon: "GraduationCap", color: "green", subLabel: "Ijaradagilar • 2 100 mlrd", subValue: "18 900" },
 ];
 
