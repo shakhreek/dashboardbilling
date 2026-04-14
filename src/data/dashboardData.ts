@@ -31,8 +31,7 @@ export const statCards: StatCard[] = [
     { label: "To'lovlar soni", value: "1 774 007" },
     { label: "Summasi", value: "3 210 mlrd" },
   ]},
-  { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan", subLines: [
-    { label: "TTJ da turuvchilar", value: "48 920" },
+  { label: "TTJ", value: "48 920", icon: "CircleDollarSign", color: "cyan", subLines: [
     { label: "Shartnomalar soni", value: "52 340" },
     { label: "Summasi", value: "890 mlrd" },
   ]},
