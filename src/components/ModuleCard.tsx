@@ -114,8 +114,6 @@ export const moduleCards: ModuleCardData[] = [
       { label: "To'langan summa", value: "3 520 mlrd", trend: "up", trendValue: "+6.4%" },
     ],
   },
-    ],
-  },
 ];
 
 const AnimatedMetric = ({ value, delay }: { value: string; delay: number }) => {
