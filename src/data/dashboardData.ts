@@ -8,6 +8,7 @@ export interface StatCard {
   value: string;
   icon: string;
   color: string;
+  valueLabel?: string;
   subLabel?: string;
   subValue?: string;
   subLines?: StatCardSubLine[];
