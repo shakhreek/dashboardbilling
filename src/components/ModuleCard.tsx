@@ -29,9 +29,9 @@ export const moduleCards: ModuleCardData[] = [
     mainLabel: "shartnomalar",
     sparkline: [4200, 5800, 7100, 8900, 11200, 14440],
     metrics: [
-      { label: "Arizalar soni", value: "12 450", trend: "up", trendValue: "+3.2%" },
-      { label: "Tasdiqlangan", value: "11 230" },
-      { label: "To'langan", value: "7 253 mlrd", trend: "up", trendValue: "+12%" },
+      { label: "Umumiy summa", value: "14 440 mlrd" },
+      { label: "To'langan summa", value: "7 253 mlrd", trend: "up", trendValue: "+12%" },
+      { label: "To'lanmagan summa", value: "7 187 mlrd", trend: "down", trendValue: "-1.5%" },
     ],
   },
   {
@@ -45,9 +45,9 @@ export const moduleCards: ModuleCardData[] = [
     mainLabel: "shartnomalar",
     sparkline: [1200, 1800, 2100, 2500, 2900, 3210],
     metrics: [
-      { label: "Arizalar soni", value: "1 774 007", trend: "up", trendValue: "+5.1%" },
-      { label: "Tasdiqlangan", value: "128 740" },
-      { label: "To'lovlar", value: "1 670 mlrd", trend: "down", trendValue: "-2.4%" },
+      { label: "Umumiy summa", value: "3 210 mlrd" },
+      { label: "To'langan summa", value: "1 670 mlrd", trend: "up", trendValue: "+5.1%" },
+      { label: "To'lanmagan summa", value: "1 540 mlrd", trend: "down", trendValue: "-2.4%" },
     ],
   },
   {
@@ -61,9 +61,9 @@ export const moduleCards: ModuleCardData[] = [
     mainLabel: "shartnomalar",
     sparkline: [2100, 2800, 3200, 3700, 4100, 4520],
     metrics: [
-      { label: "Arizalar soni", value: "52 340" },
-      { label: "Tasdiqlangan", value: "4 890" },
-      { label: "Jami summa", value: "890 mlrd", trend: "up", trendValue: "+8%" },
+      { label: "Umumiy summa", value: "890 mlrd" },
+      { label: "To'langan summa", value: "570 mlrd", trend: "up", trendValue: "+8%" },
+      { label: "To'lanmagan summa", value: "320 mlrd", trend: "down", trendValue: "-4.1%" },
     ],
   },
   {
