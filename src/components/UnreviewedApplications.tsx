@@ -44,7 +44,7 @@ const UnreviewedApplications = () => {
               OTM nomi
             </TableHead>
             <TableHead className="text-xs font-semibold text-right" style={{ color: "white" }}>
-              Arizalar soni
+              Shartnomalar soni
             </TableHead>
           </TableRow>
         </TableHeader>

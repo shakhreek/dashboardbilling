@@ -20,7 +20,7 @@ const baseMonthlyData = [
 ];
 
 const baseStats = [
-  { label: "Arizalar soni", value: "142 850", icon: FileText, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+5.1%" },
+  { label: "Shartnomalar soni", value: "142 850", icon: FileText, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+5.1%" },
   { label: "Shartnomalar", value: "128 740", icon: CreditCard, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+3.7%" },
   { label: "Umumiy shartnoma summasi", value: "4 750 mlrd", icon: CreditCard, color: "hsl(217, 91%, 60%)", trend: "up" as const, trendValue: "+6.3%" },
 ];
