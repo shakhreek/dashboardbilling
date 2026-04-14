@@ -12,7 +12,7 @@ const GaugeChart = () => {
   const tickCount = 40;
 
   useEffect(() => {
-    const duration = 1800;
+    const duration = 2800;
     const startTime = performance.now();
 
     const animate = (currentTime: number) => {
