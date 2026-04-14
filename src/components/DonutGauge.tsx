@@ -2,8 +2,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 
 const GaugeChart = () => {
   const targetPercentage = 79;
-  const [animatedPercent, setAnimatedPercent] = useState(0);
-  const [animatedTicks, setAnimatedTicks] = useState(0);
+  const [animatedValue, setAnimatedValue] = useState(0);
   const frameRef = useRef<number>();
 
   const size = 240;
