@@ -3,6 +3,8 @@ export interface StatCard {
   value: string;
   icon: string;
   color: string;
+  subLabel?: string;
+  subValue?: string;
 }
 
 export interface ModuleRow {
@@ -14,7 +16,7 @@ export interface ModuleRow {
 }
 
 export const statCards: StatCard[] = [
-  { label: "OTM lar", value: "171", icon: "BarChart3", color: "purple" },
+  { label: "OTM lar", value: "171", icon: "BarChart3", color: "purple", subLabel: "Talabalar soni", subValue: "1 247 832" },
   { label: "Shartnomalar", value: "1 022 696", icon: "FileText", color: "blue" },
   { label: "To'lovlar soni", value: "2 413 174", icon: "HandCoins", color: "rose" },
   { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan" },
