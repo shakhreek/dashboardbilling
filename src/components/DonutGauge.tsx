@@ -36,14 +36,6 @@ const slides: SlideData[] = [
     remainColor: "hsl(215, 16%, 70%)",
   },
   {
-    title: "Stipendiya",
-    percentage: 42,
-    label: "Stipendiya olganlar",
-    remainLabel: "Olmaydiganlar",
-    color: "hsl(45, 90%, 50%)",
-    remainColor: "hsl(215, 16%, 70%)",
-  },
-  {
     title: "Ijara",
     percentage: 54,
     label: "To'langan ijara",
