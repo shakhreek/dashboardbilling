@@ -11,6 +11,7 @@ import ModuleCard, { moduleCards } from "@/components/ModuleCard";
 import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
 import RiskAnalysisCard from "@/components/RiskAnalysisCard";
+import PartnersSection from "@/components/PartnersSection";
 import DashboardSkeleton from "@/components/DashboardSkeleton";
 import { useEffect } from "react";
 
@@ -118,6 +119,10 @@ const Index = () => {
 
           <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
             <TopOTMCharts />
+          </div>
+
+          <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.55s", animationFillMode: "forwards" }}>
+            <PartnersSection />
           </div>
         </main>
       </div>
