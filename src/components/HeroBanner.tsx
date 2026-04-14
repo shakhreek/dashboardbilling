@@ -138,6 +138,12 @@ const HeroBanner = ({ cards }: Props) => {
                 </div>
                 <AnimatedValue value={card.value} delay={index * 100} />
                 <p className="text-xs text-muted-foreground mt-0.5">{card.label}</p>
+                {card.subValue && card.subLabel && (
+                  <div className="mt-2 pt-2 border-t border-border/50">
+                    <AnimatedValue value={card.subValue} delay={index * 100 + 200} className="text-sm font-semibold text-foreground leading-tight" />
+                    <p className="text-[10px] text-muted-foreground mt-0.5">{card.subLabel}</p>
+                  </div>
+                )}
               </div>
             </div>
           );
