@@ -77,8 +77,9 @@ export const moduleCards: ModuleCardData[] = [
     mainLabel: "talaba",
     sparkline: [900, 1200, 1500, 1800, 2100, 2340],
     metrics: [
-      { label: "Oluvchilar", value: "2 340", trend: "up", trendValue: "+4.5%" },
-      { label: "Jami summa", value: "3 600 mlrd" },
+      { label: "Jami to'lanadigan summa", value: "3 600 mlrd" },
+      { label: "Bazaviy stipendiya oluvchilar", value: "18 200", trend: "up", trendValue: "+4.5%" },
+      { label: "Boshqa turdagi stipendiya oluvchilar", value: "5 200", trend: "up", trendValue: "+3.1%" },
     ],
   },
   {
