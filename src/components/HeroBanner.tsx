@@ -64,9 +64,9 @@ interface Props {
   cards: StatCardType[];
 }
 
-const AnimatedValue = ({ value, delay }: { value: string; delay: number }) => {
+const AnimatedValue = ({ value, delay, className }: { value: string; delay: number; className?: string }) => {
   const animated = useCountUp(value, 1500, delay);
-  return <p className="text-xl font-bold text-foreground leading-tight">{animated}</p>;
+  return <p className={className || "text-xl font-bold text-foreground leading-tight"}>{animated}</p>;
 };
 
 const HeroBanner = ({ cards }: Props) => {
