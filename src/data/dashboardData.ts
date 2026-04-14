@@ -35,7 +35,10 @@ export const statCards: StatCard[] = [
     { label: "Shartnomalar soni", value: "52 340" },
     { label: "Summasi", value: "890 mlrd" },
   ]},
-  { label: "Talabalar soni", value: "48 920", icon: "GraduationCap", color: "green", subLabel: "Ijaradagilar • 2 100 mlrd", subValue: "18 900" },
+  { label: "Ijara", value: "18 900", icon: "GraduationCap", color: "green", subLines: [
+    { label: "Shartnomalar soni", value: "21 450" },
+    { label: "Summasi", value: "2 100 mlrd" },
+  ]},
 ];
 
 export const chartData = [
