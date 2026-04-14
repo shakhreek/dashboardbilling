@@ -65,19 +65,7 @@ const Index = () => {
           </div>
 
           {/* Module Cards */}
-          <div className="mb-6">
-            <h3 className="text-base font-semibold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.15s" }}>Modullar statistikasi</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {moduleCards.map((mod, i) => (
-                <div key={mod.id} className="animate-fade-in opacity-0" style={{ animationDelay: `${0.2 + i * 0.05}s` }}>
-                  <ModuleCard
-                    data={mod}
-                    onViewDetails={() => navigate(`/module/${mod.slug}`)}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ModulesSection navigate={navigate} />
 
           <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
             <RiskAnalysisCard />
