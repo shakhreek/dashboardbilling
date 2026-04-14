@@ -12,56 +12,6 @@ import TopOTMCharts from "@/components/TopOTMCharts";
 import { statCards } from "@/data/dashboardData";
 import RiskAnalysisCard from "@/components/RiskAnalysisCard";
 
-const filterTabs = [
-  { label: "Barchasi", value: "all" },
-  { label: "Kontrakt", value: "To'lov kontrakt" },
-  { label: "Kredit", value: "Kredit modul" },
-  { label: "TTJ", value: "TTJ" },
-  { label: "Stipendiya", value: "Stipendiya" },
-  { label: "Ijara", value: "Ijara" },
-  { label: "TTJ Subsidiya", value: "TTJ Subsidiya" },
-];
-
-const ModulesSection = ({ navigate }: { navigate: (path: string) => void }) => {
-  const [activeFilter, setActiveFilter] = useState("all");
-
-  const filtered = activeFilter === "all"
-    ? moduleCards
-    : moduleCards.filter((m) => m.id === activeFilter);
-
-  return (
-    <div className="mb-6">
-      <div className="flex items-center justify-between mb-4 animate-fade-in" style={{ animationDelay: "0.15s" }}>
-        <h3 className="text-base font-semibold text-foreground">Modullar statistikasi</h3>
-      </div>
-      <div className="flex flex-wrap gap-2 mb-4 animate-fade-in" style={{ animationDelay: "0.17s" }}>
-        {filterTabs.map((tab) => (
-          <button
-            key={tab.value}
-            onClick={() => setActiveFilter(tab.value)}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 border ${
-              activeFilter === tab.value
-                ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                : "bg-card text-muted-foreground border-border hover:bg-accent hover:text-foreground"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {filtered.map((mod, i) => (
-          <div key={mod.id} className="animate-fade-in opacity-0" style={{ animationDelay: `${0.05 + i * 0.05}s`, animationFillMode: "forwards" }}>
-            <ModuleCard
-              data={mod}
-              onViewDetails={() => navigate(`/module/${mod.slug}`)}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const Index = () => {
   const [year, setYear] = useState("2025-2026");
@@ -116,7 +66,19 @@ const Index = () => {
           </div>
 
           {/* Module Cards */}
-          <ModulesSection navigate={navigate} />
+          <div className="mb-6">
+            <h3 className="text-base font-semibold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.15s" }}>Modullar statistikasi</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {moduleCards.map((mod, i) => (
+                <div key={mod.id} className="animate-fade-in opacity-0" style={{ animationDelay: `${0.2 + i * 0.05}s`, animationFillMode: "forwards" }}>
+                  <ModuleCard
+                    data={mod}
+                    onViewDetails={() => navigate(`/module/${mod.slug}`)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.45s" }}>
             <RiskAnalysisCard />
