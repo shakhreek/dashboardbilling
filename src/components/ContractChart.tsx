@@ -16,12 +16,30 @@ const comparisonData = [
 
 type ViewMode = "area" | "comparison";
 
+const moduleTabs = [
+  { label: "Barchasi", value: "all" },
+  { label: "Kontrakt", value: "shartnoma" },
+  { label: "Kredit", value: "kredit" },
+  { label: "TTJ", value: "yotoqxona" },
+];
+
+const moduleColors: Record<string, { stroke: string; fill: string; label: string }> = {
+  shartnoma: { stroke: "hsl(217, 91%, 60%)", fill: "url(#gradShartnoma)", label: "Shartnoma" },
+  kredit: { stroke: "hsl(270, 70%, 55%)", fill: "url(#gradKredit)", label: "Kredit" },
+  yotoqxona: { stroke: "hsl(142, 71%, 45%)", fill: "url(#gradTTJ)", label: "Yotoqxona" },
+};
+
 const ContractChart = () => {
   const [view, setView] = useState<ViewMode>("area");
+  const [activeModule, setActiveModule] = useState("all");
+
+  const visibleModules = activeModule === "all"
+    ? ["shartnoma", "kredit", "yotoqxona"]
+    : [activeModule];
 
   return (
     <div className="bg-card rounded-xl border border-border p-5">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Activity className="w-5 h-5 text-primary" />
           <h3 className="text-base font-semibold text-foreground">Modullar tahlili</h3>
@@ -48,6 +66,25 @@ const ContractChart = () => {
         </div>
       </div>
 
+      {/* Module filter tabs */}
+      {view === "area" && (
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {moduleTabs.map((tab) => (
+            <button
+              key={tab.value}
+              onClick={() => setActiveModule(tab.value)}
+              className={`px-3 py-1 rounded-lg text-[11px] font-medium transition-all duration-200 border ${
+                activeModule === tab.value
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                  : "bg-secondary/50 text-muted-foreground border-border hover:bg-accent hover:text-foreground"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {view === "area" ? (
         <>
           <ResponsiveContainer width="100%" height={320}>
@@ -69,25 +106,32 @@ const ContractChart = () => {
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
               <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="hsl(215, 16%, 47%)" />
               <YAxis yAxisId="left" tick={{ fontSize: 10 }} stroke="hsl(217, 91%, 60%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
-              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10 }} stroke="hsl(270, 70%, 55%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+              {visibleModules.some(m => m !== "shartnoma") && (
+                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10 }} stroke="hsl(270, 70%, 55%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+              )}
               <Tooltip
                 formatter={(value: number) => value.toLocaleString()}
                 contentStyle={{ borderRadius: 8, border: "1px solid hsl(214, 32%, 91%)" }}
               />
-              <Area yAxisId="left" type="monotone" dataKey="shartnoma" name="Shartnoma" stroke="hsl(217, 91%, 60%)" fill="url(#gradShartnoma)" strokeWidth={2} />
-              <Area yAxisId="right" type="monotone" dataKey="kredit" name="Kredit" stroke="hsl(270, 70%, 55%)" fill="url(#gradKredit)" strokeWidth={2} />
-              <Area yAxisId="right" type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="hsl(142, 71%, 45%)" fill="url(#gradTTJ)" strokeWidth={2} />
+              {visibleModules.map((key) => (
+                <Area
+                  key={key}
+                  yAxisId={key === "shartnoma" ? "left" : visibleModules.some(m => m !== "shartnoma") ? "right" : "left"}
+                  type="monotone"
+                  dataKey={key}
+                  name={moduleColors[key].label}
+                  stroke={moduleColors[key].stroke}
+                  fill={moduleColors[key].fill}
+                  strokeWidth={2}
+                />
+              ))}
             </AreaChart>
           </ResponsiveContainer>
           <div className="flex justify-center gap-5 mt-3">
-            {[
-              { label: "Shartnoma", color: "hsl(217, 91%, 60%)" },
-              { label: "Kredit", color: "hsl(270, 70%, 55%)" },
-              { label: "Yotoqxona", color: "hsl(142, 71%, 45%)" },
-            ].map((l) => (
-              <div key={l.label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: l.color }} />
-                {l.label}
+            {visibleModules.map((key) => (
+              <div key={key} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: moduleColors[key].stroke }} />
+                {moduleColors[key].label}
               </div>
             ))}
           </div>
