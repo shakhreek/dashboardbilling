@@ -1,12 +1,19 @@
+import moliyaLogo from "@/assets/partners/moliya-vazirligi.png";
+import markaziyBankLogo from "@/assets/partners/markaziy-bank.png";
+import aloqabankLogo from "@/assets/partners/aloqabank.png";
+import uzasboLogo from "@/assets/partners/uzasbo.png";
+import hemisLogo from "@/assets/partners/hemis.png";
+import yoshlarLogo from "@/assets/partners/yoshlar.png";
+import mygovuzLogo from "@/assets/partners/mygovuz.png";
+
 const partners = [
-  { name: "O'zbekiston Respublikasi Iqtisodiyot va Moliya Vazirligi", short: "Moliya Vazirligi" },
-  { name: "O'zbekiston Respublikasi Markaziy banki", short: "Markaziy bank" },
-  { name: "AloqaBank", short: "AloqaBank" },
-  { name: "UDASBO", short: "UDASBO" },
-  { name: "HEMIS", short: "HEMIS" },
-  { name: "Yoshlar ishlari agentligi", short: "Yoshlar agentligi" },
-  { name: "my.gov.uz", short: "my.gov.uz" },
-  { name: "O'zbekiston Respublikasi OTM", short: "OTM" },
+  { name: "Iqtisodiyot va Moliya Vazirligi", logo: moliyaLogo },
+  { name: "Markaziy banki", logo: markaziyBankLogo },
+  { name: "AloqaBank", logo: aloqabankLogo },
+  { name: "UzASBO", logo: uzasboLogo },
+  { name: "HEMIS", logo: hemisLogo },
+  { name: "Yoshlar ishlari agentligi", logo: yoshlarLogo },
+  { name: "my.gov.uz", logo: mygovuzLogo },
 ];
 
 const PartnersSection = () => {
@@ -20,16 +27,15 @@ const PartnersSection = () => {
           {partners.map((partner) => (
             <div
               key={partner.name}
-              className="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-default"
+              className="opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-default"
+              title={partner.name}
             >
-              <div className="w-8 h-8 rounded-full bg-muted/80 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-muted-foreground">
-                  {partner.short.slice(0, 2).toUpperCase()}
-                </span>
-              </div>
-              <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">
-                {partner.short}
-              </span>
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                loading="lazy"
+                className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
           ))}
         </div>
