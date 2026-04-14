@@ -144,6 +144,16 @@ const HeroBanner = ({ cards }: Props) => {
                     <p className="text-[10px] text-muted-foreground mt-0.5">{card.subLabel}</p>
                   </div>
                 )}
+                {card.subLines && card.subLines.length > 0 && (
+                  <div className="mt-2 pt-2 border-t border-border/50 space-y-1.5">
+                    {card.subLines.map((line, li) => (
+                      <div key={li} className="flex items-center justify-between">
+                        <p className="text-[10px] text-muted-foreground">{line.label}</p>
+                        <p className="text-[11px] font-semibold text-foreground">{line.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           );
