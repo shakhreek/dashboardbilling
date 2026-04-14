@@ -95,10 +95,14 @@ const GaugeChart = () => {
     };
   }, [currentSlide, slide.percentage]);
 
+  const isPaused = useRef(false);
+
   // Auto-rotate
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      if (!isPaused.current) {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }
     }, INTERVAL);
     return () => clearInterval(timerRef.current);
   }, []);
@@ -136,7 +140,11 @@ const GaugeChart = () => {
   }, []);
 
   return (
-    <div className="bg-card rounded-xl border border-border p-6 flex flex-col items-center justify-between h-full">
+    <div
+      className="bg-card rounded-xl border border-border p-6 flex flex-col items-center justify-between h-full"
+      onMouseEnter={() => { isPaused.current = true; }}
+      onMouseLeave={() => { isPaused.current = false; }}
+    >
       {/* Header with nav */}
       <div className="w-full flex items-center justify-between mb-1">
         <button
