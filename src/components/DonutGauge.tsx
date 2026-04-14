@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SlideData {
   title: string;
@@ -8,6 +9,9 @@ interface SlideData {
   remainLabel: string;
   color: string;
   remainColor: string;
+  totalValue: string;
+  mainValue: string;
+  remainValue: string;
 }
 
 const slides: SlideData[] = [
@@ -18,6 +22,9 @@ const slides: SlideData[] = [
     remainLabel: "Shartnoma olmaganlar",
     color: "hsl(270, 70%, 55%)",
     remainColor: "hsl(350, 75%, 60%)",
+    totalValue: "787 674",
+    mainValue: "622 262",
+    remainValue: "165 412",
   },
   {
     title: "Kredit modul",
@@ -26,6 +33,9 @@ const slides: SlideData[] = [
     remainLabel: "Qoldiq summa",
     color: "hsl(217, 91%, 60%)",
     remainColor: "hsl(45, 90%, 50%)",
+    totalValue: "4 750 mlrd",
+    mainValue: "3 088 mlrd",
+    remainValue: "1 662 mlrd",
   },
   {
     title: "TTJ",
@@ -34,6 +44,9 @@ const slides: SlideData[] = [
     remainLabel: "Bo'sh joylar",
     color: "hsl(142, 71%, 45%)",
     remainColor: "hsl(215, 16%, 70%)",
+    totalValue: "52 000",
+    mainValue: "45 240",
+    remainValue: "6 760",
   },
   {
     title: "Ijara",
@@ -42,6 +55,9 @@ const slides: SlideData[] = [
     remainLabel: "Qarzdorlik",
     color: "hsl(350, 70%, 55%)",
     remainColor: "hsl(215, 16%, 70%)",
+    totalValue: "2 100 mlrd",
+    mainValue: "1 134 mlrd",
+    remainValue: "966 mlrd",
   },
 ];
 
@@ -183,26 +199,60 @@ const GaugeChart = () => {
           </svg>
 
           <div className="absolute inset-0 flex flex-col items-center justify-end pb-0">
-            <span className="text-4xl font-bold text-foreground leading-none">{Math.round(animatedValue)}%</span>
-            <span className="text-sm text-muted-foreground mt-2">{slide.label}</span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center cursor-pointer">
+                    <span className="text-4xl font-bold text-foreground leading-none">{Math.round(animatedValue)}%</span>
+                    <span className="text-sm text-muted-foreground mt-2">{slide.label}</span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="p-3 space-y-1.5 text-sm">
+                  <div className="flex justify-between gap-6">
+                    <span className="text-muted-foreground">Jami:</span>
+                    <span className="font-semibold">{slide.totalValue}</span>
+                  </div>
+                  <div className="flex justify-between gap-6">
+                    <span className="text-muted-foreground">{slide.label}:</span>
+                    <span className="font-semibold" style={{ color: slide.color }}>{slide.mainValue}</span>
+                  </div>
+                  <div className="flex justify-between gap-6">
+                    <span className="text-muted-foreground">{slide.remainLabel}:</span>
+                    <span className="font-semibold" style={{ color: slide.remainColor }}>{slide.remainValue}</span>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>
 
       <div className="w-full mt-4">
-        <div className="flex items-center justify-between mb-2.5">
-          <span className="text-sm text-muted-foreground">{slide.remainLabel}</span>
-          <span className="text-sm font-semibold text-muted-foreground">{animatedRemaining}%</span>
-        </div>
-        <div className="w-full h-2.5 bg-muted/40 rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full"
-            style={{
-              width: `${animatedRemaining}%`,
-              background: `linear-gradient(90deg, ${slide.remainColor}, ${slide.remainColor})`,
-            }}
-          />
-        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="cursor-pointer">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-sm text-muted-foreground">{slide.remainLabel}</span>
+                  <span className="text-sm font-semibold text-muted-foreground">{animatedRemaining}%</span>
+                </div>
+                <div className="w-full h-2.5 bg-muted/40 rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${animatedRemaining}%`,
+                      background: `linear-gradient(90deg, ${slide.remainColor}, ${slide.remainColor})`,
+                    }}
+                  />
+                </div>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="p-2.5 text-sm">
+              <span className="font-semibold" style={{ color: slide.remainColor }}>{slide.remainValue}</span>
+              <span className="text-muted-foreground ml-1">/ {slide.totalValue}</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
 
       {/* Dots */}
