@@ -31,6 +31,12 @@ const KreditDetails = () => {
       {/* Stats grid */}
       <AnimatedStatsGrid stats={stats} />
 
+      <AnimatedProgressCard
+        totalSum={4750}
+        paidSum={3210}
+        formatValue={(v) => `${v.toLocaleString()} mlrd`}
+      />
+
       {/* Line chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Oy kesimida to'langan summa</h4>
