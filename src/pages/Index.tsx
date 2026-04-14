@@ -121,7 +121,7 @@ const Index = () => {
             <TopOTMCharts />
           </div>
 
-          <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.55s", animationFillMode: "forwards" }}>
+          <div className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.55s", animationFillMode: "forwards" }}>
             <PartnersSection />
           </div>
         </main>
