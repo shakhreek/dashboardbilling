@@ -3,6 +3,8 @@ export interface StatCard {
   value: string;
   icon: string;
   color: string;
+  subLabel?: string;
+  subValue?: string;
 }
 
 export interface ModuleRow {
