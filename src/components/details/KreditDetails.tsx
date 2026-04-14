@@ -1,6 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
+import AnimatedProgressCard from "@/components/AnimatedProgressCard";
 import { FileText, CheckCircle, AlertTriangle, CreditCard } from "lucide-react";
 
 const monthlyData = [
@@ -29,6 +30,12 @@ const KreditDetails = () => {
     <div className="space-y-6">
       {/* Stats grid */}
       <AnimatedStatsGrid stats={stats} />
+
+      <AnimatedProgressCard
+        totalSum={4750}
+        paidSum={3210}
+        formatValue={(v) => `${v.toLocaleString()} mlrd`}
+      />
 
       {/* Line chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
