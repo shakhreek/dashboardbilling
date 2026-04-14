@@ -92,7 +92,7 @@ const HeroBanner = ({ cards }: Props) => {
       </div>
 
       {/* Cards grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {cards.map((card, index) => {
           const Icon = iconMap[card.icon] || FileText;
           const config = colorConfig[card.color] || colorConfig.blue;
