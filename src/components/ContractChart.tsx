@@ -66,25 +66,6 @@ const ContractChart = () => {
         </div>
       </div>
 
-      {/* Module filter tabs */}
-      {view === "area" && (
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {moduleTabs.map((tab) => (
-            <button
-              key={tab.value}
-              onClick={() => setActiveModule(tab.value)}
-              className={`px-3 py-1 rounded-lg text-[11px] font-medium transition-all duration-200 border ${
-                activeModule === tab.value
-                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                  : "bg-secondary/50 text-muted-foreground border-border hover:bg-accent hover:text-foreground"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      )}
-
       {view === "area" ? (
         <>
           <ResponsiveContainer width="100%" height={320}>
@@ -133,6 +114,21 @@ const ContractChart = () => {
                 <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: moduleColors[key].stroke }} />
                 {moduleColors[key].label}
               </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-border/50">
+            {moduleTabs.map((tab) => (
+              <button
+                key={tab.value}
+                onClick={() => setActiveModule(tab.value)}
+                className={`px-3 py-1 rounded-lg text-[11px] font-medium transition-all duration-200 border ${
+                  activeModule === tab.value
+                    ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                    : "bg-secondary/50 text-muted-foreground border-border hover:bg-accent hover:text-foreground"
+                }`}
+              >
+                {tab.label}
+              </button>
             ))}
           </div>
         </>
