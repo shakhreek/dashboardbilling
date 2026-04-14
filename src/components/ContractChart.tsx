@@ -116,7 +116,7 @@ const ContractChart = () => {
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-border/50">
+          <div className="flex flex-wrap justify-center gap-1.5 mt-4 pt-3 border-t border-border/50">
             {moduleTabs.map((tab) => (
               <button
                 key={tab.value}
