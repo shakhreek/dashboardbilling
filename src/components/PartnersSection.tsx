@@ -18,27 +18,25 @@ const partners = [
 
 const PartnersSection = () => {
   return (
-    <div className="py-8 px-4">
-      <div className="bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 py-6 px-8">
-        <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider text-center mb-6">
-          Hamkorlar
-        </h4>
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-          {partners.map((partner) => (
-            <div
-              key={partner.name}
-              className="opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-default"
-              title={partner.name}
-            >
-              <img
-                src={partner.logo}
-                alt={partner.name}
-                loading="lazy"
-                className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-          ))}
-        </div>
+    <div className="bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 py-8 px-10">
+      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider text-center mb-8">
+        Hamkorlar
+      </h4>
+      <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14 lg:gap-16">
+        {partners.map((partner) => (
+          <div
+            key={partner.name}
+            className="opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-default"
+            title={partner.name}
+          >
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              loading="lazy"
+              className="h-14 md:h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
