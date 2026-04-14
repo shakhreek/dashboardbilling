@@ -20,7 +20,7 @@ export const statCards: StatCard[] = [
   { label: "Shartnomalar", value: "1 022 696", icon: "FileText", color: "blue" },
   { label: "To'lovlar soni", value: "1 774 007", icon: "HandCoins", color: "rose", subLabel: "Kredit shartnomalar • 3 210 mlrd", subValue: "142 850" },
   { label: "To'lanmagan summa", value: "2 924 mlrd", icon: "CircleDollarSign", color: "cyan" },
-  { label: "Talabalar soni", value: "48 920", icon: "GraduationCap", color: "green" },
+  { label: "Talabalar soni", value: "48 920", icon: "GraduationCap", color: "green", subLabel: "Ijaradagilar • 2 100 mlrd", subValue: "18 900" },
 ];
 
 export const chartData = [
