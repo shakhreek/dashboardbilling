@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SlideData {
   title: string;
@@ -8,6 +9,9 @@ interface SlideData {
   remainLabel: string;
   color: string;
   remainColor: string;
+  totalValue: string;
+  mainValue: string;
+  remainValue: string;
 }
 
 const slides: SlideData[] = [
@@ -18,6 +22,9 @@ const slides: SlideData[] = [
     remainLabel: "Shartnoma olmaganlar",
     color: "hsl(270, 70%, 55%)",
     remainColor: "hsl(350, 75%, 60%)",
+    totalValue: "787 674",
+    mainValue: "622 262",
+    remainValue: "165 412",
   },
   {
     title: "Kredit modul",
@@ -26,6 +33,9 @@ const slides: SlideData[] = [
     remainLabel: "Qoldiq summa",
     color: "hsl(217, 91%, 60%)",
     remainColor: "hsl(45, 90%, 50%)",
+    totalValue: "4 750 mlrd",
+    mainValue: "3 088 mlrd",
+    remainValue: "1 662 mlrd",
   },
   {
     title: "TTJ",
@@ -34,6 +44,9 @@ const slides: SlideData[] = [
     remainLabel: "Bo'sh joylar",
     color: "hsl(142, 71%, 45%)",
     remainColor: "hsl(215, 16%, 70%)",
+    totalValue: "52 000",
+    mainValue: "45 240",
+    remainValue: "6 760",
   },
   {
     title: "Ijara",
@@ -42,6 +55,9 @@ const slides: SlideData[] = [
     remainLabel: "Qarzdorlik",
     color: "hsl(350, 70%, 55%)",
     remainColor: "hsl(215, 16%, 70%)",
+    totalValue: "2 100 mlrd",
+    mainValue: "1 134 mlrd",
+    remainValue: "966 mlrd",
   },
 ];
 
