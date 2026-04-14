@@ -90,11 +90,12 @@ export const moduleCards: ModuleCardData[] = [
     color: "hsl(350, 70%, 55%)",
     lightColor: "hsl(350, 70%, 95%)",
     mainValue: "18 900",
-    mainLabel: "shartnomalar",
+    mainLabel: "ijara oluvchilar",
     sparkline: [8000, 10500, 13000, 15200, 17100, 18900],
     metrics: [
-      { label: "Jami summa", value: "2 100 mlrd" },
-      { label: "Oluvchilar", value: "14 500", trend: "up", trendValue: "+6.3%" },
+      { label: "Jami to'lanadigan summa", value: "2 100 mlrd" },
+      { label: "Arizalar soni", value: "21 450", trend: "up", trendValue: "+6.3%" },
+      { label: "To'langan summa", value: "1 650 mlrd", trend: "up", trendValue: "+5.8%" },
     ],
   },
   {
