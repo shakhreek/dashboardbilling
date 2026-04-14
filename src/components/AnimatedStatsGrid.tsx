@@ -46,7 +46,7 @@ const AnimatedStatCard = ({ stat, index }: { stat: StatItem; index: number }) =>
 
 const AnimatedStatsGrid = ({ stats }: Props) => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className={`grid grid-cols-2 gap-4 ${stats.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
       {stats.map((s, i) => (
         <AnimatedStatCard key={s.label} stat={s} index={i} />
       ))}
