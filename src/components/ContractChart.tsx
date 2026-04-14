@@ -25,7 +25,7 @@ const moduleTabs = [
 
 const moduleColors: Record<string, { stroke: string; fill: string; label: string }> = {
   shartnoma: { stroke: "hsl(217, 91%, 60%)", fill: "url(#gradShartnoma)", label: "Shartnoma" },
-  kredit: { stroke: "hsl(270, 70%, 55%)", fill: "url(#gradKredit)", label: "Kredit" },
+  kredit: { stroke: "hsl(270, 70%, 55%)", fill: "url(#gradKredit)", label: "Kredit modul" },
   yotoqxona: { stroke: "hsl(142, 71%, 45%)", fill: "url(#gradTTJ)", label: "Yotoqxona" },
 };
 
