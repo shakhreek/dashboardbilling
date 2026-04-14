@@ -1,17 +1,19 @@
+import { useMemo } from "react";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import AnimatedProgressCard from "@/components/AnimatedProgressCard";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { Building2, Users, Clock, Banknote } from "lucide-react";
+import { Building2, Users, Clock } from "lucide-react";
+import { applyOtmToStr, applyOtmFactor, scaleChartData } from "@/data/otmData";
 
-const stats = [
+const baseStats = [
   { label: "Umumiy TTJ lar soni", value: "248", icon: Building2, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+2" },
   { label: "TTJ da turgan talabalar", value: "48 920", icon: Users, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+6.3%" },
   { label: "Navbatda turganlar", value: "12 340", icon: Clock, color: "hsl(35, 80%, 50%)", trend: "down" as const, trendValue: "-4.1%" },
   { label: "Jami joylar", value: "52 000", icon: Building2, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+3.8%" },
 ];
 
-const monthlyPayments = [
+const baseMonthlyPayments = [
   { month: "Sen", tolangan: 120, qarzdorlik: 30 },
   { month: "Okt", tolangan: 135, qarzdorlik: 25 },
   { month: "Noy", tolangan: 110, qarzdorlik: 40 },
@@ -24,7 +26,7 @@ const monthlyPayments = [
   { month: "Iyun", tolangan: 100, qarzdorlik: 45 },
 ];
 
-const monthlyOccupancy = [
+const baseMonthlyOccupancy = [
   { month: "Sen", bandlik: 4580, bosh: 620 },
   { month: "Okt", bandlik: 4730, bosh: 470 },
   { month: "Noy", bandlik: 4830, bosh: 370 },
@@ -37,20 +39,17 @@ const monthlyOccupancy = [
   { month: "Iyun", bandlik: 3740, bosh: 1460 },
 ];
 
-const TTJDetails = () => {
-  const totalSum = 890;
-  const paidSum = 570;
-  
+const TTJDetails = ({ selectedOtm = "all" }: { selectedOtm?: string }) => {
+  const stats = useMemo(() => baseStats.map(s => ({ ...s, value: applyOtmToStr(s.value, selectedOtm) })), [selectedOtm]);
+  const monthlyPayments = useMemo(() => scaleChartData(baseMonthlyPayments, selectedOtm, ["tolangan", "qarzdorlik"]), [selectedOtm]);
+  const monthlyOccupancy = useMemo(() => scaleChartData(baseMonthlyOccupancy, selectedOtm, ["bandlik", "bosh"]), [selectedOtm]);
+  const totalSum = applyOtmFactor(890, selectedOtm);
+  const paidSum = applyOtmFactor(570, selectedOtm);
 
   return (
     <div className="space-y-6">
-      {/* Stats grid */}
-      <AnimatedStatsGrid stats={stats} />
-
-      <AnimatedProgressCard totalSum={totalSum} paidSum={paidSum} />
-
-
-      {/* Monthly payments chart */}
+      <AnimatedStatsGrid stats={stats} key={selectedOtm} />
+      <AnimatedProgressCard totalSum={totalSum} paidSum={paidSum} key={`prog-${selectedOtm}`} />
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Oy kesimida to'lovlar</h4>
         <ResponsiveContainer width="100%" height={300}>
@@ -58,21 +57,13 @@ const TTJDetails = () => {
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
             <YAxis tick={{ fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid hsl(214, 32%, 91%)",
-                fontSize: "12px",
-              }}
-            />
+            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} />
             <Legend wrapperStyle={{ fontSize: "12px" }} />
             <Bar dataKey="tolangan" name="To'langan" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
             <Bar dataKey="qarzdorlik" name="Qarzdorlik" fill="hsl(350, 70%, 55%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
-
-      {/* Monthly occupancy bar chart */}
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Oyma-oy bandlik va bo'sh joylar</h4>
         <ResponsiveContainer width="100%" height={300}>
@@ -80,16 +71,13 @@ const TTJDetails = () => {
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
             <YAxis tick={{ fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }}
-            />
+            <Tooltip contentStyle={{ borderRadius: "8px", border: "1px solid hsl(214, 32%, 91%)", fontSize: "12px" }} />
             <Legend wrapperStyle={{ fontSize: "12px" }} />
             <Bar dataKey="bandlik" name="Band joylar" fill="hsl(217, 91%, 60%)" radius={[4, 4, 0, 0]} />
             <Bar dataKey="bosh" name="Bo'sh joylar" fill="hsl(35, 80%, 50%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
-
       <UnreviewedApplications />
     </div>
   );

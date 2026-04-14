@@ -1,23 +1,18 @@
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { useMemo } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import { FileText, CheckCircle, Users, Banknote } from "lucide-react";
+import { applyOtmToStr, scaleChartData } from "@/data/otmData";
 
-const stats = [
+const baseStats = [
   { label: "Arizalar soni", value: "27 800", icon: FileText, color: "hsl(239, 84%, 60%)", trend: "up" as const, trendValue: "+7.1%" },
   { label: "Tasdiqlangan", value: "23 400", icon: CheckCircle, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+5.4%" },
   { label: "Jami summa", value: "4 500 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+11.2%" },
   { label: "Oluvchilar", value: "23 400", icon: Users, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+7.1%" },
 ];
 
-const funnelData = [
-  { stage: "Yangi arizalar", count: 2780, fill: "hsl(239, 84%, 67%)" },
-  { stage: "Ko'rib chiqilmoqda", count: 2540, fill: "hsl(217, 91%, 60%)" },
-  { stage: "Tasdiqlangan", count: 2340, fill: "hsl(142, 71%, 45%)" },
-  { stage: "To'langan", count: 2100, fill: "hsl(45, 90%, 50%)" },
-];
-
-const monthlyData = [
+const baseMonthlyData = [
   { month: "Sen", tolangan: 420 },
   { month: "Okt", tolangan: 390 },
   { month: "Noy", tolangan: 450 },
@@ -30,14 +25,13 @@ const monthlyData = [
   { month: "Iyun", tolangan: 310 },
 ];
 
-const TTJSubsidiyaDetails = () => {
+const TTJSubsidiyaDetails = ({ selectedOtm = "all" }: { selectedOtm?: string }) => {
+  const stats = useMemo(() => baseStats.map(s => ({ ...s, value: applyOtmToStr(s.value, selectedOtm) })), [selectedOtm]);
+  const monthlyData = useMemo(() => scaleChartData(baseMonthlyData, selectedOtm, ["tolangan"]), [selectedOtm]);
+
   return (
     <div className="space-y-6">
-      {/* Stats grid */}
-      <AnimatedStatsGrid stats={stats} />
-
-
-      {/* Monthly line chart */}
+      <AnimatedStatsGrid stats={stats} key={selectedOtm} />
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Oy kesimida to'langan summa (mln)</h4>
         <ResponsiveContainer width="100%" height={300}>
@@ -50,7 +44,6 @@ const TTJSubsidiyaDetails = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-
       <UnreviewedApplications />
     </div>
   );

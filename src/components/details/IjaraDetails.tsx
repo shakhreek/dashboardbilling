@@ -1,17 +1,19 @@
+import { useMemo } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import UzbekistanMap from "@/components/UzbekistanMap";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
 import { FileText, Banknote, Users, CheckCircle } from "lucide-react";
+import { applyOtmToStr, scaleChartData } from "@/data/otmData";
 
-const stats = [
+const baseStats = [
   { label: "Arizalar soni", value: "18 900", icon: FileText, color: "hsl(350, 70%, 55%)", trend: "up" as const, trendValue: "+6.3%" },
   { label: "Tasdiqlangan", value: "14 500", icon: CheckCircle, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+5.8%" },
   { label: "Jami summa", value: "2 100 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+9.4%" },
   { label: "Oluvchilar", value: "14 500", icon: Users, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+6.3%" },
 ];
 
-const monthlyData = [
+const baseMonthlyData = [
   { month: "Sen", tolangan: 230 },
   { month: "Okt", tolangan: 215 },
   { month: "Noy", tolangan: 205 },
@@ -41,13 +43,13 @@ const regionData = [
   { id: "karakalpakstan", name: "Qoraqalpog'iston", value: 360 },
 ];
 
-const IjaraDetails = () => {
+const IjaraDetails = ({ selectedOtm = "all" }: { selectedOtm?: string }) => {
+  const stats = useMemo(() => baseStats.map(s => ({ ...s, value: applyOtmToStr(s.value, selectedOtm) })), [selectedOtm]);
+  const monthlyData = useMemo(() => scaleChartData(baseMonthlyData, selectedOtm, ["tolangan"]), [selectedOtm]);
+
   return (
     <div className="space-y-6">
-      {/* Stats grid */}
-      <AnimatedStatsGrid stats={stats} />
-
-      {/* Monthly payments */}
+      <AnimatedStatsGrid stats={stats} key={selectedOtm} />
       <div className="rounded-xl p-5 border border-border bg-card">
         <h4 className="text-sm font-semibold mb-4 text-foreground">Oy kesimida subsidiya to'lovlari (mln)</h4>
         <ResponsiveContainer width="100%" height={300}>
@@ -60,16 +62,9 @@ const IjaraDetails = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-
-      {/* Region map */}
       <div className="rounded-xl p-5 border border-border bg-card">
-        <UzbekistanMap
-          data={regionData}
-          title="Hududlar bo'yicha oluvchilar soni"
-          valueLabel="Oluvchilar"
-        />
+        <UzbekistanMap data={regionData} title="Hududlar bo'yicha oluvchilar soni" valueLabel="Oluvchilar" />
       </div>
-
       <UnreviewedApplications />
     </div>
   );
