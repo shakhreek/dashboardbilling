@@ -1,6 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import UnreviewedApplications from "@/components/UnreviewedApplications";
 import AnimatedStatsGrid from "@/components/AnimatedStatsGrid";
+import AnimatedProgressCard from "@/components/AnimatedProgressCard";
 import { FileText, CheckCircle, AlertTriangle, CreditCard } from "lucide-react";
 
 const monthlyData = [
