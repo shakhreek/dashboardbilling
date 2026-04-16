@@ -23,8 +23,8 @@ export interface ModuleRow {
 }
 
 export const statCards: StatCard[] = [
-  { label: "OTM lar", value: "171", icon: "Landmark", color: "purple", valueLabel: "OTM soni", subLabel: "Talabalar soni", subValue: "1 247 832" },
-  { label: "Kontrakt", value: "787 674", icon: "FileSignature", color: "blue", valueLabel: "Talabalar soni", subLines: [
+  { label: "OTM va talabalar", value: "171", icon: "Landmark", color: "purple", valueLabel: "OTM soni", subLabel: "Talabalar soni", subValue: "1 247 832" },
+  { label: "To'lov kontrakt", value: "787 674", icon: "FileSignature", color: "blue", valueLabel: "Talabalar soni", subLines: [
     { label: "Shartnomalar soni", value: "1 022 696" },
     { label: "Summasi", value: "14 440 mlrd" },
   ]},
@@ -32,7 +32,7 @@ export const statCards: StatCard[] = [
     { label: "Shartnomalar soni", value: "1 774 007" },
     { label: "Summasi", value: "3 210 mlrd" },
   ]},
-  { label: "TTJ", value: "48 920", icon: "Building", color: "cyan", valueLabel: "Turuvchilar soni", subLines: [
+  { label: "Talabalar turar joyi", value: "48 920", icon: "Building", color: "cyan", valueLabel: "Turuvchilar soni", subLines: [
     { label: "Shartnomalar soni", value: "52 340" },
     { label: "Summasi", value: "890 mlrd" },
   ]},
