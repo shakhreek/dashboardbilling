@@ -24,7 +24,7 @@ export interface ModuleRow {
 
 export const statCards: StatCard[] = [
   { label: "OTM va talabalar", value: "171", icon: "Landmark", color: "purple", valueLabel: "OTM soni", subLabel: "Talabalar soni", subValue: "1 247 832" },
-  { label: "To'lov kontrakt", value: "787 674", icon: "FileSignature", color: "blue", valueLabel: "Talabalar soni", subLines: [
+  { label: "To'lov kontrakt", value: "787 674", icon: "FileSignature", color: "blue", valueLabel: "Kontraktda o'qiydigan talabalar soni", subLines: [
     { label: "Shartnomalar soni", value: "1 022 696" },
     { label: "Summasi", value: "14 440 mlrd" },
   ]},
