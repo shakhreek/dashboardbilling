@@ -50,14 +50,14 @@ const slides: SlideData[] = [
   },
   {
     title: "Ijara",
-    percentage: 54,
-    label: "To'langan ijara",
-    remainLabel: "Qarzdorlik",
+    percentage: 77,
+    label: "Tasdiqlangan arizalar",
+    remainLabel: "Ko'rib chiqilmoqda",
     color: "hsl(350, 70%, 55%)",
     remainColor: "hsl(215, 16%, 70%)",
-    totalValue: "2 100 mlrd",
-    mainValue: "1 134 mlrd",
-    remainValue: "966 mlrd",
+    totalValue: "18 900",
+    mainValue: "14 500",
+    remainValue: "4 400",
   },
 ];
 
