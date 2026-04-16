@@ -23,16 +23,16 @@ export interface ModuleRow {
 }
 
 export const statCards: StatCard[] = [
-  { label: "OTM lar", value: "171", icon: "BarChart3", color: "purple", valueLabel: "OTM soni", subLabel: "Talabalar soni", subValue: "1 247 832" },
-  { label: "Kontrakt", value: "787 674", icon: "FileText", color: "blue", valueLabel: "Talabalar soni", subLines: [
+  { label: "OTM lar", value: "171", icon: "Landmark", color: "purple", valueLabel: "OTM soni", subLabel: "Talabalar soni", subValue: "1 247 832" },
+  { label: "Kontrakt", value: "787 674", icon: "FileSignature", color: "blue", valueLabel: "Talabalar soni", subLines: [
     { label: "Shartnomalar soni", value: "1 022 696" },
     { label: "Summasi", value: "14 440 mlrd" },
   ]},
-  { label: "Kredit modul", value: "142 850", icon: "HandCoins", color: "rose", valueLabel: "Shartnomalar soni", subLines: [
+  { label: "Kredit modul", value: "142 850", icon: "CreditCard", color: "rose", valueLabel: "Shartnomalar soni", subLines: [
     { label: "Shartnomalar soni", value: "1 774 007" },
     { label: "Summasi", value: "3 210 mlrd" },
   ]},
-  { label: "TTJ", value: "48 920", icon: "CircleDollarSign", color: "cyan", valueLabel: "Turuvchilar soni", subLines: [
+  { label: "TTJ", value: "48 920", icon: "Building", color: "cyan", valueLabel: "Turuvchilar soni", subLines: [
     { label: "Shartnomalar soni", value: "52 340" },
     { label: "Summasi", value: "890 mlrd" },
   ]},
