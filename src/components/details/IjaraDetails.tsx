@@ -7,10 +7,9 @@ import { FileText, Banknote, Users, CheckCircle } from "lucide-react";
 import { applyOtmToStr, scaleChartData } from "@/data/otmData";
 
 const baseStats = [
-  { label: "Shartnomalar soni", value: "18 900", icon: FileText, color: "hsl(350, 70%, 55%)", trend: "up" as const, trendValue: "+6.3%" },
-  { label: "Tasdiqlangan", value: "14 500", icon: CheckCircle, color: "hsl(142, 71%, 45%)", trend: "up" as const, trendValue: "+5.8%" },
-  { label: "Jami summa", value: "2 100 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+9.4%" },
-  { label: "Oluvchilar", value: "14 500", icon: Users, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+6.3%" },
+  { label: "Ijara subsidiya oluvchilar soni", value: "14 500", icon: Users, color: "hsl(270, 70%, 55%)", trend: "up" as const, trendValue: "+6.3%" },
+  { label: "To'lanadigan summa", value: "2 100 mlrd", icon: Banknote, color: "hsl(217, 91%, 55%)", trend: "up" as const, trendValue: "+9.4%" },
+  { label: "Arizalar soni", value: "18 900", icon: FileText, color: "hsl(350, 70%, 55%)", trend: "up" as const, trendValue: "+6.3%" },
 ];
 
 const baseMonthlyData = [
