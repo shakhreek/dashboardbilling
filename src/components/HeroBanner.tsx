@@ -119,16 +119,19 @@ const HeroBanner = ({ cards }: Props) => {
 
               {/* Content */}
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${config.text}15` }}
-                  >
-                    <Icon className="w-4.5 h-4.5" style={{ color: config.text }} />
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: `${config.text}15` }}
+                    >
+                      <Icon className="w-4 h-4" style={{ color: config.text }} />
+                    </div>
+                    <p className="text-xs font-semibold text-foreground">{card.label}</p>
                   </div>
                   {trend && (
                     <span
-                      className={`flex items-center gap-0.5 text-xs font-semibold px-2 py-0.5 rounded-full ${
+                      className={`flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
                         trend.up ? "bg-emerald-500/10" : "bg-rose-500/10"
                       }`}
                       style={{ color: trend.up ? "hsl(142, 71%, 45%)" : "hsl(350, 70%, 55%)" }}
@@ -138,13 +141,10 @@ const HeroBanner = ({ cards }: Props) => {
                     </span>
                   )}
                 </div>
-                <div className="flex items-baseline gap-1.5">
-                  <AnimatedValue value={card.value} delay={index * 100} />
-                  {card.valueLabel && (
-                    <p className="text-[10px] font-medium" style={{ color: config.text }}>{card.valueLabel}</p>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground mt-0.5">{card.label}</p>
+                <AnimatedValue value={card.value} delay={index * 100} />
+                {card.valueLabel && (
+                  <p className="text-[10px] text-muted-foreground mt-0.5">{card.valueLabel}</p>
+                )}
                 {card.subValue && card.subLabel && (
                   <div className="mt-2 pt-2 border-t border-border/50">
                     <AnimatedValue value={card.subValue} delay={index * 100 + 200} className="text-sm font-semibold text-foreground leading-tight" />
