@@ -9,6 +9,8 @@ export interface StatItem {
   color: string;
   trend?: "up" | "down";
   trendValue?: string;
+  subLabel?: string;
+  subValue?: string;
 }
 
 interface Props {
@@ -40,6 +42,12 @@ const AnimatedStatCard = ({ stat, index }: { stat: StatItem; index: number }) =>
       </div>
       <p className="text-2xl font-bold text-foreground">{animatedValue}</p>
       <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+      {stat.subLabel && stat.subValue && (
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-border">
+          <span className="text-[11px] text-muted-foreground">{stat.subLabel}</span>
+          <span className="text-[11px] font-semibold text-foreground">{stat.subValue}</span>
+        </div>
+      )}
     </div>
   );
 };
