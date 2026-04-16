@@ -10,6 +10,7 @@ import type { StatCard as StatCardType } from "@/data/dashboardData";
 
 const iconMap: Record<string, React.ElementType> = {
   BarChart3, FileText, HandCoins, CircleDollarSign, CheckCircle,
+  Landmark, FileSignature, CreditCard, Building,
 };
 
 const sparklineMap: Record<string, number[]> = {
@@ -137,10 +138,10 @@ const HeroBanner = ({ cards }: Props) => {
                     </span>
                   )}
                 </div>
-                {card.valueLabel && (
-                  <p className="text-[10px] text-muted-foreground mb-0.5">{card.valueLabel}</p>
-                )}
                 <AnimatedValue value={card.value} delay={index * 100} />
+                {card.valueLabel && (
+                  <p className="text-[10px] font-medium mt-0.5" style={{ color: config.text }}>{card.valueLabel}</p>
+                )}
                 <p className="text-xs text-muted-foreground mt-0.5">{card.label}</p>
                 {card.subValue && card.subLabel && (
                   <div className="mt-2 pt-2 border-t border-border/50">
