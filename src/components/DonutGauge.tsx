@@ -51,7 +51,7 @@ const slides: SlideData[] = [
   {
     title: "Ijara",
     percentage: 77,
-    label: "Tasdiqlangan arizalar",
+    label: "Qabul qilingan arizalar",
     remainLabel: "Ko'rib chiqilmoqda",
     color: "hsl(350, 70%, 55%)",
     remainColor: "hsl(215, 16%, 70%)",
