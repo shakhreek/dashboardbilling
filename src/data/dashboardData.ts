@@ -25,15 +25,15 @@ export interface ModuleRow {
 export const statCards: StatCard[] = [
   { label: "OTM va talabalar", value: "171", icon: "Landmark", color: "purple", valueLabel: "OTM soni", subLabel: "Talabalar soni", subValue: "1 247 832" },
   { label: "To'lov kontrakt", value: "787 674", icon: "FileSignature", color: "blue", valueLabel: "Kontraktda o'qiydigan talabalar soni", subLines: [
-    { label: "Shartnomalar soni", value: "1 022 696" },
+    { label: "Arizalar soni", value: "1 022 696" },
     { label: "Summasi", value: "14 440 mlrd" },
   ]},
-  { label: "Kredit modul", value: "142 850", icon: "CreditCard", color: "rose", valueLabel: "Shartnomalar soni", subLines: [
-    { label: "Shartnomalar soni", value: "1 774 007" },
+  { label: "Kredit modul", value: "142 850", icon: "CreditCard", color: "rose", valueLabel: "Arizalar soni", subLines: [
+    { label: "Arizalar soni", value: "1 774 007" },
     { label: "Summasi", value: "3 210 mlrd" },
   ]},
   { label: "Talabalar turar joyi", value: "48 920", icon: "Building", color: "cyan", valueLabel: "Turuvchilar soni", subLines: [
-    { label: "Shartnomalar soni", value: "52 340" },
+    { label: "Arizalar soni", value: "52 340" },
     { label: "Summasi", value: "890 mlrd" },
   ]},
 ];
