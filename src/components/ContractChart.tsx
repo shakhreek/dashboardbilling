@@ -42,7 +42,7 @@ const ContractChart = () => {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Activity className="w-5 h-5 text-primary" />
-          <h3 className="text-base font-semibold text-foreground">Modullar tahlili</h3>
+          <h3 className="text-base font-semibold text-foreground">To'lovlar tahlili</h3>
         </div>
         <div className="flex gap-1 bg-secondary rounded-lg p-0.5">
           <button
