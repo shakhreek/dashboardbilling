@@ -89,12 +89,12 @@ const ContractChart = () => {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(214, 32%, 91%)" />
               <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="hsl(215, 16%, 47%)" />
-              <YAxis yAxisId="left" tick={{ fontSize: 10 }} stroke="hsl(217, 91%, 60%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+              <YAxis yAxisId="left" tick={{ fontSize: 10 }} stroke="hsl(217, 91%, 60%)" tickFormatter={(v) => `${v} mlrd`} />
               {visibleModules.some(m => m !== "shartnoma") && (
-                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10 }} stroke="hsl(270, 70%, 55%)" tickFormatter={(v) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10 }} stroke="hsl(270, 70%, 55%)" tickFormatter={(v) => `${v} mlrd`} />
               )}
               <Tooltip
-                formatter={(value: number) => value.toLocaleString()}
+                formatter={(value: number) => `${value.toLocaleString()} mlrd`}
                 contentStyle={{ borderRadius: 8, border: "1px solid hsl(214, 32%, 91%)" }}
               />
               {visibleModules.map((key) => (

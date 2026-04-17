@@ -38,19 +38,20 @@ export const statCards: StatCard[] = [
   ]},
 ];
 
+// Oylik to'lov summalari (mlrd so'm)
 export const chartData = [
-  { month: "Sentabr", shartnoma: 358620, kredit: 1200, yotoqxona: 800 },
-  { month: "Oktabr", shartnoma: 286696, kredit: 2100, yotoqxona: 1500 },
-  { month: "Noyabr", shartnoma: 95000, kredit: 5200, yotoqxona: 3200 },
-  { month: "Dekabr", shartnoma: 42000, kredit: 8400, yotoqxona: 5800 },
-  { month: "Yanvar", shartnoma: 28000, kredit: 15200, yotoqxona: 12000 },
-  { month: "Fevral", shartnoma: 18000, kredit: 35600, yotoqxona: 25000 },
-  { month: "Mart", shartnoma: 12000, kredit: 52000, yotoqxona: 38000 },
-  { month: "Aprel", shartnoma: 8000, kredit: 58000, yotoqxona: 42000 },
-  { month: "May", shartnoma: 5000, kredit: 62000, yotoqxona: 48000 },
-  { month: "Iyun", shartnoma: 3500, kredit: 64000, yotoqxona: 52000 },
-  { month: "Iyul", shartnoma: 72000, kredit: 68000, yotoqxona: 55000 },
-  { month: "Avgust", shartnoma: 45000, kredit: 70000, yotoqxona: 58000 },
+  { month: "Sentabr", shartnoma: 1850, kredit: 180, yotoqxona: 95 },
+  { month: "Oktabr", shartnoma: 2240, kredit: 220, yotoqxona: 110 },
+  { month: "Noyabr", shartnoma: 1620, kredit: 280, yotoqxona: 85 },
+  { month: "Dekabr", shartnoma: 1380, kredit: 310, yotoqxona: 70 },
+  { month: "Yanvar", shartnoma: 1150, kredit: 340, yotoqxona: 65 },
+  { month: "Fevral", shartnoma: 980, kredit: 290, yotoqxona: 60 },
+  { month: "Mart", shartnoma: 1240, kredit: 350, yotoqxona: 75 },
+  { month: "Aprel", shartnoma: 890, kredit: 320, yotoqxona: 55 },
+  { month: "May", shartnoma: 720, kredit: 280, yotoqxona: 50 },
+  { month: "Iyun", shartnoma: 540, kredit: 240, yotoqxona: 45 },
+  { month: "Iyul", shartnoma: 1420, kredit: 200, yotoqxona: 80 },
+  { month: "Avgust", shartnoma: 1310, kredit: 200, yotoqxona: 100 },
 ];
 
 export const moduleRows: ModuleRow[] = [
