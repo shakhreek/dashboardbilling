@@ -105,8 +105,8 @@ const riskDetails: RiskDetail[] = [
     description: "OTMlar bo'yicha to'lov muddati o'tgan shartnomalar tahlili. Eng uzoq kechikish va umumiy qarz summasi.",
     details: [
       { label: "Jami qarzdor shartnomalar", value: "12 340" },
-      { label: "90+ kun kechikkan", value: "3 456" },
-      { label: "180+ kun kechikkan", value: "1 890" },
+      { label: "30+ kun kechikkan", value: "3 456" },
+      { label: "Jami qarzdorlik summasi", value: "1 890" },
       { label: "O'rtacha kechikish kuni", value: "142 kun" },
     ],
     trend: [
