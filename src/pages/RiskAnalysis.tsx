@@ -106,7 +106,7 @@ const riskDetails: RiskDetail[] = [
     details: [
       { label: "Jami qarzdor shartnomalar", value: "12 340" },
       { label: "30+ kun kechikkan", value: "3 456" },
-      { label: "Jami qarzdorlik summasi", value: "1 890" },
+      { label: "Jami qarzdorlik summasi", value: "1 890 mlrd so'm" },
       { label: "O'rtacha kechikish kuni", value: "142 kun" },
     ],
     trend: [
