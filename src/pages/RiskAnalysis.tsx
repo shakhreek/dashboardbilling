@@ -127,7 +127,6 @@ const riskDetails: RiskDetail[] = [
       { label: "Jami tasdiqlangan", value: "787 674" },
       { label: "To'lov qilinmagan shartnoma soni", value: "4 312" },
       { label: "To'lanmagan summa", value: "48.5 mlrd so'm" },
-      { label: "O'rtacha shartnoma", value: "11.2 mln so'm" },
     ],
     trend: [
       { month: "Sen", v: 4800 }, { month: "Okt", v: 4700 }, { month: "Noy", v: 4600 },
