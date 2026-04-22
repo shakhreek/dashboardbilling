@@ -138,11 +138,6 @@ const RiskMiniCard = ({ row, index }: { row: RiskRow; index: number }) => {
         </span>
       </div>
 
-      {/* Bottom arrow */}
-      <div className="flex items-center gap-1 text-muted-foreground group-hover:text-foreground transition-all duration-300">
-        <span className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-300">Batafsil</span>
-        <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-      </div>
     </div>
   );
 };
