@@ -13,7 +13,7 @@ import { statCards } from "@/data/dashboardData";
 import RiskAnalysisCard from "@/components/RiskAnalysisCard";
 import PartnersSection from "@/components/PartnersSection";
 import DashboardSkeleton from "@/components/DashboardSkeleton";
-import AiAdvisorWidget from "@/components/ai/AiAdvisorWidget";
+
 import { useEffect } from "react";
 
 const Index = () => {
@@ -92,10 +92,6 @@ const Index = () => {
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
           <div className="animate-fade-in">
             <HeroBanner cards={statCards} />
-          </div>
-
-          <div className="mb-6 animate-fade-in" style={{ animationDelay: "0.08s" }}>
-            <AiAdvisorWidget />
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 mb-6 animate-fade-in stagger-2" style={{ animationDelay: "0.1s" }}>
