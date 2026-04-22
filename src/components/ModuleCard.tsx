@@ -259,12 +259,7 @@ const ModuleCard = ({ data, onViewDetails }: Props) => {
 
           {/* Footer */}
           <button
-            className="w-full mt-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 flex items-center justify-center gap-2 border text-muted-foreground hover:text-primary-foreground hover:border-transparent"
-            style={{
-              borderColor: `${data.color}25`,
-              background: isHovered ? undefined : 'transparent',
-              ...(isHovered ? { background: data.color, color: 'white', borderColor: 'transparent' } : {}),
-            }}
+            className="w-full mt-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 flex items-center justify-center gap-2 border border-border text-muted-foreground hover:bg-primary hover:text-primary-foreground hover:border-transparent"
             onClick={(e) => {
               e.stopPropagation();
               onViewDetails();
