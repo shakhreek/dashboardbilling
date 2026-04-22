@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, FileText, Phone, Clock, Mail } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ChevronDown, ChevronRight, FileText, Phone, Clock, Sparkles } from "lucide-react";
 import { sidebarSections } from "@/data/dashboardData";
 
 const Sidebar = () => {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const navigate = useNavigate();
 
   const toggle = (key: string) =>
     setExpanded((p) => ({ ...p, [key]: !p[key] }));
