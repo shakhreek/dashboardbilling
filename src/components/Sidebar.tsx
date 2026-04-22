@@ -26,6 +26,20 @@ const Sidebar = () => {
 
       {/* Nav Sections */}
       <nav className="flex-1 overflow-y-auto py-3 scrollbar-thin">
+        <button
+          onClick={() => navigate("/ai-maslahatchi")}
+          className="flex items-center gap-2.5 px-3 py-2.5 mx-3 mb-3 rounded-lg transition-all hover:opacity-90"
+          style={{
+            background: "linear-gradient(135deg, hsl(270, 70%, 55%), hsl(217, 91%, 60%))",
+            width: "calc(100% - 1.5rem)",
+          }}
+        >
+          <Sparkles className="w-4 h-4 text-white" />
+          <span className="text-sm font-semibold text-white">AI Maslahatchi</span>
+          <span className="ml-auto text-[9px] px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">
+            YANGI
+          </span>
+        </button>
         {sidebarSections.map((section) => (
           <div key={section.title} className="mb-1">
             <p className="px-5 py-2.5 text-xs font-bold tracking-wide" style={{ color: "white" }}>
